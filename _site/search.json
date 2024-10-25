@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "humidity-cvd",
+    "section": "",
+    "text": "Warning: package 'ggplot2' was built under R version 4.3.3\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.1     ✔ tibble    3.2.1\n✔ lubridate 1.9.3     ✔ tidyr     1.3.1\n✔ purrr     1.0.2     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\nRows: 904 Columns: 38\n── Column specification ────────────────────────────────────────────────────────\nDelimiter: \",\"\nchr  (1): State\ndbl (37): Year, CVD_DALY, CVD_DALY_LL, CVD_DALY_UL, CVD_YLD, CVD_YLD_LL, CVD...\n\nℹ Use `spec()` to retrieve the full column specification for this data.\nℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.\n\n\n\nCorrelation Analysis\n\n\n\n\n\n\n\n\nFigure 1: Correlation matrix for humidity variables\n\n\n\n\n\n\n\n\nFigure 2: humidity summaries for India, 2011-2019\n\n\n\n\n\n\n\n\n\n\n(a) humidity Averages\n\n\n\n\n\n\n\n\n\n\n\n\n\n(b) humidity Variations\n\n\n\n\n\n\n\n\n\n\nIRR\n\n\n\nTable 1: Incidence Rate Ratios derived from Poisson panel regressions for CVD burden (mortality, prevalence, and incidence)\n\n\n\n\n\n\n\n\n\n\n\n\nHumidity\nPercentile\nMortality [95% CIs]\nPrevalence[95% CIs]\nIncidence[95% CIs]\n\n\n\n\nAverage\n2.5\n1.01 [1.004,1.017]\n1.016[1.015,1.017]\n1.013[1.01,1.016]\n\n\nAverage\n97.5\n1.002 [1.001,1.003]\n1.002[1.002,1.002]\n1.002[1.001,1.002]\n\n\nVariation\n2.5\n1.014 [0.996,1.032]\n1.014[1.01,1.017]\n1.011[1.001,1.021]\n\n\n\n\n\n\n\n\nPAF\n\n\n\nFigure 3: CVD deaths attributable to high average temperature in Indian states\n\n\n\n\n\n\n\n\n\n\n(a) CVD Mortality\n\n\n\n\n\n\n\n\n\n\n\n\n\n(b) CVD Incidence\n\n\n\n\n\n\n\n\n\n\n\n\n\n(c) CVD Prevalence"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  }
+]
