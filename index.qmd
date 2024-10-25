@@ -271,7 +271,7 @@ irr_uci_var25_prevalence
 
 ```
 
-### IRR
+### IRR - cvd prevalence incidence mortality
 
 | Humidity | Percentile | Mortality \[95% CIs\]                                                                                     | Prevalence\[95% CIs\]                                                                                                   | Incidence\[95% CIs\]                                                                                                 |
 |---------------|---------------|---------------|---------------|---------------|
@@ -421,4 +421,160 @@ india_paf |>
         axis.line = element_blank())
 
 ```
+
+
+
+```{r}
+#| label: panelreg-economy
+#| results: hide
+#| echo: false
+#| warning: false
+#| message: false
+
+## daly
+
+model_CVD_DALY_avg25 <- pglm(CVD_DALY ~ average_25,
+                                   data = combined_data,
+                                   family = poisson,
+                                   model = "within",
+                                   index = c("State", "Year"))
+summary(model_CVD_DALY_avg25)
+irr_avg25_DALY<- exp(coef(model_CVD_DALY_avg25))
+irr_avg25_DALY
+irr_lci_avg25_DALY <- exp(confint(model_CVD_DALY_avg25)[, 1])
+irr_uci_avg25_DALY <- exp(confint(model_CVD_DALY_avg25)[, 2])
+irr_lci_avg25_DALY
+irr_uci_avg25_DALY
+
+
+
+model_CVD_DALY_avg975 <- pglm(CVD_DALY ~ average_975,
+                                    data = combined_data,
+                                    family = poisson,
+                                    model = "within",
+                                    index = c("State", "Year"))
+summary(model_CVD_DALY_avg975)
+irr_avg975_DALY <- exp(coef(model_CVD_DALY_avg975))
+irr_avg975_DALY
+irr_lci_avg975_DALY  <- exp(confint(model_CVD_DALY_avg975)[, 1])
+irr_uci_avg975_DALY  <- exp(confint(model_CVD_DALY_avg975)[, 2])
+irr_lci_avg975_DALY 
+irr_uci_avg975_DALY 
+
+
+model_CVD_DALY_var25 <- pglm(CVD_DALY ~ variation_25,
+                                   data = combined_data,
+                                   family = poisson,
+                                   model = "within",
+                                   index = c("State", "Year"))
+summary(model_CVD_DALY_var25)
+irr_var25_DALY <- exp(coef(model_CVD_DALY_var25))
+irr_var25_DALY
+irr_lci_var25_DALY <- exp(confint(model_CVD_DALY_var25)[, 1])
+irr_uci_var25_DALY <- exp(confint(model_CVD_DALY_var25)[, 2])
+irr_lci_var25_DALY
+irr_uci_var25_DALY
+
+
+## yld
+
+model_CVD_YLD_avg25 <- pglm(CVD_YLD ~ average_25,
+                                   data = combined_data,
+                                   family = poisson,
+                                   model = "within",
+                                   index = c("State", "Year"))
+summary(model_CVD_YLD_avg25)
+irr_avg25_YLD <- exp(coef(model_CVD_YLD_avg25))
+irr_avg25_YLD
+irr_lci_avg25_YLD <- exp(confint(model_CVD_YLD_avg25)[, 1])
+irr_uci_avg25_YLD <- exp(confint(model_CVD_YLD_avg25)[, 2])
+irr_lci_avg25_YLD
+irr_uci_avg25_YLD
+
+
+
+model_CVD_YLD_avg975 <- pglm(CVD_YLD ~ average_975,
+                                    data = combined_data,
+                                    family = poisson,
+                                    model = "within",
+                                    index = c("State", "Year"))
+summary(model_CVD_YLD_avg975)
+irr_avg975_YLD <- exp(coef(model_CVD_YLD_avg975))
+irr_avg975_YLD
+irr_lci_avg975_YLD  <- exp(confint(model_CVD_YLD_avg975)[, 1])
+irr_uci_avg975_YLD  <- exp(confint(model_CVD_YLD_avg975)[, 2])
+irr_lci_avg975_YLD 
+irr_uci_avg975_YLD 
+
+
+model_CVD_YLD_var25 <- pglm(CVD_YLD ~ variation_25,
+                                   data = combined_data,
+                                   family = poisson,
+                                   model = "within",
+                                   index = c("State", "Year"))
+summary(model_CVD_YLD_var25)
+irr_var25_YLD <- exp(coef(model_CVD_YLD_var25))
+irr_var25_YLD
+irr_lci_var25_YLD <- exp(confint(model_CVD_YLD_var25)[, 1])
+irr_uci_var25_YLD <- exp(confint(model_CVD_YLD_var25)[, 2])
+irr_lci_var25_YLD
+irr_uci_var25_YLD
+
+## YLL
+
+model_CVD_YLL_avg25 <- pglm(CVD_YLL ~ average_25,
+                                   data = combined_data,
+                                   family = poisson,
+                                   model = "within",
+                                   index = c("State", "Year"))
+summary(model_CVD_YLL_avg25)
+irr_avg25_YLL <- exp(coef(model_CVD_YLL_avg25))
+irr_avg25_YLL
+irr_lci_avg25_YLL <- exp(confint(model_CVD_YLL_avg25)[, 1])
+irr_uci_avg25_YLL <- exp(confint(model_CVD_YLL_avg25)[, 2])
+irr_lci_avg25_YLL
+irr_uci_avg25_YLL
+
+
+
+model_CVD_YLL_avg975 <- pglm(CVD_YLL ~ average_975,
+                                    data = combined_data,
+                                    family = poisson,
+                                    model = "within",
+                                    index = c("State", "Year"))
+summary(model_CVD_YLL_avg975)
+irr_avg975_YLL <- exp(coef(model_CVD_YLL_avg975))
+irr_avg975_YLL
+irr_lci_avg975_YLL  <- exp(confint(model_CVD_YLL_avg975)[, 1])
+irr_uci_avg975_YLL  <- exp(confint(model_CVD_YLL_avg975)[, 2])
+irr_lci_avg975_YLL 
+irr_uci_avg975_YLL 
+
+
+model_CVD_YLL_var25 <- pglm(CVD_YLD ~ variation_25,
+                                   data = combined_data,
+                                   family = poisson,
+                                   model = "within",
+                                   index = c("State", "Year"))
+summary(model_CVD_YLL_var25)
+irr_var25_YLL <- exp(coef(model_CVD_YLL_var25))
+irr_var25_YLL
+irr_lci_var25_YLL <- exp(confint(model_CVD_YLL_var25)[, 1])
+irr_uci_var25_YLL <- exp(confint(model_CVD_YLL_var25)[, 2])
+irr_lci_var25_YLL
+irr_uci_var25_YLL
+```
+
+
+### IRR - cvd DALY YLD YLL
+
+| Humidity | Percentile | DALY \[95% CIs\]                                                                                     | YLD\[95% CIs\]                                                                                                   | YLL\[95% CIs\]                                                                                                 |
+|---------------|---------------|---------------|---------------|---------------|
+| Average           | 2.5        | **`r round(irr_avg25_DALY,3)` \[`r round(irr_lci_avg25_DALY,3)`,`r round(irr_uci_avg25_DALY,3)`\]**    | **`r round(irr_avg25_YLD,3)`\[`r round(irr_lci_avg25_YLD,3)`,`r round(irr_uci_avg25_YLD,3)`\]**    | `r round(irr_avg25_YLL,3)`\[`r round(irr_lci_avg25_YLL,3)`,`r round(irr_uci_avg25_YLL,3)`\]   |
+| Average           | 97.5       | **`r round(irr_avg975_DALY,3)` \[`r round(irr_lci_avg975_DALY,3)`,`r round(irr_uci_avg975_DALY,3)`\]** | **`r round(irr_avg975_YLD,3)`\[`r round(irr_lci_avg975_YLD,3)`,`r round(irr_uci_avg975_YLD,3)`\]** | **`r round(irr_avg975_YLL,3)`\[`r round(irr_lci_avg975_YLL,3)`,`r round(irr_uci_avg975_YLL,3)`\]** |
+| Variation         | 2.5        | **`r round(irr_var25_DALY,3)` \[`r round(irr_lci_var25_DALY,3)`,`r round(irr_uci_var25_DALY,3)`\]**        | `r round(irr_var25_YLD,3)`\[`r round(irr_lci_var25_YLD,3)`,`r round(irr_uci_var25_YLD,3)`\]   | `r round(irr_var25_YLL,3)`\[`r round(irr_lci_var25_YLL,3)`,`r round(irr_uci_var25_YLL,3)`\]   |
+
+: Incidence Rate Ratios derived from Poisson panel regressions for CVD burden (DALY, YLD, and YLL) {#tbl-my-table2}
+
+
 
