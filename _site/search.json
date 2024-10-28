@@ -9,7 +9,7 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "About humidity CVD analysis",
     "section": "",
     "text": "Next Steps\n\n\n\n\n\n\n🚀 To Do Next\n\n\n\n\n\n\nPAF maps for selected humidity variables and CVD DALY, YLD, and YLL.\n\n\n\n\n\n\n\n\n\n\n🔄 In waitlist\n\n\n\n\n\n\nObtain uncorrected DALY, YLL, and YLD data: Requested data from Dr. BSB.\n\n\n\n\n\n\n\n\n\n\n✅ Completed\n\n\n\n\n\n\ncorrelation analysis to identify potential multicollinearity.\nInitial dataviz for selected humidity variables\nIRRs for selected humidity variables and CVD mortality, and morbidity.\nPAF based Indian map for selected humidity variables and CVD mortality, and morbidity.\nIRRs for selected humidity variables and CVD DALY, YLD, and YLL."
   },

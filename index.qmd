@@ -4,6 +4,7 @@ format:
   html:
     code-fold: true
     code-summary: "Click here to view/hide the code"
+    embed-resources: true
 editor_options: 
   chunk_output_type: console
 ---
