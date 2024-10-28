@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>humidity-cvd</title>
+<title>humidity-cvd - Humidity-CVD</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -112,19 +146,23 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#correlation-analysis" id="toc-correlation-analysis" class="nav-link active" data-scroll-target="#correlation-analysis">Correlation Analysis</a></li>
+  <li><a href="#data-loading" id="toc-data-loading" class="nav-link active" data-scroll-target="#data-loading">Data loading</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a>
+  <ul class="collapse">
+  <li><a href="#correlation-analysis" id="toc-correlation-analysis" class="nav-link" data-scroll-target="#correlation-analysis">Correlation Analysis</a></li>
   <li><a href="#irr---cvd-prevalence-incidence-mortality" id="toc-irr---cvd-prevalence-incidence-mortality" class="nav-link" data-scroll-target="#irr---cvd-prevalence-incidence-mortality">IRR - cvd prevalence incidence mortality</a></li>
   <li><a href="#paf" id="toc-paf" class="nav-link" data-scroll-target="#paf">PAF</a></li>
   <li><a href="#irr---cvd-daly-yld-yll" id="toc-irr---cvd-daly-yld-yll" class="nav-link" data-scroll-target="#irr---cvd-daly-yld-yll">IRR - cvd DALY YLD YLL</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">humidity-cvd</h1>
+<h1 class="title">Humidity-CVD</h1>
 </div>
 
 
@@ -141,39 +179,64 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="data-loading" class="level2">
+<h2 class="anchored" data-anchor-id="data-loading">Data loading</h2>
+</section>
+<section id="packages" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="packages">Packages</h2>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggplot2' was built under R version 4.3.3</code></pre>
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="do">## data viz for humidity yerawise</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="st">"ggcorrplot"</span>,<span class="st">"directlabels"</span>,<span class="st">"pglm"</span>, <span class="st">"scales"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tidyverse))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
-Rows: 904 Columns: 38
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (1): State
-dbl (37): Year, CVD_DALY, CVD_DALY_LL, CVD_DALY_UL, CVD_YLD, CVD_YLD_LL, CVD...
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-</div>
-<section id="correlation-analysis" class="level3">
+<hr>
+<section id="correlation-analysis" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="correlation-analysis">Correlation Analysis</h3>
 <div class="cell">
-<div class="cell-output-display">
-<div id="fig-corrplot" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-corrplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-corrplot-1.png" class="img-fluid figure-img" width="672">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation analysis</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> combined_data <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rename</span>(<span class="at">maximum_25=</span>high_25,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">maximum_975=</span>high_975,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">minimum_25=</span>low_25,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">minimum_975=</span>low_975,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">average_25=</span>avg_25,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">average_975=</span>avg_975,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">median_25=</span>med_25,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">median_975=</span>med_975,) </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>correlation_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(combined_data <span class="sc">|&gt;</span> <span class="fu">select</span>(average_25, average_975, median_25,median_975,mode_25,mode_975,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                                                  maximum_25,maximum_975,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                                                  minimum_25,minimum_975,variation_25,variation_975), <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#correlation_matrix</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize as heatmap</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute a matrix of correlation p-values</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>p.mat <span class="ot">&lt;-</span> <span class="fu">cor_pmat</span>(correlation_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell page-columns page-full">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcorrplot</span>(correlation_matrix, </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">outline.color =</span> <span class="st">"white"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">"lower"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">ggtheme =</span> ggplot2<span class="sc">::</span>theme_gray,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">colors =</span> <span class="fu">c</span>(<span class="st">"#6D9EC1"</span>, <span class="st">"white"</span>, <span class="st">"#E46726"</span>),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">p.mat =</span> p.mat,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">insig =</span> <span class="st">"blank"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div id="fig-corrplot" class="quarto-figure quarto-figure-center quarto-float anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-corrplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="index_files/figure-html/fig-corrplot-1.png" class="img-fluid figure-img column-page" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-corrplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Correlation matrix for humidity variables
@@ -182,35 +245,66 @@ Figure&nbsp;1: Correlation matrix for humidity variables
 </div>
 </div>
 </div>
-<div id="fig-relhumsummaries" class="quarto-layout-panel">
-<figure class="quarto-float quarto-float-fig figure">
+<p><em>This matrix shows pairwise correlations among various humidity metrics (average, median, mode, minimum, maximum, variation) at the 2.5th and 97.5th percentiles. Only statistically significant correlations are displayed, indicating strong associations among several metrics. Based on this analysis, both 2.5 and 97.5 percentiles of the average humidity, and 2.5th percentile of the variation in humidity were selected for further analysis. This is to minimize multicollinearity and retain representative variability in the downstream panel regression.</em></p>
+<hr>
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># averages</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>combined_data <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(Year), <span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>average_25),<span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color=</span><span class="st">"midnightblue"</span>)<span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>average_975),<span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color=</span><span class="st">"midnightblue"</span>)<span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>average_25, <span class="at">ymax=</span>average_975),<span class="at">fill=</span><span class="st">"midnightblue"</span>, <span class="at">alpha=</span><span class="fl">0.4</span>)<span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">facet_wrap</span>(<span class="sc">~</span>State)<span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)<span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"humidity (°C)"</span>, <span class="at">x=</span><span class="st">"Year"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Average humidity"</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">subtitle =</span> <span class="st">"2.5th and 97.5th percentiles"</span>)<span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">12</span>))</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># variations</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>combined_data <span class="sc">|&gt;</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(Year), <span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>variation_25),<span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color=</span><span class="st">"seagreen"</span>)<span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>variation_975),<span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color=</span><span class="st">"seagreen"</span>)<span class="sc">+</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>variation_25, <span class="at">ymax=</span>variation_975),<span class="at">fill=</span><span class="st">"seagreen"</span>, <span class="at">alpha=</span><span class="fl">0.4</span>)<span class="sc">+</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>     <span class="co">#geom_ribbon(aes(ymin=0, ymax=variation_25),fill="seagreen", alpha=0.4)+</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">facet_wrap</span>(<span class="sc">~</span>State)<span class="sc">+</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)<span class="sc">+</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"humidity (°C)"</span>, <span class="at">x=</span><span class="st">"Year"</span>,</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"humidity Variations"</span>,</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>             <span class="at">subtitle =</span> <span class="st">"2.5th percentiles"</span>)<span class="sc">+</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-relhumsummaries" class="quarto-layout-panel page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-relhumsummaries-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: humidity summaries for India, 2011-2019
+Figure&nbsp;2: Humidity summaries for India, 2011-2019
 </figcaption>
-<div aria-describedby="fig-relhumsummaries-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-relhumsummaries" style="flex-basis: 100.0%;justify-content: center;">
-<div id="fig-relhumsummaries-1" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-relhumsummaries-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-relhumsummaries-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-ref-parent="fig-relhumsummaries" width="1344">
+<div aria-describedby="fig-relhumsummaries-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<div class="quarto-layout-row page-columns page-full">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell page-columns page-full" data-ref-parent="fig-relhumsummaries" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-relhumsummaries-1" class="quarto-figure quarto-figure-center quarto-float anchored page-columns page-full" data-fig-align="center">
+<figure class="quarto-float quarto-subfloat-fig figure page-columns page-full">
+<div aria-describedby="fig-relhumsummaries-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="index_files/figure-html/fig-relhumsummaries-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-screen-inset-shaded" data-ref-parent="fig-relhumsummaries" width="1344">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-relhumsummaries-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(a) humidity Averages
+(a) Average humidity levels (2.5th and 97.5th percentiles) across Indian states from 2011 to 2019.
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div class="quarto-layout-row">
-<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-relhumsummaries" style="flex-basis: 100.0%;justify-content: center;">
-<div id="fig-relhumsummaries-2" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-relhumsummaries-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-relhumsummaries-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-ref-parent="fig-relhumsummaries" width="1344">
+<div class="quarto-layout-row page-columns page-full">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell page-columns page-full" data-ref-parent="fig-relhumsummaries" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-relhumsummaries-2" class="quarto-figure quarto-figure-center quarto-float anchored page-columns page-full" data-fig-align="center">
+<figure class="quarto-float quarto-subfloat-fig figure page-columns page-full">
+<div aria-describedby="fig-relhumsummaries-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="index_files/figure-html/fig-relhumsummaries-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-screen-inset-shaded" data-ref-parent="fig-relhumsummaries" width="1344">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-relhumsummaries-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-(b) humidity Variations
+(b) Variations in humidity levels a(2.5th and 97.5th percentiles) across Indian states from 2011 to 2019.
 </figcaption>
 </figure>
 </div>
@@ -218,6 +312,144 @@ Figure&nbsp;2: humidity summaries for India, 2011-2019
 </div>
 </div>
 </figure>
+</div>
+<hr>
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model_CVD_Death_avg25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_Death <span class="sc">~</span> average_25,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">data =</span> combined_data,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">family =</span> poisson,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_Death_avg25)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(model_CVD_Death_avg25)[, <span class="dv">1</span>]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(model_CVD_Death_avg25)[, <span class="dv">2</span>]</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>irr_avg25_death <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_Death_avg25))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>irr_avg25_death</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_death <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Death_avg25)[, <span class="dv">1</span>])</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_death <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Death_avg25)[, <span class="dv">2</span>])</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_death</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_death</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>model_CVD_Death_avg975 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_Death <span class="sc">~</span> average_975,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>                              <span class="at">data =</span> combined_data,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>                              <span class="at">family =</span> poisson,</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>                              <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>                              <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_Death_avg975)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(model_CVD_Death_avg975)[, <span class="dv">1</span>]</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(model_CVD_Death_avg975)[, <span class="dv">2</span>]</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>irr_avg975_death <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_Death_avg975))</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>irr_avg975_death</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_death <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Death_avg975)[, <span class="dv">1</span>])</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_death <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Death_avg975)[, <span class="dv">2</span>])</span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_death</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_death</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>model_CVD_Death_var25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_Death <span class="sc">~</span> variation_25,</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>                               <span class="at">data =</span> combined_data,</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>                               <span class="at">family =</span> poisson,</span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>                               <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>                               <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_Death_var25)</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>irr_var25_death <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_Death_var25))</span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>irr_var25_death</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_death <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Death_var25)[, <span class="dv">1</span>])</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_death <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Death_var25)[, <span class="dv">2</span>])</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_death</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_death</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="do">### CVD_Incidence</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>model_CVD_Incidence_avg25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_Incidence <span class="sc">~</span> average_25,</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">data =</span> combined_data,</span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">family =</span> poisson,</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_Incidence_avg25)</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>irr_avg25_incidence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_Incidence_avg25))</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>irr_avg25_incidence</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_incidence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Incidence_avg25)[, <span class="dv">1</span>])</span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_incidence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Incidence_avg25)[, <span class="dv">2</span>])</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_incidence</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_incidence</span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>model_CVD_Incidence_avg975 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_Incidence <span class="sc">~</span> average_975,</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">data =</span> combined_data,</span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> poisson,</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_Incidence_avg975)</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>irr_avg975_incidence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_Incidence_avg975))</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a>irr_avg975_incidence</span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_incidence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Incidence_avg975)[, <span class="dv">1</span>])</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_incidence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Incidence_avg975)[, <span class="dv">2</span>])</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_incidence</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_incidence</span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>model_CVD_Incidence_var25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_Incidence <span class="sc">~</span> variation_25,</span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">data =</span> combined_data,</span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">family =</span> poisson,</span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_Incidence_var25)</span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>irr_var25_incidence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_Incidence_var25))</span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>irr_var25_incidence</span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_incidence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Incidence_var25)[, <span class="dv">1</span>])</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_incidence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Incidence_var25)[, <span class="dv">2</span>])</span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_incidence</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_incidence</span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a><span class="do">### CVD_Prevalence</span></span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a>model_CVD_Prevalence_avg25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_Prevalence <span class="sc">~</span> average_25,</span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">data =</span> combined_data,</span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> poisson,</span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_Prevalence_avg25)</span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>irr_avg25_prevalence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_Prevalence_avg25))</span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>irr_avg25_prevalence</span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_prevalence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Prevalence_avg25)[, <span class="dv">1</span>])</span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_prevalence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Prevalence_avg25)[, <span class="dv">2</span>])</span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_prevalence</span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_prevalence</span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>model_CVD_Prevalence_avg975 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_Prevalence <span class="sc">~</span> average_975,</span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">data =</span> combined_data,</span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">family =</span> poisson,</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_Prevalence_avg975)</span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>irr_avg975_prevalence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_Prevalence_avg975))</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>irr_avg975_prevalence</span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_prevalence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Prevalence_avg975)[, <span class="dv">1</span>])</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_prevalence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Prevalence_avg975)[, <span class="dv">2</span>])</span>
+<span id="cb5-117"><a href="#cb5-117" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_prevalence</span>
+<span id="cb5-118"><a href="#cb5-118" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_prevalence</span>
+<span id="cb5-119"><a href="#cb5-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-120"><a href="#cb5-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-121"><a href="#cb5-121" aria-hidden="true" tabindex="-1"></a>model_CVD_Prevalence_var25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_Prevalence <span class="sc">~</span> variation_25,</span>
+<span id="cb5-122"><a href="#cb5-122" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">data =</span> combined_data,</span>
+<span id="cb5-123"><a href="#cb5-123" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> poisson,</span>
+<span id="cb5-124"><a href="#cb5-124" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb5-125"><a href="#cb5-125" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb5-126"><a href="#cb5-126" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_Prevalence_var25)</span>
+<span id="cb5-127"><a href="#cb5-127" aria-hidden="true" tabindex="-1"></a>irr_var25_prevalence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_Prevalence_var25))</span>
+<span id="cb5-128"><a href="#cb5-128" aria-hidden="true" tabindex="-1"></a>irr_var25_prevalence</span>
+<span id="cb5-129"><a href="#cb5-129" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_prevalence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Prevalence_var25)[, <span class="dv">1</span>])</span>
+<span id="cb5-130"><a href="#cb5-130" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_prevalence <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_Prevalence_var25)[, <span class="dv">2</span>])</span>
+<span id="cb5-131"><a href="#cb5-131" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_prevalence</span>
+<span id="cb5-132"><a href="#cb5-132" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_prevalence</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="irr---cvd-prevalence-incidence-mortality" class="level3">
@@ -230,11 +462,11 @@ Table&nbsp;1: Incidence Rate Ratios derived from Poisson panel regressions for C
 <div aria-describedby="tbl-my-table-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="table">
 <colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 22%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -272,21 +504,139 @@ Table&nbsp;1: Incidence Rate Ratios derived from Poisson panel regressions for C
 </div>
 </figure>
 </div>
+<hr>
 </section>
-<section id="paf" class="level3">
+<section id="paf" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="paf">PAF</h3>
-<div id="fig-pafmap" class="quarto-layout-panel">
-<figure class="quarto-float quarto-float-fig figure">
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>gbd_data_uncorrected <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"gbd_data_uncorrected.csv"</span>))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>gbd_data_uncorrected <span class="ot">&lt;-</span> gbd_data_uncorrected <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(Year <span class="sc">%in%</span> <span class="dv">2011</span><span class="sc">:</span><span class="dv">2019</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># rename state.name as State</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#combined_data_temperature_forpanel </span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&lt;- combined_data_temperature_forpanel |&gt; </span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a> <span class="co">#dplyr::rename(State = state_name,</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a> <span class="co">#             Year = year)</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co"># merge temperature data and gbd data</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>combined_data_uncorrectedgbd <span class="ot">&lt;-</span> <span class="fu">merge</span>(</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  combined_data_relhum_forpanel,</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  gbd_data_uncorrected,</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>paf_data_formapviz <span class="ot">&lt;-</span> combined_data_uncorrectedgbd <span class="sc">|&gt;</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(State, Year, CVD_Death, avg_975,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>              CVD_Prevalence, CVD_Incidence) <span class="sc">|&gt;</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(Year<span class="sc">==</span><span class="dv">2019</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">paf=</span> <span class="fu">round</span>((CVD_Death <span class="sc">*</span> <span class="fl">0.002</span>)),</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">paf_prev=</span> <span class="fu">round</span>(CVD_Prevalence <span class="sc">*</span> <span class="fl">0.002</span>),</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">paf_incid=</span><span class="fu">round</span>(CVD_Incidence <span class="sc">*</span> <span class="fl">0.002</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>CVD_Death,<span class="sc">-</span>avg_975) <span class="sc">|&gt;</span> </span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        <span class="co">#rename State as state</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">state =</span> State)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>india <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"spatial_files"</span>, </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"India_states.rds"</span>))</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>india <span class="ot">&lt;-</span> india <span class="sc">|&gt;</span> </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rename</span>(<span class="at">state =</span> NAME_1) <span class="sc">|&gt;</span> </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># recode orissa as odisha</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">recode</span>(state, <span class="st">"Orissa"</span> <span class="ot">=</span> <span class="st">"Odisha"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># recode uttaranchal as uttarakhand</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">recode</span>(state, <span class="st">"Uttaranchal"</span> <span class="ot">=</span> <span class="st">"Uttarakhand"</span>))</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># combine paf_data_formapviz with india based on state variable</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>india_paf <span class="ot">&lt;-</span> india <span class="sc">|&gt;</span> </span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(paf_data_formapviz, <span class="at">by =</span> <span class="st">"state"</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>india_paf <span class="ot">&lt;-</span> india_paf <span class="sc">|&gt;</span> </span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">centroid =</span> <span class="fu">st_centroid</span>(geometry)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">x =</span> <span class="fu">st_coordinates</span>(centroid)[,<span class="dv">1</span>], </span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="fu">st_coordinates</span>(centroid)[,<span class="dv">2</span>])</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co"># mortality map</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>india_paf <span class="sc">|&gt;</span> </span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> paf)) <span class="sc">+</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"orange"</span>, <span class="at">high =</span> <span class="st">"midnightblue"</span>) <span class="sc">+</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add paf on the states as text with x and y coordinates</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">label =</span> paf), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"CVD deaths"</span>,</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"CVD deaths attributable to high average humidity in Indian states"</span>,</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Year 2019"</span>) <span class="sc">+</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make x-axis and y-axis blank</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.line =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Incidence map</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>india_paf <span class="sc">|&gt;</span> </span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> paf_incid)) <span class="sc">+</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"orange"</span>, <span class="at">high =</span> <span class="st">"midnightblue"</span>) <span class="sc">+</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add paf on the states as text with x and y coordinates</span></span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">label =</span> paf_incid), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"CVD Incidence"</span>,</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"CVD Incidence attributable to high average humidity in Indian states"</span>,</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Year 2019"</span>) <span class="sc">+</span></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make x-axis and y-axis blank</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.line =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="co"># Prevalence map</span></span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>india_paf <span class="sc">|&gt;</span> </span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> paf_prev)) <span class="sc">+</span></span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"orange"</span>, <span class="at">high =</span> <span class="st">"midnightblue"</span>,</span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>                      <span class="at">labels=</span>scales<span class="sc">::</span>comma) <span class="sc">+</span></span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add paf on the states as text with x and y coordinates</span></span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">label =</span> paf_prev), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"CVD Prevalence"</span>,</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"CVD Prevalence attributable to high average humidity in Indian states"</span>,</span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Year 2019"</span>) <span class="sc">+</span></span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make x-axis and y-axis blank</span></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.line =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-pafmap" class="quarto-layout-panel page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-pafmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: CVD deaths attributable to high average temperature in Indian states
+Figure&nbsp;3: CVD deaths attributable to high average humidity in Indian states
 </figcaption>
-<div aria-describedby="fig-pafmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-pafmap" style="flex-basis: 100.0%;justify-content: center;">
-<div id="fig-pafmap-1" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-pafmap-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-pafmap-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-ref-parent="fig-pafmap" width="1344">
+<div aria-describedby="fig-pafmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<div class="quarto-layout-row page-columns page-full">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell page-columns page-full" data-ref-parent="fig-pafmap" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-pafmap-1" class="quarto-figure quarto-figure-center quarto-float anchored page-columns page-full" data-fig-align="center">
+<figure class="quarto-float quarto-subfloat-fig figure page-columns page-full">
+<div aria-describedby="fig-pafmap-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="index_files/figure-html/fig-pafmap-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-screen" style="width:100.0%" data-ref-parent="fig-pafmap">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-pafmap-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (a) CVD Mortality
@@ -295,12 +645,12 @@ Figure&nbsp;3: CVD deaths attributable to high average temperature in Indian sta
 </div>
 </div>
 </div>
-<div class="quarto-layout-row">
-<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-pafmap" style="flex-basis: 100.0%;justify-content: center;">
-<div id="fig-pafmap-2" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-pafmap-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-pafmap-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-ref-parent="fig-pafmap" width="1344">
+<div class="quarto-layout-row page-columns page-full">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell page-columns page-full" data-ref-parent="fig-pafmap" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-pafmap-2" class="quarto-figure quarto-figure-center quarto-float anchored page-columns page-full" data-fig-align="center">
+<figure class="quarto-float quarto-subfloat-fig figure page-columns page-full">
+<div aria-describedby="fig-pafmap-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="index_files/figure-html/fig-pafmap-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-screen" style="width:100.0%" data-ref-parent="fig-pafmap">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-pafmap-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (b) CVD Incidence
@@ -309,12 +659,12 @@ Figure&nbsp;3: CVD deaths attributable to high average temperature in Indian sta
 </div>
 </div>
 </div>
-<div class="quarto-layout-row">
-<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell" data-ref-parent="fig-pafmap" style="flex-basis: 100.0%;justify-content: center;">
-<div id="fig-pafmap-3" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-align="center">
-<figure class="quarto-float quarto-subfloat-fig figure">
-<div aria-describedby="fig-pafmap-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-pafmap-3.png" class="img-fluid quarto-figure quarto-figure-center figure-img" data-ref-parent="fig-pafmap" width="1344">
+<div class="quarto-layout-row page-columns page-full">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell page-columns page-full" data-ref-parent="fig-pafmap" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-pafmap-3" class="quarto-figure quarto-figure-center quarto-float anchored page-columns page-full" data-fig-align="center">
+<figure class="quarto-float quarto-subfloat-fig figure page-columns page-full">
+<div aria-describedby="fig-pafmap-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="index_files/figure-html/fig-pafmap-3.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-screen" style="width:100.0%" data-ref-parent="fig-pafmap">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-pafmap-3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 (c) CVD Prevalence
@@ -325,6 +675,144 @@ Figure&nbsp;3: CVD deaths attributable to high average temperature in Indian sta
 </div>
 </div>
 </figure>
+</div>
+<hr>
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## daly</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>model_CVD_DALY_avg25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_DALY <span class="sc">~</span> average_25,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">data =</span> combined_data,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> poisson,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_DALY_avg25)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>irr_avg25_DALY<span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_DALY_avg25))</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>irr_avg25_DALY</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_DALY <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_DALY_avg25)[, <span class="dv">1</span>])</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_DALY <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_DALY_avg25)[, <span class="dv">2</span>])</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_DALY</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_DALY</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>model_CVD_DALY_avg975 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_DALY <span class="sc">~</span> average_975,</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">data =</span> combined_data,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">family =</span> poisson,</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_DALY_avg975)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>irr_avg975_DALY <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_DALY_avg975))</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>irr_avg975_DALY</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_DALY  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_DALY_avg975)[, <span class="dv">1</span>])</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_DALY  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_DALY_avg975)[, <span class="dv">2</span>])</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_DALY </span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_DALY </span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>model_CVD_DALY_var25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_DALY <span class="sc">~</span> variation_25,</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">data =</span> combined_data,</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> poisson,</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_DALY_var25)</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>irr_var25_DALY <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_DALY_var25))</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>irr_var25_DALY</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_DALY <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_DALY_var25)[, <span class="dv">1</span>])</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_DALY <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_DALY_var25)[, <span class="dv">2</span>])</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_DALY</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_DALY</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a><span class="do">## yld</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>model_CVD_YLD_avg25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_YLD <span class="sc">~</span> average_25,</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">data =</span> combined_data,</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> poisson,</span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_YLD_avg25)</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>irr_avg25_YLD <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_YLD_avg25))</span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>irr_avg25_YLD</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_YLD <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLD_avg25)[, <span class="dv">1</span>])</span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_YLD <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLD_avg25)[, <span class="dv">2</span>])</span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_YLD</span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_YLD</span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>model_CVD_YLD_avg975 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_YLD <span class="sc">~</span> average_975,</span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">data =</span> combined_data,</span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">family =</span> poisson,</span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_YLD_avg975)</span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a>irr_avg975_YLD <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_YLD_avg975))</span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a>irr_avg975_YLD</span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_YLD  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLD_avg975)[, <span class="dv">1</span>])</span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_YLD  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLD_avg975)[, <span class="dv">2</span>])</span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_YLD </span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_YLD </span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a>model_CVD_YLD_var25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_YLD <span class="sc">~</span> variation_25,</span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">data =</span> combined_data,</span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> poisson,</span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_YLD_var25)</span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>irr_var25_YLD <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_YLD_var25))</span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a>irr_var25_YLD</span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_YLD <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLD_var25)[, <span class="dv">1</span>])</span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_YLD <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLD_var25)[, <span class="dv">2</span>])</span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_YLD</span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_YLD</span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a><span class="do">## YLL</span></span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a>model_CVD_YLL_avg25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_YLL <span class="sc">~</span> average_25,</span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">data =</span> combined_data,</span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> poisson,</span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_YLL_avg25)</span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a>irr_avg25_YLL <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_YLL_avg25))</span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a>irr_avg25_YLL</span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_YLL <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLL_avg25)[, <span class="dv">1</span>])</span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_YLL <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLL_avg25)[, <span class="dv">2</span>])</span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_YLL</span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_YLL</span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a>model_CVD_YLL_avg975 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_YLL <span class="sc">~</span> average_975,</span>
+<span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">data =</span> combined_data,</span>
+<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">family =</span> poisson,</span>
+<span id="cb8-110"><a href="#cb8-110" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb8-111"><a href="#cb8-111" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb8-112"><a href="#cb8-112" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_YLL_avg975)</span>
+<span id="cb8-113"><a href="#cb8-113" aria-hidden="true" tabindex="-1"></a>irr_avg975_YLL <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_YLL_avg975))</span>
+<span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a>irr_avg975_YLL</span>
+<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_YLL  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLL_avg975)[, <span class="dv">1</span>])</span>
+<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_YLL  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLL_avg975)[, <span class="dv">2</span>])</span>
+<span id="cb8-117"><a href="#cb8-117" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_YLL </span>
+<span id="cb8-118"><a href="#cb8-118" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_YLL </span>
+<span id="cb8-119"><a href="#cb8-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-120"><a href="#cb8-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-121"><a href="#cb8-121" aria-hidden="true" tabindex="-1"></a>model_CVD_YLL_var25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_YLD <span class="sc">~</span> variation_25,</span>
+<span id="cb8-122"><a href="#cb8-122" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">data =</span> combined_data,</span>
+<span id="cb8-123"><a href="#cb8-123" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> poisson,</span>
+<span id="cb8-124"><a href="#cb8-124" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb8-125"><a href="#cb8-125" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb8-126"><a href="#cb8-126" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_YLL_var25)</span>
+<span id="cb8-127"><a href="#cb8-127" aria-hidden="true" tabindex="-1"></a>irr_var25_YLL <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_YLL_var25))</span>
+<span id="cb8-128"><a href="#cb8-128" aria-hidden="true" tabindex="-1"></a>irr_var25_YLL</span>
+<span id="cb8-129"><a href="#cb8-129" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_YLL <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLL_var25)[, <span class="dv">1</span>])</span>
+<span id="cb8-130"><a href="#cb8-130" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_YLL <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLL_var25)[, <span class="dv">2</span>])</span>
+<span id="cb8-131"><a href="#cb8-131" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_YLL</span>
+<span id="cb8-132"><a href="#cb8-132" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_YLL</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="irr---cvd-daly-yld-yll" class="level3">
@@ -337,11 +825,11 @@ Table&nbsp;2: Incidence Rate Ratios derived from Poisson panel regressions for C
 <div aria-describedby="tbl-my-table2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="table">
 <colgroup>
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
-<col style="width: 20%">
+<col style="width: 12%">
+<col style="width: 10%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -379,8 +867,10 @@ Table&nbsp;2: Incidence Rate Ratios derived from Poisson panel regressions for C
 </div>
 </figure>
 </div>
+<hr>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

@@ -2,8 +2,34 @@
 title: "About"
 ---
 
-About this site
+# Next Steps {.panel .panel-set}
 
-```{r}
-1 + 1
-```
+::: {.callout-tip collapse="true" appearance="default"}
+
+## 🚀 To Do Next
+-   PAF maps for selected humidity variables and CVD DALY, YLD, and YLL.
+:::
+
+
+
+::: {.callout-tip collapse="true" appearance="default"}
+## 🔄 In waitlist {.panel .panel-collapse}
+
+-   **Obtain uncorrected DALY, YLL, and YLD data**: Requested data from Dr. BSB.
+
+:::
+
+::: {.callout-note collapse="true" appearance="default"}
+## ✅ Completed
+
+1. correlation analysis to identify potential multicollinearity.
+
+2. Initial dataviz for selected humidity variables
+
+3. IRRs for selected humidity variables and CVD mortality, and morbidity.
+
+4. PAF based Indian map for selected humidity variables and CVD mortality, and morbidity.
+
+5. IRRs for selected humidity variables and CVD DALY, YLD, and YLL.
+
+:::

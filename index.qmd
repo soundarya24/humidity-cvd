@@ -1,16 +1,24 @@
 ---
-title: "humidity-cvd"
+title: "Humidity-CVD"
+format:
+  html:
+    code-fold: true
+    code-summary: "Click here to view/hide the code"
 editor_options: 
   chunk_output_type: console
 ---
 
+## Data loading
+
 ```{r}
 #| label: loaddata
 #| echo: false
+#| warning: false
 
 combined_data_relhum_forpanel <- readRDS(here::here("data","combined_data_relhum_forpanel_revised.rds"))
-library(tidyverse)
-gbd_data_clean <- read_csv(here::here("data","gbd_updated_april24.csv"))
+suppressPackageStartupMessages(library(tidyverse))
+
+gbd_data_clean <- read_csv(here::here("data","gbd_updated_april24.csv"), show_col_types = FALSE)
 gbd_data_clean <- gbd_data_clean |> 
         filter(Year %in% 2011:2019)
 
@@ -31,23 +39,29 @@ combined_data <- merge(
 
 ```
 
+## Packages
+
 ```{r}
 #| label: libraries
-#| echo: false
+#| echo: true
 #| results: hide
 #| message: false
 #| warning: false
 ## data viz for humidity yerawise
 
-pacman::p_load("tidyverse","ggcorrplot","directlabels","pglm", "scales")
+pacman::p_load("ggcorrplot","directlabels","pglm", "scales")
+suppressPackageStartupMessages(library(tidyverse))
+
 
 ```
+
+------------------------------------------------------------------------
 
 ### Correlation Analysis
 
 ```{r}
 #| label: correlation
-#| echo: false
+#| echo: true
 #| results: hide
 # Correlation analysis
 combined_data <- combined_data |> 
@@ -74,7 +88,8 @@ p.mat <- cor_pmat(correlation_matrix)
 ```{r}
 #| label: fig-corrplot
 #| fig-cap: Correlation matrix for humidity variables
-#| echo: false
+#| echo: true
+#| column: page
 
 ggcorrplot(correlation_matrix, 
            outline.color = "white",
@@ -86,18 +101,23 @@ ggcorrplot(correlation_matrix,
            insig = "blank")
 ```
 
+*This matrix shows pairwise correlations among various humidity metrics (average, median, mode, minimum, maximum, variation) at the 2.5th and 97.5th percentiles. Only statistically significant correlations are displayed, indicating strong associations among several metrics. Based on this analysis, both 2.5 and 97.5 percentiles of the average humidity, and 2.5th percentile of the variation in humidity were selected for further analysis. This is to minimize multicollinearity and retain representative variability in the downstream panel regression.*
+
+------------------------------------------------------------------------
+
 ```{r}
 #| label: fig-relhumsummaries
-#| echo: false
+#| echo: true
 #| layout-ncol: 1
-#| fig-cap: humidity summaries for India, 2011-2019
+#| fig-cap: Humidity summaries for India, 2011-2019
 #| fig-subcap: 
-#|     - "humidity Averages"
-#|     - "humidity Variations"
+#|     - "Average humidity levels (2.5th and 97.5th percentiles) across Indian states from 2011 to 2019."
+#|     - "Variations in humidity levels a(2.5th and 97.5th percentiles) across Indian states from 2011 to 2019."
 #| fig-height: 10
 #| fig-width: 14
 #| fig-align: center
 #| fig-cap-location: top
+#| column: screen-inset-shaded
 
 # averages
 combined_data |>
@@ -129,10 +149,12 @@ combined_data |>
 
 ```
 
+------------------------------------------------------------------------
+
 ```{r}
 #| label: panelregression
 #| results: hide
-#| echo: false
+#| echo: true
 #| warning: false
 #| message: false
 model_CVD_Death_avg25 <- pglm(CVD_Death ~ average_25,
@@ -273,21 +295,22 @@ irr_uci_var25_prevalence
 
 ### IRR - cvd prevalence incidence mortality
 
-| Humidity | Percentile | Mortality \[95% CIs\]                                                                                     | Prevalence\[95% CIs\]                                                                                                   | Incidence\[95% CIs\]                                                                                                 |
-|---------------|---------------|---------------|---------------|---------------|
-| Average           | 2.5        | **`r round(irr_avg25_death,3)` \[`r round(irr_lci_avg25_death,3)`,`r round(irr_uci_avg25_death,3)`\]**    | **`r round(irr_avg25_prevalence,3)`\[`r round(irr_lci_avg25_prevalence,3)`,`r round(irr_uci_avg25_prevalence,3)`\]**    | **`r round(irr_avg25_incidence,3)`\[`r round(irr_lci_avg25_incidence,3)`,`r round(irr_uci_avg25_incidence,3)`\]**    |
-| Average           | 97.5       | **`r round(irr_avg975_death,3)` \[`r round(irr_lci_avg975_death,3)`,`r round(irr_uci_avg975_death,3)`\]** | **`r round(irr_avg975_prevalence,3)`\[`r round(irr_lci_avg975_prevalence,3)`,`r round(irr_uci_avg975_prevalence,3)`\]** | **`r round(irr_avg975_incidence,3)`\[`r round(irr_lci_avg975_incidence,3)`,`r round(irr_uci_avg975_incidence,3)`\]** |
-| Variation         | 2.5        | `r round(irr_var25_death,3)` \[`r round(irr_lci_var25_death,3)`,`r round(irr_uci_var25_death,3)`\]        | **`r round(irr_var25_prevalence,3)`\[`r round(irr_lci_var25_prevalence,3)`,`r round(irr_uci_var25_prevalence,3)`\]**    | **`r round(irr_var25_incidence,3)`\[`r round(irr_lci_var25_incidence,3)`,`r round(irr_uci_var25_incidence,3)`\]**    |
+| Humidity  | Percentile | Mortality \[95% CIs\]                                                                                     | Prevalence\[95% CIs\]                                                                                                   | Incidence\[95% CIs\]                                                                                                 |
+|--------------|--------------|--------------|--------------|----------------|
+| Average   | 2.5        | **`r round(irr_avg25_death,3)` \[`r round(irr_lci_avg25_death,3)`,`r round(irr_uci_avg25_death,3)`\]**    | **`r round(irr_avg25_prevalence,3)`\[`r round(irr_lci_avg25_prevalence,3)`,`r round(irr_uci_avg25_prevalence,3)`\]**    | **`r round(irr_avg25_incidence,3)`\[`r round(irr_lci_avg25_incidence,3)`,`r round(irr_uci_avg25_incidence,3)`\]**    |
+| Average   | 97.5       | **`r round(irr_avg975_death,3)` \[`r round(irr_lci_avg975_death,3)`,`r round(irr_uci_avg975_death,3)`\]** | **`r round(irr_avg975_prevalence,3)`\[`r round(irr_lci_avg975_prevalence,3)`,`r round(irr_uci_avg975_prevalence,3)`\]** | **`r round(irr_avg975_incidence,3)`\[`r round(irr_lci_avg975_incidence,3)`,`r round(irr_uci_avg975_incidence,3)`\]** |
+| Variation | 2.5        | `r round(irr_var25_death,3)` \[`r round(irr_lci_var25_death,3)`,`r round(irr_uci_var25_death,3)`\]        | **`r round(irr_var25_prevalence,3)`\[`r round(irr_lci_var25_prevalence,3)`,`r round(irr_uci_var25_prevalence,3)`\]**    | **`r round(irr_var25_incidence,3)`\[`r round(irr_lci_var25_incidence,3)`,`r round(irr_uci_var25_incidence,3)`\]**    |
 
 : Incidence Rate Ratios derived from Poisson panel regressions for CVD burden (mortality, prevalence, and incidence) {#tbl-my-table}
 
+------------------------------------------------------------------------
 
 ### PAF
 
 ```{r}
 #| label: pafcalc
 #| results: hide
-#| echo: false
+#| echo: true
 #| warning: false
 #| message: false
 gbd_data_uncorrected <- read_csv(here::here("data","gbd_data_uncorrected.csv"))
@@ -322,12 +345,11 @@ dplyr::select(-CVD_Death,-avg_975) |>
 
 ```
 
-
 ```{r}
 #| label: fig-pafmap
-#| echo: false
+#| echo: true
 #| layout-ncol: 1
-#| fig-cap: CVD deaths attributable to high average temperature in Indian states
+#| fig-cap: CVD deaths attributable to high average humidity in Indian states
 #| fig-subcap: 
 #|     - CVD Mortality
 #|     - CVD Incidence
@@ -338,6 +360,8 @@ dplyr::select(-CVD_Death,-avg_975) |>
 #| fig-cap-location: top
 #| message: false
 #| warning: false
+#| column: screen
+#| out-width: 100%
 library(sf)
 library(tidyverse)
 
@@ -422,12 +446,12 @@ india_paf |>
 
 ```
 
-
+------------------------------------------------------------------------
 
 ```{r}
 #| label: panelreg-economy
 #| results: hide
-#| echo: false
+#| echo: true
 #| warning: false
 #| message: false
 
@@ -565,16 +589,14 @@ irr_lci_var25_YLL
 irr_uci_var25_YLL
 ```
 
-
 ### IRR - cvd DALY YLD YLL
 
-| Humidity | Percentile | DALY \[95% CIs\]                                                                                     | YLD\[95% CIs\]                                                                                                   | YLL\[95% CIs\]                                                                                                 |
-|---------------|---------------|---------------|---------------|---------------|
-| Average           | 2.5        | **`r round(irr_avg25_DALY,3)` \[`r round(irr_lci_avg25_DALY,3)`,`r round(irr_uci_avg25_DALY,3)`\]**    | **`r round(irr_avg25_YLD,3)`\[`r round(irr_lci_avg25_YLD,3)`,`r round(irr_uci_avg25_YLD,3)`\]**    | `r round(irr_avg25_YLL,3)`\[`r round(irr_lci_avg25_YLL,3)`,`r round(irr_uci_avg25_YLL,3)`\]   |
-| Average           | 97.5       | **`r round(irr_avg975_DALY,3)` \[`r round(irr_lci_avg975_DALY,3)`,`r round(irr_uci_avg975_DALY,3)`\]** | **`r round(irr_avg975_YLD,3)`\[`r round(irr_lci_avg975_YLD,3)`,`r round(irr_uci_avg975_YLD,3)`\]** | **`r round(irr_avg975_YLL,3)`\[`r round(irr_lci_avg975_YLL,3)`,`r round(irr_uci_avg975_YLL,3)`\]** |
-| Variation         | 2.5        | **`r round(irr_var25_DALY,3)` \[`r round(irr_lci_var25_DALY,3)`,`r round(irr_uci_var25_DALY,3)`\]**        | `r round(irr_var25_YLD,3)`\[`r round(irr_lci_var25_YLD,3)`,`r round(irr_uci_var25_YLD,3)`\]   | `r round(irr_var25_YLL,3)`\[`r round(irr_lci_var25_YLL,3)`,`r round(irr_uci_var25_YLL,3)`\]   |
+| Humidity  | Percentile | DALY \[95% CIs\]                                                                                       | YLD\[95% CIs\]                                                                                     | YLL\[95% CIs\]                                                                                     |
+|---------|--------|-------------------|-------------------|-------------------|
+| Average   | 2.5        | **`r round(irr_avg25_DALY,3)` \[`r round(irr_lci_avg25_DALY,3)`,`r round(irr_uci_avg25_DALY,3)`\]**    | **`r round(irr_avg25_YLD,3)`\[`r round(irr_lci_avg25_YLD,3)`,`r round(irr_uci_avg25_YLD,3)`\]**    | `r round(irr_avg25_YLL,3)`\[`r round(irr_lci_avg25_YLL,3)`,`r round(irr_uci_avg25_YLL,3)`\]        |
+| Average   | 97.5       | **`r round(irr_avg975_DALY,3)` \[`r round(irr_lci_avg975_DALY,3)`,`r round(irr_uci_avg975_DALY,3)`\]** | **`r round(irr_avg975_YLD,3)`\[`r round(irr_lci_avg975_YLD,3)`,`r round(irr_uci_avg975_YLD,3)`\]** | **`r round(irr_avg975_YLL,3)`\[`r round(irr_lci_avg975_YLL,3)`,`r round(irr_uci_avg975_YLL,3)`\]** |
+| Variation | 2.5        | **`r round(irr_var25_DALY,3)` \[`r round(irr_lci_var25_DALY,3)`,`r round(irr_uci_var25_DALY,3)`\]**    | `r round(irr_var25_YLD,3)`\[`r round(irr_lci_var25_YLD,3)`,`r round(irr_uci_var25_YLD,3)`\]        | `r round(irr_var25_YLL,3)`\[`r round(irr_lci_var25_YLL,3)`,`r round(irr_uci_var25_YLL,3)`\]        |
 
 : Incidence Rate Ratios derived from Poisson panel regressions for CVD burden (DALY, YLD, and YLL) {#tbl-my-table2}
 
-
-
+------------------------------------------------------------------------
