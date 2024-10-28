@@ -1,5 +1,6 @@
 project:
   type: website
+  output_dir: docs
 
 website:
   title: "humidity-cvd"
@@ -8,6 +9,7 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+        text: About
 
 format:
   html:
