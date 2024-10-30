@@ -576,7 +576,7 @@ irr_lci_avg975_YLL
 irr_uci_avg975_YLL 
 
 
-model_CVD_YLL_var25 <- pglm(CVD_YLD ~ variation_25,
+model_CVD_YLL_var25 <- pglm(CVD_YLL ~ variation_25,
                                    data = combined_data,
                                    family = poisson,
                                    model = "within",
