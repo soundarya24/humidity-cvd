@@ -128,7 +128,7 @@ combined_data |>
         geom_ribbon(aes(ymin=average_25, ymax=average_975),fill="midnightblue", alpha=0.4)+
         facet_wrap(~State)+
         theme_minimal(base_size = 20)+
-        labs(y="humidity (°C)", x="Year",
+        labs(y="humidity (%)", x="Year",
              title = "Average humidity",
              subtitle = "2.5th and 97.5th percentiles")+
         theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 12))
@@ -142,7 +142,7 @@ combined_data |>
      #geom_ribbon(aes(ymin=0, ymax=variation_25),fill="seagreen", alpha=0.4)+
         facet_wrap(~State)+
         theme_minimal(base_size = 20)+
-        labs(y="humidity (°C)", x="Year",
+        labs(y="humidity (%)", x="Year",
              title = "humidity Variations",
              subtitle = "2.5th percentiles")+
         theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 12))
@@ -297,7 +297,7 @@ irr_uci_var25_prevalence
 ### IRR - cvd prevalence incidence mortality
 
 | Humidity  | Percentile | Mortality \[95% CIs\]                                                                                     | Prevalence\[95% CIs\]                                                                                                   | Incidence\[95% CIs\]                                                                                                 |
-|--------------|--------------|--------------|--------------|----------------|
+|---------------|---------------|---------------|---------------|---------------|
 | Average   | 2.5        | **`r round(irr_avg25_death,3)` \[`r round(irr_lci_avg25_death,3)`,`r round(irr_uci_avg25_death,3)`\]**    | **`r round(irr_avg25_prevalence,3)`\[`r round(irr_lci_avg25_prevalence,3)`,`r round(irr_uci_avg25_prevalence,3)`\]**    | **`r round(irr_avg25_incidence,3)`\[`r round(irr_lci_avg25_incidence,3)`,`r round(irr_uci_avg25_incidence,3)`\]**    |
 | Average   | 97.5       | **`r round(irr_avg975_death,3)` \[`r round(irr_lci_avg975_death,3)`,`r round(irr_uci_avg975_death,3)`\]** | **`r round(irr_avg975_prevalence,3)`\[`r round(irr_lci_avg975_prevalence,3)`,`r round(irr_uci_avg975_prevalence,3)`\]** | **`r round(irr_avg975_incidence,3)`\[`r round(irr_lci_avg975_incidence,3)`,`r round(irr_uci_avg975_incidence,3)`\]** |
 | Variation | 2.5        | `r round(irr_var25_death,3)` \[`r round(irr_lci_var25_death,3)`,`r round(irr_uci_var25_death,3)`\]        | **`r round(irr_var25_prevalence,3)`\[`r round(irr_lci_var25_prevalence,3)`,`r round(irr_uci_var25_prevalence,3)`\]**    | **`r round(irr_var25_incidence,3)`\[`r round(irr_lci_var25_incidence,3)`,`r round(irr_uci_var25_incidence,3)`\]**    |
@@ -593,7 +593,7 @@ irr_uci_var25_YLL
 ### IRR - cvd DALY YLD YLL
 
 | Humidity  | Percentile | DALY \[95% CIs\]                                                                                       | YLD\[95% CIs\]                                                                                     | YLL\[95% CIs\]                                                                                     |
-|---------|--------|-------------------|-------------------|-------------------|
+|--------------|--------------|---------------|---------------|---------------|
 | Average   | 2.5        | **`r round(irr_avg25_DALY,3)` \[`r round(irr_lci_avg25_DALY,3)`,`r round(irr_uci_avg25_DALY,3)`\]**    | **`r round(irr_avg25_YLD,3)`\[`r round(irr_lci_avg25_YLD,3)`,`r round(irr_uci_avg25_YLD,3)`\]**    | `r round(irr_avg25_YLL,3)`\[`r round(irr_lci_avg25_YLL,3)`,`r round(irr_uci_avg25_YLL,3)`\]        |
 | Average   | 97.5       | **`r round(irr_avg975_DALY,3)` \[`r round(irr_lci_avg975_DALY,3)`,`r round(irr_uci_avg975_DALY,3)`\]** | **`r round(irr_avg975_YLD,3)`\[`r round(irr_lci_avg975_YLD,3)`,`r round(irr_uci_avg975_YLD,3)`\]** | **`r round(irr_avg975_YLL,3)`\[`r round(irr_lci_avg975_YLL,3)`,`r round(irr_uci_avg975_YLL,3)`\]** |
 | Variation | 2.5        | **`r round(irr_var25_DALY,3)` \[`r round(irr_lci_var25_DALY,3)`,`r round(irr_uci_var25_DALY,3)`\]**    | `r round(irr_var25_YLD,3)`\[`r round(irr_lci_var25_YLD,3)`,`r round(irr_uci_var25_YLD,3)`\]        | `r round(irr_var25_YLL,3)`\[`r round(irr_lci_var25_YLL,3)`,`r round(irr_uci_var25_YLL,3)`\]        |
