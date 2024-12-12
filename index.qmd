@@ -611,6 +611,8 @@ irr_uci_var25_YLL
 
 ```{r}
 #| label: projmaps-deaths
+#| warning: false
+#| message: false
 
 all_forecasts_deaths <- read_csv(here::here("output", "cvd_deaths","combined_forecasts_all_states.csv"))
 
@@ -686,6 +688,8 @@ india_paf_deaths |>
 
 ```{r}
 #| label: projmaps-prev
+#| warning: false
+#| message: false
 
 
 all_forecasts_prev <- read_csv(here::here("output", "cvd_prev","combined_forecasts_all_states.csv"))
@@ -753,6 +757,8 @@ india_paf_prev |>
 
 ```{r}
 #| label: projmaps-inci
+#| warning: false
+#| message: false
 
 all_forecasts_incidence <- read_csv(here::here("output", "cvd_inci","combined_forecasts_all_states.csv"))
 
