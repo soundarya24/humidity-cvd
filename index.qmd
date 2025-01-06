@@ -113,7 +113,7 @@ ggcorrplot(correlation_matrix,
 #| fig-cap: Humidity summaries for India, 2011-2019
 #| fig-subcap: 
 #|     - "Average humidity levels (2.5th and 97.5th percentiles) across Indian states from 2011 to 2019."
-#|     - "Variations in humidity levels a(2.5th and 97.5th percentiles) across Indian states from 2011 to 2019."
+#|     - "Variations in humidity levels (2.5th and 97.5th percentiles) across Indian states from 2011 to 2019."
 #| fig-height: 10
 #| fig-width: 14
 #| fig-align: center
@@ -143,12 +143,16 @@ combined_data |>
         facet_wrap(~State)+
         theme_minimal(base_size = 20)+
         labs(y="humidity (%)", x="Year",
-             title = "humidity Variations",
-             subtitle = "2.5th percentiles")+
+             title = "Humidity Variations",
+             subtitle = "2.5th and 97.5th percentiles")+
         theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 12))
 
 
 ```
+
+@fig-relhumsummaries-1 illustrates the trends in the 2.5th and 97.5th percentiles of daily humidity for each year across Indian states from 2011 to 2019. The 2.5th percentile of annual daily humidity remains consistently below 25% across all states. The lowest value was observed in Gujarat in 2011 (13.8%), while the highest value at this percentile was recorded in Tamil Nadu in 2019 (22.1%). This indicates a limited range of variation at the lower end of the humidity spectrum across states. The 97.5th percentile of annual daily humidity showed a wider range of variability across states, with the lowest value recorded in Odisha in 2011 (37.3%) and the highest value in Uttarakhand in 2019 (87.2%). While most states consistently recorded values below 75%, certain states crossed this threshold in specific years. For instance, Uttarakhand, Sikkim, Rajasthan, Punjab, Haryana, Himachal Pradesh, Delhi, Bihar, and Arunachal Pradesh recorded 97.5th percentile values above 75% in 2019. Similarly, northeastern states like Nagaland, Meghalaya, and Manipur crossed this threshold in 2013. These observations indicate episodic peaks in maximum humidity levels in certain states, particularly during the later years of the study period.
+
+@fig-relhumsummaries-2 illustrates the trends in the 2.5th and 97.5th percentiles of annual variations in daily humidity across Indian states from 2011 to 2019. Variations at the 2.5th percentile ranged from 4.6% in Delhi in 2016 to 10% in Andhra Pradesh in 2016, indicating limited variability at the lower bound across states and years. Most states exhibited stable patterns at the 2.5th percentile, with values generally below 10%. In contrast, the 97.5th percentile of annual humidity variations displayed more pronounced inter-state and temporal differences, ranging from 18.6% in Rajasthan in 2017 to 49.7% in Himachal Pradesh in 2019.
 
 ------------------------------------------------------------------------
 
@@ -297,7 +301,7 @@ irr_uci_var25_prevalence
 ### IRR - cvd prevalence incidence mortality
 
 | Humidity  | Percentile | Mortality \[95% CIs\]                                                                                     | Prevalence\[95% CIs\]                                                                                                   | Incidence\[95% CIs\]                                                                                                 |
-|------------|------------|---------------|-----------------|-----------------|
+|---------------|---------------|---------------|---------------|---------------|
 | Average   | 2.5        | **`r round(irr_avg25_death,3)` \[`r round(irr_lci_avg25_death,3)`,`r round(irr_uci_avg25_death,3)`\]**    | **`r round(irr_avg25_prevalence,3)`\[`r round(irr_lci_avg25_prevalence,3)`,`r round(irr_uci_avg25_prevalence,3)`\]**    | **`r round(irr_avg25_incidence,3)`\[`r round(irr_lci_avg25_incidence,3)`,`r round(irr_uci_avg25_incidence,3)`\]**    |
 | Average   | 97.5       | **`r round(irr_avg975_death,3)` \[`r round(irr_lci_avg975_death,3)`,`r round(irr_uci_avg975_death,3)`\]** | **`r round(irr_avg975_prevalence,3)`\[`r round(irr_lci_avg975_prevalence,3)`,`r round(irr_uci_avg975_prevalence,3)`\]** | **`r round(irr_avg975_incidence,3)`\[`r round(irr_lci_avg975_incidence,3)`,`r round(irr_uci_avg975_incidence,3)`\]** |
 | Variation | 2.5        | `r round(irr_var25_death,3)` \[`r round(irr_lci_var25_death,3)`,`r round(irr_uci_var25_death,3)`\]        | **`r round(irr_var25_prevalence,3)`\[`r round(irr_lci_var25_prevalence,3)`,`r round(irr_uci_var25_prevalence,3)`\]**    | **`r round(irr_var25_incidence,3)`\[`r round(irr_lci_var25_incidence,3)`,`r round(irr_uci_var25_incidence,3)`\]**    |
@@ -593,7 +597,7 @@ irr_uci_var25_YLL
 ### IRR - cvd DALY YLD YLL
 
 | Humidity  | Percentile | DALY \[95% CIs\]                                                                                       | YLD\[95% CIs\]                                                                                     | YLL\[95% CIs\]                                                                                     |
-|------------|------------|-----------------|----------------|----------------|
+|---------------|---------------|---------------|---------------|---------------|
 | Average   | 2.5        | **`r round(irr_avg25_DALY,3)` \[`r round(irr_lci_avg25_DALY,3)`,`r round(irr_uci_avg25_DALY,3)`\]**    | **`r round(irr_avg25_YLD,3)`\[`r round(irr_lci_avg25_YLD,3)`,`r round(irr_uci_avg25_YLD,3)`\]**    | `r round(irr_avg25_YLL,3)`\[`r round(irr_lci_avg25_YLL,3)`,`r round(irr_uci_avg25_YLL,3)`\]        |
 | Average   | 97.5       | **`r round(irr_avg975_DALY,3)` \[`r round(irr_lci_avg975_DALY,3)`,`r round(irr_uci_avg975_DALY,3)`\]** | **`r round(irr_avg975_YLD,3)`\[`r round(irr_lci_avg975_YLD,3)`,`r round(irr_uci_avg975_YLD,3)`\]** | **`r round(irr_avg975_YLL,3)`\[`r round(irr_lci_avg975_YLL,3)`,`r round(irr_uci_avg975_YLL,3)`\]** |
 | Variation | 2.5        | **`r round(irr_var25_DALY,3)` \[`r round(irr_lci_var25_DALY,3)`,`r round(irr_uci_var25_DALY,3)`\]**    | `r round(irr_var25_YLD,3)`\[`r round(irr_lci_var25_YLD,3)`,`r round(irr_uci_var25_YLD,3)`\]        | `r round(irr_var25_YLL,3)`\[`r round(irr_lci_var25_YLL,3)`,`r round(irr_uci_var25_YLL,3)`\]        |
@@ -602,12 +606,9 @@ irr_uci_var25_YLL
 
 ------------------------------------------------------------------------
 
-
 ## Projection maps for 97.5th percentile of average relative humidity
 
 ### CVD Deaths
-
-
 
 ```{r}
 #| label: projmaps-deaths
@@ -624,10 +625,6 @@ all_forecasts_2030_deaths <- all_forecasts_deaths |>
 rmarkdown::paged_table(all_forecasts_2030_deaths)
 
 ```
-
-
-
-
 
 ```{r}
 #| label: fig-projmaps-deaths
@@ -683,7 +680,6 @@ india_paf_deaths |>
 
 ```
 
-
 ### CVD Prevalence
 
 ```{r}
@@ -701,7 +697,6 @@ all_forecasts_2030_prev <- all_forecasts_prev |>
 
 rmarkdown::paged_table(all_forecasts_2030_prev)
 ```
-
 
 ```{r}
 #| label: fig-projmaps-prev
@@ -752,7 +747,6 @@ india_paf_prev |>
 
 ```
 
-
 ### CVD Incidence
 
 ```{r}
@@ -769,7 +763,6 @@ all_forecasts_2030_incidence <- all_forecasts_incidence |>
 
 rmarkdown::paged_table(all_forecasts_2030_incidence)
 ```
-
 
 ```{r}
 #| label: fig-projmaps-inci
@@ -818,12 +811,9 @@ india_paf_inci |>
 
 ```
 
-
 ## Projection maps for 2.5th percentile of average relative humidity
 
 ### CVD Deaths
-
-
 
 ```{r}
 #| label: projmaps-deaths-lowaverage
@@ -840,10 +830,6 @@ all_forecasts_2030_deaths <- all_forecasts_deaths |>
 rmarkdown::paged_table(all_forecasts_2030_deaths)
 
 ```
-
-
-
-
 
 ```{r}
 #| label: fig-projmaps-deaths-lowaverage
@@ -899,7 +885,6 @@ india_paf_deaths |>
 
 ```
 
-
 ### CVD Prevalence
 
 ```{r}
@@ -917,7 +902,6 @@ all_forecasts_2030_prev <- all_forecasts_prev |>
 
 rmarkdown::paged_table(all_forecasts_2030_prev)
 ```
-
 
 ```{r}
 #| label: fig-projmaps-prev-lowaverage
@@ -968,7 +952,6 @@ india_paf_prev |>
 
 ```
 
-
 ### CVD Incidence
 
 ```{r}
@@ -985,7 +968,6 @@ all_forecasts_2030_incidence <- all_forecasts_incidence |>
 
 rmarkdown::paged_table(all_forecasts_2030_incidence)
 ```
-
 
 ```{r}
 #| label: fig-projmaps-inci-lowaverage
@@ -1034,12 +1016,9 @@ india_paf_inci |>
 
 ```
 
-
 ## Projection maps for 2.5th percentile of variation in relative humidity
 
 ### CVD Deaths
-
-
 
 ```{r}
 #| label: projmaps-deaths-lowvariation
@@ -1056,10 +1035,6 @@ all_forecasts_2030_deaths <- all_forecasts_deaths |>
 rmarkdown::paged_table(all_forecasts_2030_deaths)
 
 ```
-
-
-
-
 
 ```{r}
 #| label: fig-projmaps-deaths-lowvariation
@@ -1115,7 +1090,6 @@ india_paf_deaths |>
 
 ```
 
-
 ### CVD Prevalence
 
 ```{r}
@@ -1133,7 +1107,6 @@ all_forecasts_2030_prev <- all_forecasts_prev |>
 
 rmarkdown::paged_table(all_forecasts_2030_prev)
 ```
-
 
 ```{r}
 #| label: fig-projmaps-prev-lowvariation
@@ -1184,7 +1157,6 @@ india_paf_prev |>
 
 ```
 
-
 ### CVD Incidence
 
 ```{r}
@@ -1201,7 +1173,6 @@ all_forecasts_2030_incidence <- all_forecasts_incidence |>
 
 rmarkdown::paged_table(all_forecasts_2030_incidence)
 ```
-
 
 ```{r}
 #| label: fig-projmaps-inci-lowvariation
