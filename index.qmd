@@ -300,11 +300,11 @@ irr_uci_var25_prevalence
 
 ### IRR - cvd prevalence incidence mortality
 
-| Humidity  | Percentile | Mortality \[95% CIs\]                                                                                     | Prevalence\[95% CIs\]                                                                                                   | Incidence\[95% CIs\]                                                                                                 |
+| Humidity | Percentile | Mortality \[95% CIs\] | Prevalence\[95% CIs\] | Incidence\[95% CIs\] |
 |---------------|---------------|---------------|---------------|---------------|
-| Average   | 2.5        | **`r round(irr_avg25_death,3)` \[`r round(irr_lci_avg25_death,3)`,`r round(irr_uci_avg25_death,3)`\]**    | **`r round(irr_avg25_prevalence,3)`\[`r round(irr_lci_avg25_prevalence,3)`,`r round(irr_uci_avg25_prevalence,3)`\]**    | **`r round(irr_avg25_incidence,3)`\[`r round(irr_lci_avg25_incidence,3)`,`r round(irr_uci_avg25_incidence,3)`\]**    |
-| Average   | 97.5       | **`r round(irr_avg975_death,3)` \[`r round(irr_lci_avg975_death,3)`,`r round(irr_uci_avg975_death,3)`\]** | **`r round(irr_avg975_prevalence,3)`\[`r round(irr_lci_avg975_prevalence,3)`,`r round(irr_uci_avg975_prevalence,3)`\]** | **`r round(irr_avg975_incidence,3)`\[`r round(irr_lci_avg975_incidence,3)`,`r round(irr_uci_avg975_incidence,3)`\]** |
-| Variation | 2.5        | `r round(irr_var25_death,3)` \[`r round(irr_lci_var25_death,3)`,`r round(irr_uci_var25_death,3)`\]        | **`r round(irr_var25_prevalence,3)`\[`r round(irr_lci_var25_prevalence,3)`,`r round(irr_uci_var25_prevalence,3)`\]**    | **`r round(irr_var25_incidence,3)`\[`r round(irr_lci_var25_incidence,3)`,`r round(irr_uci_var25_incidence,3)`\]**    |
+| Average | 2.5 | **`r round(irr_avg25_death,3)` \[`r round(irr_lci_avg25_death,3)`,`r round(irr_uci_avg25_death,3)`\]** | **`r round(irr_avg25_prevalence,3)`\[`r round(irr_lci_avg25_prevalence,3)`,`r round(irr_uci_avg25_prevalence,3)`\]** | **`r round(irr_avg25_incidence,3)`\[`r round(irr_lci_avg25_incidence,3)`,`r round(irr_uci_avg25_incidence,3)`\]** |
+| Average | 97.5 | **`r round(irr_avg975_death,3)` \[`r round(irr_lci_avg975_death,3)`,`r round(irr_uci_avg975_death,3)`\]** | **`r round(irr_avg975_prevalence,3)`\[`r round(irr_lci_avg975_prevalence,3)`,`r round(irr_uci_avg975_prevalence,3)`\]** | **`r round(irr_avg975_incidence,3)`\[`r round(irr_lci_avg975_incidence,3)`,`r round(irr_uci_avg975_incidence,3)`\]** |
+| Variation | 2.5 | `r round(irr_var25_death,3)` \[`r round(irr_lci_var25_death,3)`,`r round(irr_uci_var25_death,3)`\] | **`r round(irr_var25_prevalence,3)`\[`r round(irr_lci_var25_prevalence,3)`,`r round(irr_uci_var25_prevalence,3)`\]** | **`r round(irr_var25_incidence,3)`\[`r round(irr_lci_var25_incidence,3)`,`r round(irr_uci_var25_incidence,3)`\]** |
 
 : Incidence Rate Ratios derived from Poisson panel regressions for CVD burden (mortality, prevalence, and incidence) {#tbl-my-table}
 
@@ -596,14 +596,13 @@ irr_uci_var25_YLL
 
 ### IRR - cvd DALY YLD YLL
 
-| Humidity  | Percentile | DALY \[95% CIs\]                                                                                       | YLD\[95% CIs\]                                                                                     | YLL\[95% CIs\]                                                                                     |
+| Humidity | Percentile | DALY \[95% CIs\] | YLD\[95% CIs\] | YLL\[95% CIs\] |
 |---------------|---------------|---------------|---------------|---------------|
-| Average   | 2.5        | **`r round(irr_avg25_DALY,3)` \[`r round(irr_lci_avg25_DALY,3)`,`r round(irr_uci_avg25_DALY,3)`\]**    | **`r round(irr_avg25_YLD,3)`\[`r round(irr_lci_avg25_YLD,3)`,`r round(irr_uci_avg25_YLD,3)`\]**    | `r round(irr_avg25_YLL,3)`\[`r round(irr_lci_avg25_YLL,3)`,`r round(irr_uci_avg25_YLL,3)`\]        |
-| Average   | 97.5       | **`r round(irr_avg975_DALY,3)` \[`r round(irr_lci_avg975_DALY,3)`,`r round(irr_uci_avg975_DALY,3)`\]** | **`r round(irr_avg975_YLD,3)`\[`r round(irr_lci_avg975_YLD,3)`,`r round(irr_uci_avg975_YLD,3)`\]** | **`r round(irr_avg975_YLL,3)`\[`r round(irr_lci_avg975_YLL,3)`,`r round(irr_uci_avg975_YLL,3)`\]** |
-| Variation | 2.5        | **`r round(irr_var25_DALY,3)` \[`r round(irr_lci_var25_DALY,3)`,`r round(irr_uci_var25_DALY,3)`\]**    | `r round(irr_var25_YLD,3)`\[`r round(irr_lci_var25_YLD,3)`,`r round(irr_uci_var25_YLD,3)`\]        | `r round(irr_var25_YLL,3)`\[`r round(irr_lci_var25_YLL,3)`,`r round(irr_uci_var25_YLL,3)`\]        |
+| Average | 2.5 | **`r round(irr_avg25_DALY,3)` \[`r round(irr_lci_avg25_DALY,3)`,`r round(irr_uci_avg25_DALY,3)`\]** | **`r round(irr_avg25_YLD,3)`\[`r round(irr_lci_avg25_YLD,3)`,`r round(irr_uci_avg25_YLD,3)`\]** | `r round(irr_avg25_YLL,3)`\[`r round(irr_lci_avg25_YLL,3)`,`r round(irr_uci_avg25_YLL,3)`\] |
+| Average | 97.5 | **`r round(irr_avg975_DALY,3)` \[`r round(irr_lci_avg975_DALY,3)`,`r round(irr_uci_avg975_DALY,3)`\]** | **`r round(irr_avg975_YLD,3)`\[`r round(irr_lci_avg975_YLD,3)`,`r round(irr_uci_avg975_YLD,3)`\]** | **`r round(irr_avg975_YLL,3)`\[`r round(irr_lci_avg975_YLL,3)`,`r round(irr_uci_avg975_YLL,3)`\]** |
+| Variation | 2.5 | **`r round(irr_var25_DALY,3)` \[`r round(irr_lci_var25_DALY,3)`,`r round(irr_uci_var25_DALY,3)`\]** | `r round(irr_var25_YLD,3)`\[`r round(irr_lci_var25_YLD,3)`,`r round(irr_uci_var25_YLD,3)`\] | `r round(irr_var25_YLL,3)`\[`r round(irr_lci_var25_YLL,3)`,`r round(irr_uci_var25_YLL,3)`\] |
 
 : Incidence Rate Ratios derived from Poisson panel regressions for CVD burden (DALY, YLD, and YLL) {#tbl-my-table2}
-
 
 ### PAF for DALY, YLL, YLD
 
@@ -641,9 +640,22 @@ mutate(paf_daly= round((DALY * 0.000999001)),
         #rename State as state
         dplyr::rename(state = State)
        
+paf_rh <- gbd_data_uncorrected_economy_forpaf |>
+dplyr::select(State, Year,  avg_975,
+             DALY,YLL,YLD) |>
+filter(Year==2019) |> 
+mutate(paf_daly_avg_rh= round((DALY * 0.000999001)),
+       paf_daly_var_rh= round((DALY * 0.003984064))) |> 
+#dplyr::select(-CVD_Death,-avg_975) |> 
+        #rename State as state
+        dplyr::rename(state = State)
+write.csv(x = paf_rh,file = here::here(
+        "output", "paf_values_rh.csv"
+),row.names = FALSE)
 
+write_rds(x = paf_rh,file = here::here(
+        "output", "paf_values_rh.rds"))
 ```
-
 
 ```{r}
 #| label: fig-pafmap-economy
