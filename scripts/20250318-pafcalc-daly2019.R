@@ -1,55 +1,48 @@
 ### PAF
 
-
-#| label: pafcalc-economy
-#| results: hide
-#| echo: false
-#| warning: false
-#| message: false
-gbd_data_uncorrected <- read_csv(here::here("data","gbd_data_uncorrected.csv"))
-gbd_data_uncorrected <- gbd_data_uncorrected |> 
+library(readr)
+library(tidyverse)
+daly_data_uncorrected <- read_csv(here::here("data","CVD_DALY_YLL_YLD_2019_Statewise_Uncorrected.csv"))
+daly_data_uncorrected <- daly_data_uncorrected |> 
   filter(Year %in% 2011:2019)
 
+combined_data_relhum_forpanel <- readRDS(here::here("data","combined_data_relhum_forpanel_revised.rds"))
+
+
 # rename state.name as State
-#combined_data_temperature_forpanel 
-#<- combined_data_temperature_forpanel |> 
-#dplyr::rename(State = state_name,
-#             Year = year)
+combined_data_relhum_forpanel <- combined_data_relhum_forpanel |> 
+dplyr::rename(State = state_name,
+            Year = year)
 
 # merge temperature data and gbd data
 
-combined_data_uncorrectedgbd <- merge(
+combined_data_uncorrecteddaly <- merge(
   combined_data_relhum_forpanel,
-  gbd_data_uncorrected,
+  daly_data_uncorrected,
   by = c("State", "Year")
 )
 
-paf_data_formapviz_economy <- combined_data_uncorrectedgbd |>
-  dplyr::select(State, Year, CVD_DALY, avg_975,
-                CVD_YLD, CVD_YLL) |>
+paf_data_formapviz_economy <- combined_data_uncorrecteddaly |>
+  dplyr::select(State, Year, DALY, avg_975) |>
   filter(Year==2019) |> 
-  mutate(paf_daly= round((CVD_DALY * 0.001)),
-         paf_yld= round(CVD_YLD * 0.002),
-         paf_yll=round(CVD_YLL * 0.001)) |> 
-  dplyr::select(-CVD_DALY,-avg_975,-CVD_YLD,-CVD_YLL) |> 
+  mutate(paf_daly= round((DALY * 0.001))
+         #,
+         #paf_yld= round(YLD * 0.002),
+         #paf_yll=round(YLL * 0.001)
+         ) |> 
+  dplyr::select(-DALY,-avg_975) |> 
   #rename State as state
   dplyr::rename(state = State)
 
+# save as rds and csv
+saveRDS(paf_data_formapviz_economy, here::here("data","paf_data_formapviz_economy.rds"))
+write_csv(paf_data_formapviz_economy, here::here("data","paf_data_formapviz_economy.csv"))
 
-#| label: fig-pafmap-economy
-#| echo: false
-#| layout-ncol: 1
-#| fig-cap: CVD deaths attributable to high average temperature in Indian states
-#| fig-subcap: 
-#|     - CVD Mortality
-#|     - CVD Incidence
-#|     - CVD Prevalence
-#| fig-height: 10
-#| fig-width: 14
-#| fig-align: center
-#| fig-cap-location: top
-#| message: false
-#| warning: false
+
+
+
+
+#################################################
 library(sf)
 library(tidyverse)
 
