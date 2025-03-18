@@ -8,7 +8,7 @@ cpd2019 <- read_csv(here::here("data","cpd-2019.csv"))
 names(cpd2019)
 india_paf_economy_cpd2019 <- paf_data_formapviz_economy |> 
   left_join(cpd2019, by = c("state" = "State")) |> 
-  dplyr::select(state, -Year, paf_daly, -paf_yld, -paf_yll, CpD_2019) 
+  dplyr::select(state, -Year, paf_daly, CpD_2019) 
 
 #multiply to get the economic burden total
 daly_totalburden_inthousands_cvd <- india_paf_economy_cpd2019 |> 
