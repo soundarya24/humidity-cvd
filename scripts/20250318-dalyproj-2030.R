@@ -2,13 +2,22 @@ pacman::p_load("forecast")
 
 library(readr)
 library(tidyverse)
-gbd_data_clean <- read_csv(here::here("data","gbd_updated_april24.csv"), 
-                           show_col_types = FALSE)
-gbd_data_clean <- gbd_data_clean |> 
-  filter(Year %in% 2011:2019)
+library(readxl)  
+gbd_data_uncorrected <- read_excel(here::here("data","CVD_DALY_YLL_YLD_2011-2019_Statewise_Uncorrected.xlsx") )
+View(gbd_data_uncorrected)
+names(gbd_data_uncorrected)
+gbd_data_uncorrected <- janitor::clean_names(gbd_data_uncorrected)
+
+names(gbd_data_uncorrected)
+# change variable names to State, Year and DALY
+gbd_data_uncorrected <- gbd_data_uncorrected |>
+  dplyr::rename(State = location_12, Year = year_7, CVD_DALY = daly_val) |> 
+  dplyr::select(State, Year, CVD_DALY)
+
+
 
 # Get unique states
-states <- unique(gbd_data_clean$State)
+states <- unique(gbd_data_uncorrected$State)
 
 output_dir <- here::here("output","daly_proj", "state_forecasts")
 if (!dir.exists(output_dir)) {
@@ -21,7 +30,7 @@ all_forecasts <- data.frame()
 # Loop over each state
 for (state in states) {
   # Filter data for the current state
-  state_data <- gbd_data_clean |>
+  state_data <- gbd_data_uncorrected |>
     filter(State == state) |>
     select(Year, CVD_DALY)
   
@@ -62,7 +71,17 @@ cat("All state forecasts have been combined and saved.\n")
 
 all_forecasts <- read_csv(here::here("output", "daly_proj","combined_forecasts_daly_all_states.csv"))
 
+# extract only 2030 data for everything
+
 all_forecasts_2030 <- all_forecasts |>
-  dplyr::filter(Year == 2030) |>
+  dplyr::filter(Year == 2030) |> 
+  dplyr::select(State, Forecasted_CVD_DALY, Year) |> 
+  mutate(Forecasted_CVD_DALY= round(Forecasted_CVD_DALY,0))
+
+all_forecasts_2030 <- all_forecasts_2030 |>
+  #dplyr::filter(Year == 2030) |>
   mutate(paf= round((Forecasted_CVD_DALY * 0.001),0)) |>
   dplyr::rename(state = State)
+
+write_csv(all_forecasts_2030, here::here("output", "daly_proj","daly_forecoasts_2030.csv"))
+
