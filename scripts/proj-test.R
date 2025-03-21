@@ -41,13 +41,16 @@ daly_combined |>
 
 
 # Add "DALY-" prefix to state names
-all_forecasts_2030_tobackmerge <- all_forecasts_2030_tomerge %>%
+daly_combined_tobackmerge <- daly_combined %>%
   mutate(State = str_c("DALY-", State))
 
 # Step 3: Pivot to wide format (states as columns)
-all_forecasts_2030_tobackmerge_wide <- all_forecasts_2030_tobackmerge %>%
+daly_combined_tobackmerge_wide <- daly_combined_tobackmerge %>%
   select(State, year, DALY) %>%
   pivot_wider(names_from = State, values_from = DALY)
 
-write.csv(all_forecasts_2030_tobackmerge_wide, here::here("output", "daly_proj", "daly_forecoasts_2030_wide.csv"))
-          
+write.csv(daly_combined_tobackmerge_wide, here::here("data", "daly_forecoasts_2030_wide.csv"))
+
+# write as xlsx 
+library(openxlsx)
+write.xlsx(daly_combined_tobackmerge_wide, here::here("data", "daly_forecoasts_2030_wide.xlsx"))
