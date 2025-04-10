@@ -19,9 +19,22 @@ editor_options:
 combined_data_relhum_forpanel <- readRDS(here::here("data","combined_data_relhum_forpanel_revised.rds"))
 suppressPackageStartupMessages(library(tidyverse))
 
-gbd_data_clean <- read_csv(here::here("data","gbd_updated_april24.csv"), show_col_types = FALSE)
-gbd_data_clean <- gbd_data_clean |> 
-        filter(Year %in% 2011:2019)
+#read excel file
+
+library(readxl)
+
+data <- read_excel(here::here(
+  "data", "CVD_DALY_YLD_YLL_1990-2021_per100k.xlsx"
+))
+
+library(tidyverse)
+data <- data |> 
+  filter(Year %in% 2011:2022) |> 
+  dplyr::rename(State=Location)
+
+#gbd_data_clean <- read_csv(here::here("data","gbd_updated_april24.csv"), show_col_types = FALSE)
+#gbd_data_clean <- gbd_data_clean |> 
+ #       filter(Year %in% 2011:2019)
 
 # rename state.name as State
 combined_data_relhum_forpanel <- combined_data_relhum_forpanel |> 
@@ -32,7 +45,7 @@ combined_data_relhum_forpanel <- combined_data_relhum_forpanel |>
 
 combined_data <- merge(
   combined_data_relhum_forpanel,
-  gbd_data_clean,
+  data,
   by = c("State", "Year")
 )
 
@@ -102,7 +115,7 @@ ggcorrplot(correlation_matrix,
            insig = "blank")
 ```
 
-*This matrix shows pairwise correlations among various humidity metrics (average, median, mode, minimum, maximum, variation) at the 2.5th and 97.5th percentiles. Only statistically significant correlations are displayed, indicating strong associations among several metrics. Based on this analysis, both 2.5 and 97.5 percentiles of the average humidity, and 2.5th percentile of the variation in humidity were selected for further analysis. This is to minimize multicollinearity and retain representative variability in the downstream panel regression.*
+*This matrix shows pairwise correlations among various humidity metrics (average, median, mode, minimum, maximum, variation) at the 2.5th and 97.5th percentiles. Only statistically significant correlations are displayed, indicating strong associations among several metrics. Based on this analysis, both 2.5 and 97.5 percentiles of the average humidity were selected for further analysis. This is to minimize multicollinearity and retain representative variability in the downstream panel regression.*
 
 ------------------------------------------------------------------------
 
@@ -113,7 +126,6 @@ ggcorrplot(correlation_matrix,
 #| fig-cap: Humidity summaries for India, 2011-2019
 #| fig-subcap: 
 #|     - "Average humidity levels (2.5th and 97.5th percentiles) across Indian states from 2011 to 2019."
-#|     - "Variations in humidity levels (2.5th and 97.5th percentiles) across Indian states from 2011 to 2019."
 #| fig-height: 10
 #| fig-width: 14
 #| fig-align: center
@@ -133,26 +145,13 @@ combined_data |>
              subtitle = "2.5th and 97.5th percentiles")+
         theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 12))
 
-# variations
-combined_data |>
-        ggplot(aes(x = factor(Year), group=1)) +
-        geom_line(aes(y=variation_25),linetype="dashed", color="seagreen")+
-        geom_line(aes(y=variation_975),linetype="dashed", color="seagreen")+
-        geom_ribbon(aes(ymin=variation_25, ymax=variation_975),fill="seagreen", alpha=0.4)+
-     #geom_ribbon(aes(ymin=0, ymax=variation_25),fill="seagreen", alpha=0.4)+
-        facet_wrap(~State)+
-        theme_minimal(base_size = 20)+
-        labs(y="humidity (%)", x="Year",
-             title = "Humidity Variations",
-             subtitle = "2.5th and 97.5th percentiles")+
-        theme(axis.text.x = element_text(angle = 90, hjust = 1, size = 12))
 
 
 ```
 
 @fig-relhumsummaries-1 illustrates the trends in the 2.5th and 97.5th percentiles of daily humidity for each year across Indian states from 2011 to 2019. The 2.5th percentile of annual daily humidity remains consistently below 25% across all states. The lowest value was observed in Gujarat in 2011 (13.8%), while the highest value at this percentile was recorded in Tamil Nadu in 2019 (22.1%). This indicates a limited range of variation at the lower end of the humidity spectrum across states. The 97.5th percentile of annual daily humidity showed a wider range of variability across states, with the lowest value recorded in Odisha in 2011 (37.3%) and the highest value in Uttarakhand in 2019 (87.2%). While most states consistently recorded values below 75%, certain states crossed this threshold in specific years. For instance, Uttarakhand, Sikkim, Rajasthan, Punjab, Haryana, Himachal Pradesh, Delhi, Bihar, and Arunachal Pradesh recorded 97.5th percentile values above 75% in 2019. Similarly, northeastern states like Nagaland, Meghalaya, and Manipur crossed this threshold in 2013. These observations indicate episodic peaks in maximum humidity levels in certain states, particularly during the later years of the study period.
 
-@fig-relhumsummaries-2 illustrates the trends in the 2.5th and 97.5th percentiles of annual variations in daily humidity across Indian states from 2011 to 2019. Variations at the 2.5th percentile ranged from 4.6% in Delhi in 2016 to 10% in Andhra Pradesh in 2016, indicating limited variability at the lower bound across states and years. Most states exhibited stable patterns at the 2.5th percentile, with values generally below 10%. In contrast, the 97.5th percentile of annual humidity variations displayed more pronounced inter-state and temporal differences, ranging from 18.6% in Rajasthan in 2017 to 49.7% in Himachal Pradesh in 2019.
+
 
 ------------------------------------------------------------------------
 
@@ -192,19 +191,6 @@ irr_uci_avg975_death <- exp(confint(model_CVD_Death_avg975)[, 2])
 irr_lci_avg975_death
 irr_uci_avg975_death
 
-model_CVD_Death_var25 <- pglm(CVD_Death ~ variation_25,
-                               data = combined_data,
-                               family = poisson,
-                               model = "within",
-                               index = c("State", "Year"))
-summary(model_CVD_Death_var25)
-irr_var25_death <- exp(coef(model_CVD_Death_var25))
-irr_var25_death
-irr_lci_var25_death <- exp(confint(model_CVD_Death_var25)[, 1])
-irr_uci_var25_death <- exp(confint(model_CVD_Death_var25)[, 2])
-irr_lci_var25_death
-irr_uci_var25_death
-
 
 ### CVD_Incidence
 
@@ -236,19 +222,6 @@ irr_uci_avg975_incidence <- exp(confint(model_CVD_Incidence_avg975)[, 2])
 irr_lci_avg975_incidence
 irr_uci_avg975_incidence
 
-
-model_CVD_Incidence_var25 <- pglm(CVD_Incidence ~ variation_25,
-                                  data = combined_data,
-                                  family = poisson,
-                                  model = "within",
-                                  index = c("State", "Year"))
-summary(model_CVD_Incidence_var25)
-irr_var25_incidence <- exp(coef(model_CVD_Incidence_var25))
-irr_var25_incidence
-irr_lci_var25_incidence <- exp(confint(model_CVD_Incidence_var25)[, 1])
-irr_uci_var25_incidence <- exp(confint(model_CVD_Incidence_var25)[, 2])
-irr_lci_var25_incidence
-irr_uci_var25_incidence
 
 
 ### CVD_Prevalence
@@ -282,37 +255,18 @@ irr_lci_avg975_prevalence
 irr_uci_avg975_prevalence
 
 
-model_CVD_Prevalence_var25 <- pglm(CVD_Prevalence ~ variation_25,
-                                   data = combined_data,
-                                   family = poisson,
-                                   model = "within",
-                                   index = c("State", "Year"))
-summary(model_CVD_Prevalence_var25)
-irr_var25_prevalence <- exp(coef(model_CVD_Prevalence_var25))
-irr_var25_prevalence
-irr_lci_var25_prevalence <- exp(confint(model_CVD_Prevalence_var25)[, 1])
-irr_uci_var25_prevalence <- exp(confint(model_CVD_Prevalence_var25)[, 2])
-irr_lci_var25_prevalence
-irr_uci_var25_prevalence
 
 
 ```
 
 ### IRR - cvd prevalence incidence mortality
 
-<<<<<<< HEAD
+
 | Humidity  | Percentile | Mortality \[95% CIs\]                                                                                     | Prevalence\[95% CIs\]                                                                                                   | Incidence\[95% CIs\]                                                                                                 |
 |-----------|------------|-----------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
 | Average   | 2.5        | **`r round(irr_avg25_death,3)` \[`r round(irr_lci_avg25_death,3)`,`r round(irr_uci_avg25_death,3)`\]**    | **`r round(irr_avg25_prevalence,3)`\[`r round(irr_lci_avg25_prevalence,3)`,`r round(irr_uci_avg25_prevalence,3)`\]**    | **`r round(irr_avg25_incidence,3)`\[`r round(irr_lci_avg25_incidence,3)`,`r round(irr_uci_avg25_incidence,3)`\]**    |
 | Average   | 97.5       | **`r round(irr_avg975_death,3)` \[`r round(irr_lci_avg975_death,3)`,`r round(irr_uci_avg975_death,3)`\]** | **`r round(irr_avg975_prevalence,3)`\[`r round(irr_lci_avg975_prevalence,3)`,`r round(irr_uci_avg975_prevalence,3)`\]** | **`r round(irr_avg975_incidence,3)`\[`r round(irr_lci_avg975_incidence,3)`,`r round(irr_uci_avg975_incidence,3)`\]** |
-| Variation | 2.5        | `r round(irr_var25_death,3)` \[`r round(irr_lci_var25_death,3)`,`r round(irr_uci_var25_death,3)`\]        | **`r round(irr_var25_prevalence,3)`\[`r round(irr_lci_var25_prevalence,3)`,`r round(irr_uci_var25_prevalence,3)`\]**    | **`r round(irr_var25_incidence,3)`\[`r round(irr_lci_var25_incidence,3)`,`r round(irr_uci_var25_incidence,3)`\]**    |
-=======
-| Humidity | Percentile | Mortality \[95% CIs\] | Prevalence\[95% CIs\] | Incidence\[95% CIs\] |
-|---------------|---------------|---------------|---------------|---------------|
-| Average | 2.5 | **`r round(irr_avg25_death,3)` \[`r round(irr_lci_avg25_death,3)`,`r round(irr_uci_avg25_death,3)`\]** | **`r round(irr_avg25_prevalence,3)`\[`r round(irr_lci_avg25_prevalence,3)`,`r round(irr_uci_avg25_prevalence,3)`\]** | **`r round(irr_avg25_incidence,3)`\[`r round(irr_lci_avg25_incidence,3)`,`r round(irr_uci_avg25_incidence,3)`\]** |
-| Average | 97.5 | **`r round(irr_avg975_death,3)` \[`r round(irr_lci_avg975_death,3)`,`r round(irr_uci_avg975_death,3)`\]** | **`r round(irr_avg975_prevalence,3)`\[`r round(irr_lci_avg975_prevalence,3)`,`r round(irr_uci_avg975_prevalence,3)`\]** | **`r round(irr_avg975_incidence,3)`\[`r round(irr_lci_avg975_incidence,3)`,`r round(irr_uci_avg975_incidence,3)`\]** |
-| Variation | 2.5 | `r round(irr_var25_death,3)` \[`r round(irr_lci_var25_death,3)`,`r round(irr_uci_var25_death,3)`\] | **`r round(irr_var25_prevalence,3)`\[`r round(irr_lci_var25_prevalence,3)`,`r round(irr_uci_var25_prevalence,3)`\]** | **`r round(irr_var25_incidence,3)`\[`r round(irr_lci_var25_incidence,3)`,`r round(irr_uci_var25_incidence,3)`\]** |
->>>>>>> 0a631972d765015eddb7f9257956ee364793379f
+
 
 : Incidence Rate Ratios derived from Poisson panel regressions for CVD burden (mortality, prevalence, and incidence) {#tbl-my-table}
 
@@ -326,9 +280,12 @@ irr_uci_var25_prevalence
 #| echo: true
 #| warning: false
 #| message: false
-gbd_data_uncorrected <- read_csv(here::here("data","gbd_data_uncorrected.csv"))
-gbd_data_uncorrected <- gbd_data_uncorrected |> 
-        filter(Year %in% 2011:2019)
+gbd_data_uncorrected_new <- read_xlsx(here::here("data","CVD_DALY_YLD_YLL_1990-2021_per100k.xlsx"))
+gbd_data_uncorrected_new <- gbd_data_uncorrected_new |> 
+        filter(Year %in% 2011:2021)
+
+gbd_data_uncorrected_new <- gbd_data_uncorrected_new |> 
+  dplyr::rename(State=Location)
 
 # rename state.name as State
 #combined_data_temperature_forpanel 
@@ -340,14 +297,14 @@ gbd_data_uncorrected <- gbd_data_uncorrected |>
 
 combined_data_uncorrectedgbd <- merge(
   combined_data_relhum_forpanel,
-  gbd_data_uncorrected,
+  gbd_data_uncorrected_new,
   by = c("State", "Year")
 )
 
 paf_data_formapviz <- combined_data_uncorrectedgbd |>
 dplyr::select(State, Year, CVD_Death, avg_975,
               CVD_Prevalence, CVD_Incidence) |>
-filter(Year==2019) |> 
+dplyr::filter(Year==2019) |> 
 mutate(paf= round((CVD_Death * 0.002)),
        paf_prev= round(CVD_Prevalence * 0.002),
        paf_incid=round(CVD_Incidence * 0.002)) |> 
@@ -499,19 +456,6 @@ irr_lci_avg975_DALY
 irr_uci_avg975_DALY 
 
 
-model_CVD_DALY_var25 <- pglm(CVD_DALY ~ variation_25,
-                                   data = combined_data,
-                                   family = poisson,
-                                   model = "within",
-                                   index = c("State", "Year"))
-summary(model_CVD_DALY_var25)
-irr_var25_DALY <- exp(coef(model_CVD_DALY_var25))
-irr_var25_DALY
-irr_lci_var25_DALY <- exp(confint(model_CVD_DALY_var25)[, 1])
-irr_uci_var25_DALY <- exp(confint(model_CVD_DALY_var25)[, 2])
-irr_lci_var25_DALY
-irr_uci_var25_DALY
-
 
 ## yld
 
@@ -544,18 +488,6 @@ irr_lci_avg975_YLD
 irr_uci_avg975_YLD 
 
 
-model_CVD_YLD_var25 <- pglm(CVD_YLD ~ variation_25,
-                                   data = combined_data,
-                                   family = poisson,
-                                   model = "within",
-                                   index = c("State", "Year"))
-summary(model_CVD_YLD_var25)
-irr_var25_YLD <- exp(coef(model_CVD_YLD_var25))
-irr_var25_YLD
-irr_lci_var25_YLD <- exp(confint(model_CVD_YLD_var25)[, 1])
-irr_uci_var25_YLD <- exp(confint(model_CVD_YLD_var25)[, 2])
-irr_lci_var25_YLD
-irr_uci_var25_YLD
 
 ## YLL
 
@@ -588,35 +520,16 @@ irr_lci_avg975_YLL
 irr_uci_avg975_YLL 
 
 
-model_CVD_YLL_var25 <- pglm(CVD_YLL ~ variation_25,
-                                   data = combined_data,
-                                   family = poisson,
-                                   model = "within",
-                                   index = c("State", "Year"))
-summary(model_CVD_YLL_var25)
-irr_var25_YLL <- exp(coef(model_CVD_YLL_var25))
-irr_var25_YLL
-irr_lci_var25_YLL <- exp(confint(model_CVD_YLL_var25)[, 1])
-irr_uci_var25_YLL <- exp(confint(model_CVD_YLL_var25)[, 2])
-irr_lci_var25_YLL
-irr_uci_var25_YLL
+
 ```
 
 ### IRR - cvd DALY YLD YLL
 
-<<<<<<< HEAD
 | Humidity  | Percentile | DALY \[95% CIs\]                                                                                       | YLD\[95% CIs\]                                                                                     | YLL\[95% CIs\]                                                                                     |
 |-----------|------------|--------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
 | Average   | 2.5        | **`r round(irr_avg25_DALY,3)` \[`r round(irr_lci_avg25_DALY,3)`,`r round(irr_uci_avg25_DALY,3)`\]**    | **`r round(irr_avg25_YLD,3)`\[`r round(irr_lci_avg25_YLD,3)`,`r round(irr_uci_avg25_YLD,3)`\]**    | `r round(irr_avg25_YLL,3)`\[`r round(irr_lci_avg25_YLL,3)`,`r round(irr_uci_avg25_YLL,3)`\]        |
 | Average   | 97.5       | **`r round(irr_avg975_DALY,3)` \[`r round(irr_lci_avg975_DALY,3)`,`r round(irr_uci_avg975_DALY,3)`\]** | **`r round(irr_avg975_YLD,3)`\[`r round(irr_lci_avg975_YLD,3)`,`r round(irr_uci_avg975_YLD,3)`\]** | **`r round(irr_avg975_YLL,3)`\[`r round(irr_lci_avg975_YLL,3)`,`r round(irr_uci_avg975_YLL,3)`\]** |
-| Variation | 2.5        | **`r round(irr_var25_DALY,3)` \[`r round(irr_lci_var25_DALY,3)`,`r round(irr_uci_var25_DALY,3)`\]**    | `r round(irr_var25_YLD,3)`\[`r round(irr_lci_var25_YLD,3)`,`r round(irr_uci_var25_YLD,3)`\]        | `r round(irr_var25_YLL,3)`\[`r round(irr_lci_var25_YLL,3)`,`r round(irr_uci_var25_YLL,3)`\]        |
-=======
-| Humidity | Percentile | DALY \[95% CIs\] | YLD\[95% CIs\] | YLL\[95% CIs\] |
-|---------------|---------------|---------------|---------------|---------------|
-| Average | 2.5 | **`r round(irr_avg25_DALY,3)` \[`r round(irr_lci_avg25_DALY,3)`,`r round(irr_uci_avg25_DALY,3)`\]** | **`r round(irr_avg25_YLD,3)`\[`r round(irr_lci_avg25_YLD,3)`,`r round(irr_uci_avg25_YLD,3)`\]** | `r round(irr_avg25_YLL,3)`\[`r round(irr_lci_avg25_YLL,3)`,`r round(irr_uci_avg25_YLL,3)`\] |
-| Average | 97.5 | **`r round(irr_avg975_DALY,3)` \[`r round(irr_lci_avg975_DALY,3)`,`r round(irr_uci_avg975_DALY,3)`\]** | **`r round(irr_avg975_YLD,3)`\[`r round(irr_lci_avg975_YLD,3)`,`r round(irr_uci_avg975_YLD,3)`\]** | **`r round(irr_avg975_YLL,3)`\[`r round(irr_lci_avg975_YLL,3)`,`r round(irr_uci_avg975_YLL,3)`\]** |
-| Variation | 2.5 | **`r round(irr_var25_DALY,3)` \[`r round(irr_lci_var25_DALY,3)`,`r round(irr_uci_var25_DALY,3)`\]** | `r round(irr_var25_YLD,3)`\[`r round(irr_lci_var25_YLD,3)`,`r round(irr_uci_var25_YLD,3)`\] | `r round(irr_var25_YLL,3)`\[`r round(irr_lci_var25_YLL,3)`,`r round(irr_uci_var25_YLL,3)`\] |
->>>>>>> 0a631972d765015eddb7f9257956ee364793379f
+
 
 : Incidence Rate Ratios derived from Poisson panel regressions for CVD burden (DALY, YLD, and YLL) {#tbl-my-table2}
 
@@ -628,7 +541,17 @@ irr_uci_var25_YLL
 #| echo: true
 #| warning: false
 #| message: false
-gbd_data_uncorrected_economy <- read_csv(here::here("data","CVD_DALY_YLL_YLD_2019_Statewise_Uncorrected.csv"))
+
+gbd_data_uncorrected_new <- read_xlsx(here::here("data","CVD_DALY_YLL_YLD_2011-2019_Statewise_Uncorrected.xlsx")) |> 
+  janitor::clean_names()
+gbd_data_uncorrected_new <- gbd_data_uncorrected_new |> 
+  dplyr::rename(State=location_2,
+                Year=year_7,
+                CVD_DALY=daly_val,
+                CVD_YLD=yld_val,
+                CVD_YLL=yll_val) |> 
+        filter(Year %in% 2011:2021) |> 
+  dplyr::select(Year,State,CVD_DALY,CVD_YLL,CVD_YLD)
 
 
 # rename state.name as State
@@ -641,27 +564,26 @@ gbd_data_uncorrected_economy <- read_csv(here::here("data","CVD_DALY_YLL_YLD_201
 
 gbd_data_uncorrected_economy_forpaf <- merge(
   combined_data_relhum_forpanel,
-  gbd_data_uncorrected_economy,
+  gbd_data_uncorrected_new,
   by = c("State", "Year")
 )
 
 paf_economydata_formapviz <- gbd_data_uncorrected_economy_forpaf |>
 dplyr::select(State, Year,  avg_975,
-             DALY,YLL,YLD) |>
-filter(Year==2019) |> 
-mutate(paf_daly= round((DALY * 0.000999001)),
-       paf_yld= round(YLL * 0.002),
-       paf_yll=round(YLD * 0.002)) |> 
+             CVD_DALY,CVD_YLL,CVD_YLD) |>
+filter(Year==2021) |> 
+mutate(paf_daly= round((CVD_DALY * 0.001)),
+       paf_yld= round(CVD_YLL * 0.001),
+       paf_yll=round(CVD_YLD * 0.001)) |> 
 #dplyr::select(-CVD_Death,-avg_975) |> 
         #rename State as state
         dplyr::rename(state = State)
        
 paf_rh <- gbd_data_uncorrected_economy_forpaf |>
 dplyr::select(State, Year,  avg_975,
-             DALY,YLL,YLD) |>
-filter(Year==2019) |> 
-mutate(paf_daly_avg_rh= round((DALY * 0.000999001)),
-       paf_daly_var_rh= round((DALY * 0.003984064))) |> 
+             CVD_DALY,CVD_YLL,CVD_YLD) |>
+filter(Year==2022) |> 
+mutate(paf_daly_avg_rh= round((CVD_DALY * 0.001))) |> 
 #dplyr::select(-CVD_Death,-avg_975) |> 
         #rename State as state
         dplyr::rename(state = State)
@@ -722,7 +644,7 @@ india_paf_economy |>
   geom_text(aes(x = x, y = y, label = paf_daly), size = 3, color = "white") +
   labs(fill = "CVD DALY",
        title = "CVD DALY attributable to high average humidity in Indian states",
-       subtitle = "Year 2019") +
+       subtitle = "Year 2021") +
   theme_classic() +
   # Make x-axis and y-axis blank
   theme(axis.text.x = element_blank(),
@@ -741,7 +663,7 @@ india_paf_economy |>
   geom_text(aes(x = x, y = y, label = paf_yld), size = 3, color = "white") +
   labs(fill = "CVD YLD",
        title = "CVD YLD attributable to high average humidity in Indian states",
-       subtitle = "Year 2019") +
+       subtitle = "Year 2021") +
   theme_classic() +
   # Make x-axis and y-axis blank
   theme(axis.text.x = element_blank(),
@@ -762,7 +684,7 @@ india_paf_economy |>
   geom_text(aes(x = x, y = y, label = paf_yll), size = 3, color = "white") +
   labs(fill = "CVD YLL",
        title = "CVD YLL attributable to high average humidity in Indian states",
-       subtitle = "Year 2019") +
+       subtitle = "Year 2021") +
   theme_classic() +
   # Make x-axis and y-axis blank
   theme(axis.text.x = element_blank(),
@@ -981,412 +903,4 @@ india_paf_inci |>
 
 ```
 
-## Projection maps for 2.5th percentile of average relative humidity
 
-### CVD Deaths
-
-```{r}
-#| label: projmaps-deaths-lowaverage
-#| warning: false
-#| message: false
-
-all_forecasts_deaths <- read_csv(here::here("output", "cvd_deaths","combined_forecasts_all_states.csv"))
-
-all_forecasts_2030_deaths <- all_forecasts_deaths |>
-  dplyr::filter(Year == 2030) |>
-  mutate(paf_deaths= round((Forecasted_CVD_Deaths * 0.0099),0)) |>
-  dplyr::rename(state = State)
-
-rmarkdown::paged_table(all_forecasts_2030_deaths)
-
-```
-
-```{r}
-#| label: fig-projmaps-deaths-lowaverage
-#| echo: true
-#| layout-ncol: 1
-#| fig-height: 10
-#| fig-width: 14
-#| fig-align: center
-#| fig-cap-location: top
-#| message: false
-#| warning: false
-#| column: screen
-#| out-width: 100%
-india <- readRDS(here::here("data",
-                            "spatial_files",
-                            "India_states.rds"))
-india <- india |>
-  rename(state = NAME_1) |>
-  # recode orissa as odisha
-  mutate(state = recode(state, "Orissa" = "Odisha")) |>
-  # recode uttaranchal as uttarakhand
-  mutate(state = recode(state, "Uttaranchal" = "Uttarakhand"))
-
-
-# combine paf_data_formapviz with india based on state variable
-india_paf_deaths <- india |>
-  left_join(all_forecasts_2030_deaths, by = "state")
-india_paf_deaths <- india_paf_deaths |>
-  mutate(centroid = st_centroid(geometry)) %>%
-  mutate(x = st_coordinates(centroid)[,1],
-         y = st_coordinates(centroid)[,2])
-
-
-
-# mortality map
-india_paf_deaths |>
-  ggplot() +
-  geom_sf(aes(fill = paf_deaths)) +
-  scale_fill_gradient(low = "orange", high = "midnightblue") +
-  # Add paf on the states as text with x and y coordinates
-  geom_text(aes(x = x, y = y, label = paf_deaths), size = 3, color = "white") +
-  labs(fill = "CVD deaths",
-       title = "CVD deaths attributable to low average relative humidity in Indian states",
-       subtitle = "Year 2030") +
-  theme_classic() +
-  # Make x-axis and y-axis blank
-  theme(axis.text.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.ticks = element_blank(),
-        axis.line = element_blank())
-
-```
-
-### CVD Prevalence
-
-```{r}
-#| label: projmaps-prev-lowaverage
-#| warning: false
-#| message: false
-
-
-all_forecasts_prev <- read_csv(here::here("output", "cvd_prev","combined_forecasts_all_states.csv"))
-
-all_forecasts_2030_prev <- all_forecasts_prev |>
-  dplyr::filter(Year == 2030) |>
-  mutate(paf_prev= round((Forecasted_CVD_Prevalences * 0.0157),0)) |>
-  dplyr::rename(state = State)
-
-rmarkdown::paged_table(all_forecasts_2030_prev)
-```
-
-```{r}
-#| label: fig-projmaps-prev-lowaverage
-#| echo: true
-#| layout-ncol: 1
-#| fig-height: 10
-#| fig-width: 14
-#| fig-align: center
-#| fig-cap-location: top
-#| message: false
-#| warning: false
-#| column: screen
-#| out-width: 100%
-
-
-# combine paf_data_formapviz with india based on state variable
-india_paf_prev <- india |>
-  left_join(all_forecasts_2030_prev, by = "state")
-india_paf_prev <- india_paf_prev |>
-  mutate(centroid = st_centroid(geometry)) %>%
-  mutate(x = st_coordinates(centroid)[,1],
-         y = st_coordinates(centroid)[,2])
-
-
-
-# prevalence map
-india_paf_prev |>
-  ggplot() +
-  geom_sf(aes(fill = paf_prev)) +
-  scale_fill_gradient(low = "orange", high = "midnightblue") +
-  # Add paf on the states as text with x and y coordinates
-  geom_text(aes(x = x, y = y, label = paf_prev), size = 3, color = "white") +
-  labs(fill = "CVD prevalence",
-       title = "CVD prevalence attributable to low average relative humidity in Indian states",
-       subtitle = "Year 2030") +
-  theme_classic() +
-  # Make x-axis and y-axis blank
-  theme(axis.text.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.ticks = element_blank(),
-        axis.line = element_blank())
-
-
-
-
-
-```
-
-### CVD Incidence
-
-```{r}
-#| label: projmaps-inci-lowaverage
-#| warning: false
-#| message: false
-
-all_forecasts_incidence <- read_csv(here::here("output", "cvd_inci","combined_forecasts_all_states.csv"))
-
-all_forecasts_2030_incidence <- all_forecasts_incidence |>
-  dplyr::filter(Year == 2030) |>
-  mutate(paf_inci= round((Forecasted_CVD_Incidences * 0.0128),0)) |>
-  dplyr::rename(state = State)
-
-rmarkdown::paged_table(all_forecasts_2030_incidence)
-```
-
-```{r}
-#| label: fig-projmaps-inci-lowaverage
-#| echo: true
-#| layout-ncol: 1
-#| fig-height: 10
-#| fig-width: 14
-#| fig-align: center
-#| fig-cap-location: top
-#| message: false
-#| warning: false
-#| column: screen
-#| out-width: 100%
-
-
-# combine paf_data_formapviz with india based on state variable
-india_paf_inci <- india |>
-  left_join(all_forecasts_2030_incidence, by = "state")
-india_paf_inci <- india_paf_inci |>
-  mutate(centroid = st_centroid(geometry)) %>%
-  mutate(x = st_coordinates(centroid)[,1],
-         y = st_coordinates(centroid)[,2])
-
-
-
-# incidence map
-india_paf_inci |>
-  ggplot() +
-  geom_sf(aes(fill = paf_inci)) +
-  scale_fill_gradient(low = "orange", high = "midnightblue") +
-  # Add paf on the states as text with x and y coordinates
-  geom_text(aes(x = x, y = y, label = paf_inci), size = 3, color = "white") +
-  labs(fill = "CVD incidence",
-       title = "CVD incidence attributable to low average relative humidity in Indian states",
-       subtitle = "Year 2030") +
-  theme_classic() +
-  # Make x-axis and y-axis blank
-  theme(axis.text.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.ticks = element_blank(),
-        axis.line = element_blank())
-
-
-
-```
-
-## Projection maps for 2.5th percentile of variation in relative humidity
-
-### CVD Deaths
-
-```{r}
-#| label: projmaps-deaths-lowvariation
-#| warning: false
-#| message: false
-
-all_forecasts_deaths <- read_csv(here::here("output", "cvd_deaths","combined_forecasts_all_states.csv"))
-
-all_forecasts_2030_deaths <- all_forecasts_deaths |>
-  dplyr::filter(Year == 2030) |>
-  mutate(paf_deaths= round((Forecasted_CVD_Deaths * 0.0138),0)) |>
-  dplyr::rename(state = State)
-
-rmarkdown::paged_table(all_forecasts_2030_deaths)
-
-```
-
-```{r}
-#| label: fig-projmaps-deaths-lowvariation
-#| echo: true
-#| layout-ncol: 1
-#| fig-height: 10
-#| fig-width: 14
-#| fig-align: center
-#| fig-cap-location: top
-#| message: false
-#| warning: false
-#| column: screen
-#| out-width: 100%
-india <- readRDS(here::here("data",
-                            "spatial_files",
-                            "India_states.rds"))
-india <- india |>
-  rename(state = NAME_1) |>
-  # recode orissa as odisha
-  mutate(state = recode(state, "Orissa" = "Odisha")) |>
-  # recode uttaranchal as uttarakhand
-  mutate(state = recode(state, "Uttaranchal" = "Uttarakhand"))
-
-
-# combine paf_data_formapviz with india based on state variable
-india_paf_deaths <- india |>
-  left_join(all_forecasts_2030_deaths, by = "state")
-india_paf_deaths <- india_paf_deaths |>
-  mutate(centroid = st_centroid(geometry)) %>%
-  mutate(x = st_coordinates(centroid)[,1],
-         y = st_coordinates(centroid)[,2])
-
-
-
-# mortality map
-india_paf_deaths |>
-  ggplot() +
-  geom_sf(aes(fill = paf_deaths)) +
-  scale_fill_gradient(low = "orange", high = "midnightblue") +
-  # Add paf on the states as text with x and y coordinates
-  geom_text(aes(x = x, y = y, label = paf_deaths), size = 3, color = "white") +
-  labs(fill = "CVD deaths",
-       title = "CVD deaths attributable to low variation in relative humidity in Indian states",
-       subtitle = "Year 2030") +
-  theme_classic() +
-  # Make x-axis and y-axis blank
-  theme(axis.text.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.ticks = element_blank(),
-        axis.line = element_blank())
-
-```
-
-### CVD Prevalence
-
-```{r}
-#| label: projmaps-prev-lowvariation
-#| warning: false
-#| message: false
-
-
-all_forecasts_prev <- read_csv(here::here("output", "cvd_prev","combined_forecasts_all_states.csv"))
-
-all_forecasts_2030_prev <- all_forecasts_prev |>
-  dplyr::filter(Year == 2030) |>
-  mutate(paf_prev= round((Forecasted_CVD_Prevalences * 0.0138),0)) |>
-  dplyr::rename(state = State)
-
-rmarkdown::paged_table(all_forecasts_2030_prev)
-```
-
-```{r}
-#| label: fig-projmaps-prev-lowvariation
-#| echo: true
-#| layout-ncol: 1
-#| fig-height: 10
-#| fig-width: 14
-#| fig-align: center
-#| fig-cap-location: top
-#| message: false
-#| warning: false
-#| column: screen
-#| out-width: 100%
-
-
-# combine paf_data_formapviz with india based on state variable
-india_paf_prev <- india |>
-  left_join(all_forecasts_2030_prev, by = "state")
-india_paf_prev <- india_paf_prev |>
-  mutate(centroid = st_centroid(geometry)) %>%
-  mutate(x = st_coordinates(centroid)[,1],
-         y = st_coordinates(centroid)[,2])
-
-
-
-# prevalence map
-india_paf_prev |>
-  ggplot() +
-  geom_sf(aes(fill = paf_prev)) +
-  scale_fill_gradient(low = "orange", high = "midnightblue") +
-  # Add paf on the states as text with x and y coordinates
-  geom_text(aes(x = x, y = y, label = paf_prev), size = 3, color = "white") +
-  labs(fill = "CVD prevalence",
-       title = "CVD prevalence attributable to low variation in relative humidity in Indian states",
-       subtitle = "Year 2030") +
-  theme_classic() +
-  # Make x-axis and y-axis blank
-  theme(axis.text.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.ticks = element_blank(),
-        axis.line = element_blank())
-
-
-
-
-
-```
-
-### CVD Incidence
-
-```{r}
-#| label: projmaps-inci-lowvariation
-#| warning: false
-#| message: false
-
-all_forecasts_incidence <- read_csv(here::here("output", "cvd_inci","combined_forecasts_all_states.csv"))
-
-all_forecasts_2030_incidence <- all_forecasts_incidence |>
-  dplyr::filter(Year == 2030) |>
-  mutate(paf_inci= round((Forecasted_CVD_Incidences * 0.01088),0)) |>
-  dplyr::rename(state = State)
-
-rmarkdown::paged_table(all_forecasts_2030_incidence)
-```
-
-```{r}
-#| label: fig-projmaps-inci-lowvariation
-#| echo: true
-#| layout-ncol: 1
-#| fig-height: 10
-#| fig-width: 14
-#| fig-align: center
-#| fig-cap-location: top
-#| message: false
-#| warning: false
-#| column: screen
-#| out-width: 100%
-
-
-# combine paf_data_formapviz with india based on state variable
-india_paf_inci <- india |>
-  left_join(all_forecasts_2030_incidence, by = "state")
-india_paf_inci <- india_paf_inci |>
-  mutate(centroid = st_centroid(geometry)) %>%
-  mutate(x = st_coordinates(centroid)[,1],
-         y = st_coordinates(centroid)[,2])
-
-
-
-# incidence map
-india_paf_inci |>
-  ggplot() +
-  geom_sf(aes(fill = paf_inci)) +
-  scale_fill_gradient(low = "orange", high = "midnightblue") +
-  # Add paf on the states as text with x and y coordinates
-  geom_text(aes(x = x, y = y, label = paf_inci), size = 3, color = "white") +
-  labs(fill = "CVD incidence",
-       title = "CVD incidence attributable to low variation in relative humidity in Indian states",
-       subtitle = "Year 2030") +
-  theme_classic() +
-  # Make x-axis and y-axis blank
-  theme(axis.text.x = element_blank(),
-        axis.text.y = element_blank(),
-        axis.title.x = element_blank(),
-        axis.title.y = element_blank(),
-        axis.ticks = element_blank(),
-        axis.line = element_blank())
-
-
-
-```

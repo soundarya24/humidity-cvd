@@ -24,14 +24,16 @@ write_csv(daly_totalburden_inthousands_cvd, here::here("data","daly_totalburden_
 
 # bar charts
 daly_totalburden_inthousands_cvd |> 
-  ggplot(aes(x=reorder(state, economic_burden_2019), y=economic_burden_2019))+
+  ggplot(aes(x=reorder(state, economic_burden_2019), y=economic_burden_2019/10000))+
   geom_bar(stat="identity")+
   coord_flip()+
-  labs(title="Economic burden of CVD in India in 2019",
+  labs(title="Economic burden of CVD in India in 2019 due to high humidity",
        x="State",
-       y="Economic burden in thousands")+
+       y="Economic burden in crores")+
   theme_minimal()+
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  # using scales add crores in y axis as suffix,
+scale_y_continuous(labels = scales::label_number(suffix = " crores"))+
+    theme(axis.text.x = element_text(angle = 0, hjust = 1))
 
 # sum up all states and calculate a value for india
 india_totalburden_inthousands_cvd <- daly_totalburden_inthousands_cvd |> 

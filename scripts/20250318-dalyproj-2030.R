@@ -3,7 +3,7 @@ pacman::p_load("forecast")
 library(readr)
 library(tidyverse)
 library(readxl)  
-gbd_data_uncorrected <- read_excel(here::here("data","CVD_DALY_YLL_YLD_2011-2019_Statewise_Uncorrected.xlsx") )
+gbd_data_uncorrected <- read_excel(here::here("data","CVD_DALY_YLD_YLL_1990-2021_per100k.xlsx") )
 View(gbd_data_uncorrected)
 names(gbd_data_uncorrected)
 gbd_data_uncorrected <- janitor::clean_names(gbd_data_uncorrected)
@@ -11,7 +11,7 @@ gbd_data_uncorrected <- janitor::clean_names(gbd_data_uncorrected)
 names(gbd_data_uncorrected)
 # change variable names to State, Year and DALY
 gbd_data_uncorrected <- gbd_data_uncorrected |>
-  dplyr::rename(State = location_12, Year = year_7, CVD_DALY = daly_val) |> 
+  dplyr::rename(State = location, Year = year, CVD_DALY = cvd_daly) |> 
   dplyr::select(State, Year, CVD_DALY)
 
 
@@ -42,12 +42,12 @@ for (state in states) {
   fit_state <- auto.arima(state_ts)
   
   # Forecast next 11 years
-  forecasted_values <- forecast(fit_state, 11)
+  forecasted_values <- forecast(fit_state, 10)
   
   # Convert forecasted values to a data frame
   forecasted_df <- data.frame(
     State = state,
-    Year = 2020:2030,
+    Year = 2022:2031,
     Forecasted_CVD_DALY = as.numeric(forecasted_values$mean),
     Lower_80 = as.numeric(forecasted_values$lower[, 1]),
     Upper_80 = as.numeric(forecasted_values$upper[, 1]),
@@ -71,17 +71,17 @@ cat("All state forecasts have been combined and saved.\n")
 
 all_forecasts <- read_csv(here::here("output", "daly_proj","combined_forecasts_daly_all_states.csv"))
 
-# extract only 2030 data for everything
+# extract only 2031 data for everything
 
-all_forecasts_2030 <- all_forecasts |>
-  dplyr::filter(Year == 2030) |> 
+all_forecasts_2031 <- all_forecasts |>
+  dplyr::filter(Year == 2031) |> 
   dplyr::select(State, Forecasted_CVD_DALY, Year) |> 
   mutate(Forecasted_CVD_DALY= round(Forecasted_CVD_DALY,0))
 
-all_forecasts_2030 <- all_forecasts_2030 |>
-  #dplyr::filter(Year == 2030) |>
-  mutate(paf= round((Forecasted_CVD_DALY * 0.001),0)) |>
+all_forecasts_2031 <- all_forecasts_2031 |>
+  #dplyr::filter(Year == 2031) |>
+  mutate(paf_daly= round((Forecasted_CVD_DALY * 0.001),0)) |>
   dplyr::rename(state = State)
 
-write_csv(all_forecasts_2030, here::here("output", "daly_proj","daly_forecoasts_2030.csv"))
+write_csv(all_forecasts_2031, here::here("output", "daly_proj","daly_forecoasts_2031.csv"))
 
