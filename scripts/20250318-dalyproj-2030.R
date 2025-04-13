@@ -42,12 +42,12 @@ for (state in states) {
   fit_state <- auto.arima(state_ts)
   
   # Forecast next 11 years
-  forecasted_values <- forecast(fit_state, 10)
+  forecasted_values <- forecast(fit_state, 9)
   
   # Convert forecasted values to a data frame
   forecasted_df <- data.frame(
     State = state,
-    Year = 2022:2031,
+    Year = 2023:2031,
     Forecasted_CVD_DALY = as.numeric(forecasted_values$mean),
     Lower_80 = as.numeric(forecasted_values$lower[, 1]),
     Upper_80 = as.numeric(forecasted_values$upper[, 1]),

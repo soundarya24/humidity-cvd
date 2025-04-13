@@ -9,6 +9,11 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r}
+timestamp(prefix = "This analysis was rendered on ", suffix = ".")
+
+```
+
 ## Data loading
 
 ```{r}
