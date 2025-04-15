@@ -475,6 +475,7 @@ source(here::here(
 
 ```
 
+## Total economic burden attributable to high average relative humidity - 2021
 
 ```{r}
 #| label: fig-totaleconburden-2021
