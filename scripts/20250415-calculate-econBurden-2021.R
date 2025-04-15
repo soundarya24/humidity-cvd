@@ -44,3 +44,4 @@ total_daly_costcal_2021 |>
   scale_y_continuous(labels = scales::label_number(prefix = "\u20B9", scale = 1)) +  # ₹
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 0, hjust = 1))
+
