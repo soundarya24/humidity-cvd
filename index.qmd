@@ -462,7 +462,7 @@ india_paf_economy |>
 
 ```
 
-------------------------------------------------------------------------
+
 
 ```{r}
 #| label: sourcefiles
@@ -488,8 +488,7 @@ source(here::here(
 #| fig-cap-location: top
 #| message: false
 #| warning: false
-#| column: screen
-#| out-width: 100%
+
 #  visualize total econ burden in all states by bar charts
 
 total_daly_costcal_2021 |> 
@@ -504,7 +503,11 @@ total_daly_costcal_2021 |>
        y="Total cost (INR)") +
   scale_y_continuous(labels = scales::label_number(prefix = "\u20B9", scale = 1)) +  # ₹
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 0, hjust = 1))
+  theme(axis.text.x = element_text(angle = 0, hjust = 1),
+        axis.text.y = element_text(size = 10),
+        axis.title.x = element_text(size = 12),
+        axis.title.y = element_text(size = 12),
+        plot.title = element_text(hjust = 0.5, size = 14))
 
 
 ```
