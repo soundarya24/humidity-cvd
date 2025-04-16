@@ -148,7 +148,7 @@ ggcorrplot(correlation_matrix,
            insig = "blank")
 ```
 
-*This matrix shows pairwise correlations among various humidity metrics (average, median, mode, minimum, maximum, variation) at the 2.5th and 97.5th percentiles. Only statistically significant correlations are displayed, indicating strong associations among several metrics. Based on this analysis, both 2.5 and 97.5 percentiles of the average humidity were selected for further analysis. This is to minimize multicollinearity and retain representative variability in the downstream panel regression.*
+@fig-corrplot *matrix shows pairwise correlations among various humidity metrics (average, median, mode, minimum, maximum, variation) at the 2.5th and 97.5th percentiles. Only statistically significant correlations are displayed, indicating strong associations among several metrics. Based on this analysis, both 2.5 and 97.5 percentiles of the average humidity were selected for further analysis. This is to minimize multicollinearity and retain representative variability in the downstream panel regression.*
 
 ------------------------------------------------------------------------
 
@@ -182,7 +182,7 @@ combined_data |>
 
 ```
 
-@fig-relhumsummaries-1 illustrates the trends in the 2.5th and 97.5th percentiles of daily humidity for each year across Indian states from 2011 to 2021. The 2.5th percentile of annual daily humidity remains consistently below 25% across all states. The lowest value was observed in Gujarat in 2011 (13.8%), while the highest value at this percentile was recorded in Tamil Nadu in 2021 (22.1%). This indicates a limited range of variation at the lower end of the humidity spectrum across states. The 97.5th percentile of annual daily humidity showed a wider range of variability across states, with the lowest value recorded in Odisha in 2011 (37.3%) and the highest value in Uttarakhand in 2021 (87.2%). While most states consistently recorded values below 75%, certain states crossed this threshold in specific years. For instance, Uttarakhand, Sikkim, Rajasthan, Punjab, Haryana, Himachal Pradesh, Delhi, Bihar, and Arunachal Pradesh recorded 97.5th percentile values above 75% in 2021. Similarly, northeastern states like Nagaland, Meghalaya, and Manipur crossed this threshold in 2013. These observations indicate episodic peaks in maximum humidity levels in certain states, particularly during the later years of the study period.
+@fig-relhumsummaries *illustrates the trends in the 2.5th and 97.5th percentiles of daily humidity for each year across Indian states from 2011 to 2021. The 2.5th percentile of annual daily humidity remains consistently below 25% across all states. The lowest value was observed in Gujarat in 2011 (13.8%), while the highest value at this percentile was recorded in Tamil Nadu in 2021 (22.1%). This indicates a limited range of variation at the lower end of the humidity spectrum across states. The 97.5th percentile of annual daily humidity showed a wider range of variability across states, with the lowest value recorded in Odisha in 2011 (37.3%) and the highest value in Uttarakhand in 2021 (87.2%). While most states consistently recorded values below 75%, certain states crossed this threshold in specific years. For instance, Uttarakhand, Sikkim, Rajasthan, Punjab, Haryana, Himachal Pradesh, Delhi, Bihar, and Arunachal Pradesh recorded 97.5th percentile values above 75% in 2021. Similarly, northeastern states like Nagaland, Meghalaya, and Manipur crossed this threshold in 2013. These observations indicate episodic peaks in maximum humidity levels in certain states, particularly during the later years of the study period.*
 
 ------------------------------------------------------------------------
 
@@ -401,6 +401,10 @@ write_rds(x = paf_economydata_formapviz,file = here::here(
 
 ```{r}
 rmarkdown::paged_table(paf_economydata_formapviz)
+```
+
+```{r}
+#| label: fig-absdaly-2021
 paf_economydata_formapviz |> 
   ggplot(
 aes(x = reorder(state,paf_daly_avghum975), y = paf_daly_avghum975)) +
@@ -419,22 +423,15 @@ aes(x = reorder(state,paf_daly_avghum975), y = paf_daly_avghum975)) +
         plot.title = element_text(hjust = 0.5, size = 14))
 ```
 
+@fig-absdaly-2021 *Cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributable to high average relative humidity across Indian states in 2021. Values represent absolute DALY counts (not standardized per 100,000 population) derived from the GBD uncorrected dataset. Attributable DALYs were estimated by applying population-attributable fractions (PAFs), based on exposure–response relationships, to total CVD DALYs. The figure highlights marked inter-state variation, with Uttar Pradesh, Maharashtra, and West Bengal bearing the highest humidity-linked disease burden.*
+
   
 ## CVD burden attributable to high average humidity in 2021
 
 ```{r}
-#| label: fig-pafmap-economy
+#| label: rh-pafmap-economy
 #| echo: true
-#| layout-ncol: 1
-#| fig-cap: CVD burden attributable to high average humidity in Indian states
-#| fig-height: 10
-#| fig-width: 14
-#| fig-align: center
-#| fig-cap-location: top
-#| message: false
-#| warning: false
-#| column: screen
-#| out-width: 100%
+
 
 library(sf)
 library(tidyverse)
@@ -457,8 +454,20 @@ india_paf_economy <- india_paf_economy |>
         mutate(centroid = st_centroid(geometry)) %>% 
   mutate(x = st_coordinates(centroid)[,1], 
          y = st_coordinates(centroid)[,2])
+```
 
-
+```{r}
+#| label: fig-map-2021-absdaly
+#| layout-ncol: 1
+#| fig-cap: CVD burden attributable to high average humidity in Indian states
+#| fig-height: 10
+#| fig-width: 14
+#| fig-align: center
+#| fig-cap-location: top
+#| message: false
+#| warning: false
+#| column: screen
+#| out-width: 100%
 # DALY map
 india_paf_economy |> 
   ggplot() +
@@ -481,6 +490,7 @@ india_paf_economy |>
 
 ```
 
+@fig-map-2021-absdaly *State-wise distribution of cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributable to high average relative humidity in India, 2021. Absolute DALY counts were calculated using uncorrected Global Burden of Disease (GBD) 2021 data and population-attributable fractions (PAFs) based on exposure–response estimates. Values are presented as total DALYs (not standardized per 100,000 population). States are color-coded according to the magnitude of humidity-attributable CVD DALYs, with darker shades indicating higher burden. Uttar Pradesh, Maharashtra, and West Bengal exhibited the highest values, reflecting substantial climate-linked health impacts.*
 
 
 ```{r}
@@ -530,4 +540,14 @@ total_daly_costcal_2021 |>
 
 
 ```
+
+@fig-totaleconburden-2021 *Total economic burden attributable to high average relative humidity across Indian states in 2021. This figure displays state-wise estimates of total economic burden (in Indian Rupees) linked to cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributed to high average relative humidity. The economic burden was computed by multiplying absolute attributable DALY counts (from the GBD uncorrected dataset) with the estimated cost per DALY for 2021. The highest costs were observed in West Bengal, Maharashtra, and Tamil Nadu, reflecting both high DALY burden and high cost-per-case in these states.*
+
+```{r}
+totaleconburden_2021_relhum <- total_daly_costcal_2021 |> 
+  drop_na(totalcost_relhumhigh) |> 
+  summarise(totaleconburden = sum(totalcost_relhumhigh, na.rm = TRUE))
+```
+
+There was a total economic burden of **`r scales::label_number(prefix = "\u20B9", scale = 1)(totaleconburden_2021_relhum$totaleconburden)`** in 2021 due to high average relative humidity across Indian states. This estimate is based on the **DALY** attributable to high average relative humidity and the cost per DALY.
 
