@@ -9,29 +9,52 @@ editor_options:
 
 # Next Steps {.panel .panel-set}
 
-
 ::: {.callout-tip collapse="true" appearance="default"}
 ## 🔄 In waitlist {.panel .panel-collapse}
 
-- IRRs for selected humidity variables and CVD mortality and morbidity to be appended.
+-   IRRs for selected humidity variables and CVD mortality and morbidity to be appended.
 :::
 
 ::: {.callout-note collapse="true" appearance="default"}
 ## ✅ Completed
 
-### Objective 1: Exposure–Response Estimates (IRRs)
+### Humdity
 
-- IRRs for CVD DALY, YLD, and YLL now available as cleaned tables.
+#### Objective 1: Exposure–Response Estimates (IRRs)
 
-### Objective 2: 2021 Economic Burden Estimation
-- Total CVD DALYs attributable to high average humidity calculated for 2021.
-- Visualized as Indian maps, bar charts, and absolute-value tables.
-- Multiplied DALYs with cost per DALY (CpD_2021) to estimate total economic burden.
-- Results available as clean bar charts and aggregated national summary (₹5,303,262,176).
+-   IRRs for CVD DALY, YLD, and YLL now available as cleaned tables.
 
-### Objective 3: 2030 Projections
-- Projected CVD DALYs attributable to high average humidity for 2030 using ARIMA.
-- Projected CpD_2030 using compound growth rate from 2021.
-- Estimated total economic burden for 2030 now available via bar charts and tables (₹7,763,493,377).
-- Represents a **46.4% increase** in burden from 2021 to 2030.
+#### Objective 2: 2021 Economic Burden Estimation
+
+-   Total CVD DALYs attributable to high average humidity calculated for 2021.
+-   Visualized as Indian maps, bar charts, and absolute-value tables.
+-   Multiplied DALYs with cost per DALY (CpD_2021) to estimate total economic burden.
+-   Results available as clean bar charts and aggregated national summary (₹5,303,262,176).
+
+#### Objective 3: 2030 Projections
+
+-   Projected CVD DALYs attributable to high average humidity for 2030 using ARIMA.
+-   Projected CpD_2030 using compound growth rate from 2021.
+-   Estimated total economic burden for 2030 now available via bar charts and tables (₹7,763,493,377).
+-   Represents a **46.4% increase** in burden from 2021 to 2030.
+
+### Temperature
+
+#### Objective 1: Exposure–Response Estimates (IRRs)
+
+-   IRRs for CVD DALY, YLD, and YLL now available as cleaned tables.
+
+#### Objective 2: 2021 Economic Burden Estimation
+
+-   Total CVD DALYs attributable to high average temperature calculated for 2021.
+-   Visualized as Indian maps, bar charts, and absolute-value tables.
+-   Multiplied DALYs with cost per DALY (CpD_2021) to estimate total economic burden.
+-   Results available as clean bar charts and aggregated national summary (₹42,947,335,297).
+
+#### Objective 3: 2030 Projections
+
+-   Projected CVD DALYs attributable to high average temperature for 2030 using ARIMA.
+-   Projected CpD_2030 using compound growth rate from 2021.
+-   Estimated total economic burden for 2030 now available via bar charts and tables (₹62,109,927,686).
+-   Represents a **44.6% increase** in burden from 2021 to 2030.
 :::

@@ -81,6 +81,8 @@ all_forecasts_2030 <- all_forecasts |>
   dplyr::select(State, Forecasted_CVD_DALY, Year) |> 
   mutate(Forecasted_CVD_DALY= round(Forecasted_CVD_DALY,0))
 
+
+# for relative humidity
 all_forecasts_2030 <- all_forecasts_2030 |>
   #dplyr::filter(Year == 2030) |>
   mutate(paf_daly_proj2030= round((Forecasted_CVD_DALY * 0.001),0)) |>
@@ -90,3 +92,17 @@ all_forecasts_2030 <- all_forecasts_2030 |>
 write_csv(all_forecasts_2030, here::here("output", "daly-projections","absDALY2030_rh.csv"))
 # save as rds
 saveRDS(all_forecasts_2030, here::here("output", "daly-projections","absDALY2030_rh.rds"))
+
+# for temperature
+
+source(here::here("scripts", "20250416-function-paf-from-irr.R"))
+calc_paf_from_irr(1.008164)
+all_forecasts_2030_temp <- all_forecasts_2030 |>
+  #dplyr::filter(Year == 2030) |>
+  mutate(paf_daly_proj2030_avg975temp= round((Forecasted_CVD_DALY * 0.008),0)) 
+
+# save as csv
+write_csv(all_forecasts_2030_temp, here::here("output", "daly-projections","absDALY2030_temp.csv"))
+
+# save as rds
+saveRDS(all_forecasts_2030_temp, here::here("output", "daly-projections","absDALY2030_temp.rds"))
