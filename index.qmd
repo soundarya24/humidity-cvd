@@ -400,7 +400,7 @@ write_rds(x = paf_economydata_formapviz,file = here::here(
 ```
 
 ## 2021 - Humidity
-  
+
 ### CVD DALY attributable to high average humidity in 2021
 
 #### As table
@@ -533,7 +533,6 @@ india_paf_economy |>
 
 @fig-map-2021-absdaly *State-wise distribution of cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributable to high average relative humidity in India, 2021. Absolute DALY counts were calculated using uncorrected Global Burden of Disease (GBD) 2021 data and population-attributable fractions (PAFs) based on exposure–response estimates. Values are presented as total DALYs (not standardized per 100,000 population). States are color-coded according to the magnitude of humidity-attributable CVD DALYs, with darker shades indicating higher burden. Uttar Pradesh, Maharashtra, and West Bengal exhibited the highest values, reflecting substantial climate-linked health impacts.*
 
-
 ```{r}
 #| label: sourcefiles
 #| echo: false
@@ -615,16 +614,11 @@ totaleconburden_2021_relhum <- total_daly_costcal_2021 |>
   summarise(totaleconburden = sum(totalcost_relhumhigh, na.rm = TRUE))
 ```
 
-::: {.callout-tip}
-
+::: callout-tip
 ### India Total Economic Burden in 2021 due to High Average Humidity
 
 There was a total economic burden of **`r scales::label_number(prefix = "\u20B9", scale = 1)(totaleconburden_2021_relhum$totaleconburden)`** in 2021 due to high average relative humidity across Indian states. This estimate is based on the **DALY** attributable to high average relative humidity and the cost per DALY.
-
 :::
-
-
-
 
 ## 2030 Projections - Humidity
 
@@ -636,17 +630,15 @@ There was a total economic burden of **`r scales::label_number(prefix = "\u20B9"
 absDALY2030 <- readRDS(here::here("output","daly-projections","absDALY2030_rh.rds"))
 ```
 
-
 #### As table
 
 ```{r}
 rmarkdown::paged_table(absDALY2030)
 ```
 
-
 #### As bar charts
 
-```{r}  
+```{r}
 #| label: fig-absdaly-2030
 #| layout-ncol: 1
 #| fig-cap: Projected CVD DALY attributable to high average relative humidity 2030
@@ -697,7 +689,6 @@ absDALY2030 |>
 ```
 
 @fig-absdaly-2030 *Projected cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributable to high average relative humidity across Indian states in 2030. Values represent absolute DALY counts (not standardized per 100,000 population) derived from the GBD uncorrected dataset. Attributable DALYs were estimated by applying population-attributable fractions (PAFs), based on exposure–response relationships, to total CVD DALYs. The figure highlights marked inter-state variation, with Uttar Pradesh, Maharashtra, and West Bengal bearing the highest humidity-linked disease burden.*
-
 
 #### As India maps
 
@@ -775,15 +766,12 @@ india_paf_economy_2030 |>
 
 @fig-map-2030-absdaly *Projected state-wise distribution of cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributable to high average relative humidity in India, 2030. DALY counts were projected using uncorrected Global Burden of Disease (GBD) 2021 data and multiplied with population-attributable fractions (PAFs) based on exposure–response estimates. Values are presented as total DALYs (not standardized per 100,000 population). States are color-coded according to the magnitude of humidity-attributable CVD DALYs, with darker shades indicating higher burden. Uttar Pradesh, Maharashtra, and West Bengal exhibited the highest values, reflecting both high DALY burden and high cost-per-case in these states.*
 
-
-
 ```{r}
 #| label: import2030tebdata
 # import data from output/total-econ-burden-projections using here
 
 totaleconBurden_2030_data <- readRDS(here::here("output","total-econ-burden-projections","rh_daly_totalburden_cvd_2030.rds"))
 ```
-
 
 ### Total economic burden attributable to high average relative humidity - 2030
 
@@ -847,7 +835,7 @@ totaleconBurden_2030_data |>
 
 ```
 
-@fig-totaleconburden-2030 *Projected Total economic burden attributable to high average relative humidity across Indian states in 2030. This figure displays state-wise estimates of projected total economic burden (in Indian Rupees) linked to cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributed to high average relative humidity. The projections in economic burden was computed by doing ARIMA models and multiplying absolute attributable DALY counts (from the GBD uncorrected dataset) with the estimated cost per DALY for 2030(projected). The highest costs were observed in  Maharashtra,West Bengal and Tamil Nadu, reflecting both high DALY burden and high cost-per-case in these states.*
+@fig-totaleconburden-2030 *Projected Total economic burden attributable to high average relative humidity across Indian states in 2030. This figure displays state-wise estimates of projected total economic burden (in Indian Rupees) linked to cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributed to high average relative humidity. The projections in economic burden was computed by doing ARIMA models and multiplying absolute attributable DALY counts (from the GBD uncorrected dataset) with the estimated cost per DALY for 2030(projected). The highest costs were observed in Maharashtra,West Bengal and Tamil Nadu, reflecting both high DALY burden and high cost-per-case in these states.*
 
 ```{r}
 totaleconburden_2030_relhum <- totaleconBurden_2030_data |> 
@@ -859,24 +847,14 @@ percentage_increase_inteb_relhum <- ((totaleconburden_2030_relhum$totaleconburde
 
 ```
 
-
-::: {.callout-tip}
-
+::: callout-tip
 ### Projected Total Economic Burden in 2030 in India due to High Average Humidity
 
 There will be a total economic burden of **`r scales::label_number(prefix = "\u20B9", scale = 1)(totaleconburden_2030_relhum$totaleconburden)`** in 2030 due to high average relative humidity across Indian states. This estimate is based on the projections derived from **DALY** attributable to high average relative humidity and the cost per DALY.
-
-
-
 :::
 
-
-::: {.callout-caution}
-
+::: callout-caution
 ### Projected Increase in Economic Burden from 2021 to 2030
 
 This reflects a projected increase of approximately **`r round(percentage_increase_inteb_relhum, 2)`**% in the total economic burden attributable to high average relative humidity across Indian states from 2021 to 2030.
-
 :::
-
-
