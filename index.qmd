@@ -413,22 +413,46 @@ rmarkdown::paged_table(paf_economydata_formapviz)
 
 ```{r}
 #| label: fig-absdaly-2021
+#| layout-ncol: 1
+#| fig-cap: CVD DALY attributable to high average relative humidity 2021
+#| fig-height: 10
+#| fig-width: 14
+#| fig-align: center
+#| fig-cap-location: top
+#| message: false
+#| warning: false
+#| column: screen
+#| out-width: 100%
+
 paf_economydata_formapviz |> 
   ggplot(
 aes(x = reorder(state,paf_daly_avghum975), y = paf_daly_avghum975)) +
-  geom_bar(stat = "identity") +
-  coord_flip() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  labs(title="CVD DALY attributable to high average humidity in Indian states",
+  
+  # Bars
+  geom_bar(stat = "identity", fill = "darkgrey") +
+
+  # Labels: absolute DALY numbers at tail (outside bars)
+  geom_text(aes(label = round(paf_daly_avghum975)), 
+            hjust = -0.1, size = 4, color = "black") +
+
+  # Flip for horizontal bars
+  coord_flip(clip = "off") +  # allow labels beyond plot area
+
+  labs(title="CVD DALY attributable to high average humidity in Indian states - 2021",
        x="States",
        y="CVD DALY") +
-  scale_y_continuous() +  
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 0, hjust = 1),
-        axis.text.y = element_text(size = 10),
-        axis.title.x = element_text(size = 12),
-        axis.title.y = element_text(size = 12),
-        plot.title = element_text(hjust = 0.5, size = 14))
+  
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +  # add space for text on right
+  
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 18, face = "bold"),
+    axis.text.y = element_text(size = 11),
+    axis.text.x = element_text(size = 11),
+    axis.title.x = element_text(size = 13),
+    axis.title.y = element_text(size = 13),
+    plot.margin = margin(10, 30, 10, 10)  # top, right, bottom, left
+  )
 ```
 
 @fig-absdaly-2021 *Cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributable to high average relative humidity across Indian states in 2021. Values represent absolute DALY counts (not standardized per 100,000 population) derived from the GBD uncorrected dataset. Attributable DALYs were estimated by applying population-attributable fractions (PAFs), based on exposure–response relationships, to total CVD DALYs. The figure highlights marked inter-state variation, with Uttar Pradesh, Maharashtra, and West Bengal bearing the highest humidity-linked disease burden.*
@@ -438,8 +462,16 @@ aes(x = reorder(state,paf_daly_avghum975), y = paf_daly_avghum975)) +
 ```{r}
 #| label: rh-pafmap-economy
 #| echo: true
-#| warning: false
+#| layout-ncol: 1
+#| fig-cap: CVD DALY attributable to high average relative humidity 2021
+#| fig-height: 10
+#| fig-width: 14
+#| fig-align: center
+#| fig-cap-location: top
 #| message: false
+#| warning: false
+#| column: screen
+#| out-width: 100%
 
 
 library(sf)
@@ -539,7 +571,7 @@ total_daly_costcal_2021 |>
              y = totalcost_relhumhigh)) +
   
   # Bar plot
-  geom_bar(stat = "identity", fill = "steelblue") +
+  geom_bar(stat = "identity", fill = "darkgrey") +
   
   # Label at the tail end, just outside the bar
   geom_text(aes(label = paste0("\u20B9", round(totalcost_relhumhigh / 1e7, 1), " Cr")),
@@ -584,7 +616,8 @@ totaleconburden_2021_relhum <- total_daly_costcal_2021 |>
 ```
 
 ::: {.callout-tip}
-## India Total Economic Burden in 2021 due to High Average Humidity
+
+### India Total Economic Burden in 2021 due to High Average Humidity
 
 There was a total economic burden of **`r scales::label_number(prefix = "\u20B9", scale = 1)(totaleconburden_2021_relhum$totaleconburden)`** in 2021 due to high average relative humidity across Indian states. This estimate is based on the **DALY** attributable to high average relative humidity and the cost per DALY.
 
@@ -594,5 +627,256 @@ There was a total economic burden of **`r scales::label_number(prefix = "\u20B9"
 
 
 ## 2030 Projections - Humidity
+
+### CVD DALY attributable to high average humidity in 2030
+
+```{r}
+# import data from output/total-econ-burden-projections using here
+
+absDALY2030 <- readRDS(here::here("output","daly-projections","absDALY2030_rh.rds"))
+```
+
+
+#### As table
+
+```{r}
+rmarkdown::paged_table(absDALY2030)
+```
+
+
+#### As bar charts
+
+```{r}  
+#| label: fig-absdaly-2030
+#| layout-ncol: 1
+#| fig-cap: Projected CVD DALY attributable to high average relative humidity 2030
+#| fig-height: 10
+#| fig-width: 14
+#| fig-align: center
+#| fig-cap-location: top
+#| message: false
+#| warning: false
+#| column: screen
+#| out-width: 100%
+
+
+absDALY2030 |> 
+  ggplot(aes(x = reorder(state, paf_daly_proj2030), 
+             y = paf_daly_proj2030)) +
+  
+  # Bars
+  geom_bar(stat = "identity", fill = "steelblue") +
+
+  # Labels: absolute DALY numbers at tail (outside bars)
+  geom_text(aes(label = round(paf_daly_proj2030)), 
+            hjust = -0.1, size = 4, color = "black") +
+
+  # Flip for horizontal bars
+  coord_flip(clip = "off") +  # allow labels beyond plot area
+
+  # Labels and theme
+  labs(
+    title = "Projected CVD DALY attributable to high average humidity in Indian states - 2030",
+    x = "States",
+    y = "CVD DALY"
+  ) +
+  
+  scale_y_continuous(expand = expansion(mult = c(0, 0.1))) +  # add space for text on right
+  
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 18, face = "bold"),
+    axis.text.y = element_text(size = 11),
+    axis.text.x = element_text(size = 11),
+    axis.title.x = element_text(size = 13),
+    axis.title.y = element_text(size = 13),
+    plot.margin = margin(10, 30, 10, 10)  # top, right, bottom, left
+  )
+
+
+```
+
+@fig-absdaly-2030 *Projected cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributable to high average relative humidity across Indian states in 2030. Values represent absolute DALY counts (not standardized per 100,000 population) derived from the GBD uncorrected dataset. Attributable DALYs were estimated by applying population-attributable fractions (PAFs), based on exposure–response relationships, to total CVD DALYs. The figure highlights marked inter-state variation, with Uttar Pradesh, Maharashtra, and West Bengal bearing the highest humidity-linked disease burden.*
+
+
+#### As India maps
+
+```{r}
+#| label: map-2030-absdaly
+#| echo: true
+#| layout-ncol: 1
+#| fig-cap: Projected CVD DALY attributable to high average relative humidity 2030
+#| fig-height: 10
+#| fig-width: 14
+#| fig-align: center
+#| fig-cap-location: top
+#| message: false
+#| warning: false
+#| column: screen
+#| out-width: 100%
+
+
+library(sf)
+library(tidyverse)
+
+india <- readRDS(here::here("data",
+                            "spatial_files", 
+                            "India_states.rds"))
+india <- india |> 
+        rename(state = NAME_1) |> 
+        # recode orissa as odisha
+        mutate(state = recode(state, "Orissa" = "Odisha")) |> 
+# recode uttaranchal as uttarakhand
+        mutate(state = recode(state, "Uttaranchal" = "Uttarakhand")) 
+
+
+# combine paf_data_formapviz with india based on state variable
+india_paf_economy_2030 <- india |> 
+  left_join(absDALY2030, by = "state")
+india_paf_economy_2030 <- india_paf_economy_2030 |> 
+        mutate(centroid = st_centroid(geometry)) %>% 
+  mutate(x = st_coordinates(centroid)[,1], 
+         y = st_coordinates(centroid)[,2])
+```
+
+```{r}
+#| label: fig-map-2030-absdaly
+#| layout-ncol: 1
+#| fig-cap: Projected CVD burden attributable to high average humidity in Indian states - 2030
+#| fig-height: 10
+#| fig-width: 14
+#| fig-align: center
+#| fig-cap-location: top
+#| message: false
+#| warning: false
+#| column: screen
+#| out-width: 100%
+# DALY map
+india_paf_economy_2030 |> 
+  ggplot() +
+  geom_sf(aes(fill = paf_daly_proj2030)) +
+  scale_fill_gradient(low = "orange", high = "midnightblue") +
+  # Add paf on the states as text with x and y coordinates
+  geom_text(aes(x = x, y = y, label = paf_daly_proj2030), size = 3, color = "white") +
+  labs(fill = "CVD DALY",
+       title = "Projected CVD DALY attributable to high average humidity in Indian states",
+       subtitle = "Year 2030") +
+  theme_classic() +
+  # Make x-axis and y-axis blank
+  theme(axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.ticks = element_blank(),
+        axis.line = element_blank())
+
+
+```
+
+@fig-map-2030-absdaly *Projected state-wise distribution of cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributable to high average relative humidity in India, 2030. DALY counts were projected using uncorrected Global Burden of Disease (GBD) 2021 data and multiplied with population-attributable fractions (PAFs) based on exposure–response estimates. Values are presented as total DALYs (not standardized per 100,000 population). States are color-coded according to the magnitude of humidity-attributable CVD DALYs, with darker shades indicating higher burden. Uttar Pradesh, Maharashtra, and West Bengal exhibited the highest values, reflecting both high DALY burden and high cost-per-case in these states.*
+
+
+
+```{r}
+#| label: import2030tebdata
+# import data from output/total-econ-burden-projections using here
+
+totaleconBurden_2030_data <- readRDS(here::here("output","total-econ-burden-projections","rh_daly_totalburden_cvd_2030.rds"))
+```
+
+
+### Total economic burden attributable to high average relative humidity - 2030
+
+```{r}
+#| label: fig-totaleconburden-2030
+#| echo: true
+#| layout-ncol: 1
+#| fig-cap: Projected Total economic burden attributable to high average relative humidity 2021
+#| fig-height: 10
+#| fig-width: 14
+#| fig-align: center
+#| fig-cap-location: top
+#| message: false
+#| warning: false
+#| column: screen
+#| out-width: 100%
+
+#  visualize total econ burden in all states by bar charts
+
+
+
+totaleconBurden_2030_data |> 
+  drop_na(totaleconBurden_2030) |>
+  ggplot(aes(x = reorder(State, totaleconBurden_2030), 
+             y = totaleconBurden_2030)) +
+  
+  # Bar plot
+  geom_bar(stat = "identity", fill = "seagreen") +
+  
+  # Label at the tail end, just outside the bar
+  geom_text(aes(label = paste0("\u20B9", round(totaleconBurden_2030 / 1e7, 1), " Cr")),
+            hjust = -0.1, color = "black", size = 4) +
+  
+  # Flip coordinates
+  coord_flip(clip = "off") +  # allows text beyond plotting area
+  
+  # Titles and axis labels
+  labs(
+    title = "Projected Total economic burden attributable to high average relative humidity, 2030",
+    x = "States",
+    y = "Total cost (INR)"
+  ) +
+  
+  # y-axis in crores
+  scale_y_continuous(
+    labels = function(x) paste0("\u20B9", x / 1e7, " Cr"),
+    expand = expansion(mult = c(0, 0.15))  # space for tail labels
+  ) +
+
+  # Aesthetic theme
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 18, face = "bold"),
+    axis.text.y = element_text(size = 11),
+    axis.text.x = element_text(size = 11),
+    axis.title.x = element_text(size = 13),
+    axis.title.y = element_text(size = 13),
+    plot.margin = margin(10, 30, 10, 10)  # top, right, bottom, left
+  )
+
+
+```
+
+@fig-totaleconburden-2030 *Projected Total economic burden attributable to high average relative humidity across Indian states in 2030. This figure displays state-wise estimates of projected total economic burden (in Indian Rupees) linked to cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributed to high average relative humidity. The projections in economic burden was computed by doing ARIMA models and multiplying absolute attributable DALY counts (from the GBD uncorrected dataset) with the estimated cost per DALY for 2030(projected). The highest costs were observed in  Maharashtra,West Bengal and Tamil Nadu, reflecting both high DALY burden and high cost-per-case in these states.*
+
+```{r}
+totaleconburden_2030_relhum <- totaleconBurden_2030_data |> 
+  drop_na(totaleconBurden_2030) |> 
+  summarise(totaleconburden = sum(totaleconBurden_2030, na.rm = TRUE))
+
+
+percentage_increase_inteb_relhum <- ((totaleconburden_2030_relhum$totaleconburden - totaleconburden_2021_relhum$totaleconburden) / totaleconburden_2021_relhum$totaleconburden) * 100
+
+```
+
+
+::: {.callout-tip}
+
+### Projected Total Economic Burden in 2030 in India due to High Average Humidity
+
+There will be a total economic burden of **`r scales::label_number(prefix = "\u20B9", scale = 1)(totaleconburden_2030_relhum$totaleconburden)`** in 2030 due to high average relative humidity across Indian states. This estimate is based on the projections derived from **DALY** attributable to high average relative humidity and the cost per DALY.
+
+
+
+:::
+
+
+::: {.callout-caution}
+
+### Projected Increase in Economic Burden from 2021 to 2030
+
+This reflects a projected increase of approximately **`r round(percentage_increase_inteb_relhum, 2)`**% in the total economic burden attributable to high average relative humidity across Indian states from 2021 to 2030.
+
+:::
 
 
