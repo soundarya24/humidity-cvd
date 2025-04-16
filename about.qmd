@@ -9,28 +9,29 @@ editor_options:
 
 # Next Steps {.panel .panel-set}
 
-::: {.callout-tip collapse="true" appearance="default"}
-## 🚀 To Do Next
-
--   PAF maps for selected humidity variables and CVD DALY, YLD, and YLL.
-:::
 
 ::: {.callout-tip collapse="true" appearance="default"}
 ## 🔄 In waitlist {.panel .panel-collapse}
 
--   **Obtain uncorrected DALY, YLL, and YLD data**: Requested data from Dr. BSB.
+- IRRs for selected humidity variables and CVD mortality and morbidity to be appended.
 :::
 
 ::: {.callout-note collapse="true" appearance="default"}
 ## ✅ Completed
 
-1.  correlation analysis to identify potential multicollinearity.
+### Objective 1: Exposure–Response Estimates (IRRs)
 
-2.  Initial dataviz for selected humidity variables
+- IRRs for CVD DALY, YLD, and YLL now available as cleaned tables.
 
-3.  IRRs for selected humidity variables and CVD mortality, and morbidity.
+### Objective 2: 2021 Economic Burden Estimation
+- Total CVD DALYs attributable to high average humidity calculated for 2021.
+- Visualized as Indian maps, bar charts, and absolute-value tables.
+- Multiplied DALYs with cost per DALY (CpD_2021) to estimate total economic burden.
+- Results available as clean bar charts and aggregated national summary (₹5,303,262,176).
 
-4.  PAF based Indian map for selected humidity variables and CVD mortality, and morbidity.
-
-5.  IRRs for selected humidity variables and CVD DALY, YLD, and YLL.
+### Objective 3: 2030 Projections
+- Projected CVD DALYs attributable to high average humidity for 2030 using ARIMA.
+- Projected CpD_2030 using compound growth rate from 2021.
+- Estimated total economic burden for 2030 now available via bar charts and tables (₹7,763,493,377).
+- Represents a **46.4% increase** in burden from 2021 to 2030.
 :::
