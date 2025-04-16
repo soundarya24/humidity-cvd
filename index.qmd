@@ -291,7 +291,7 @@ irr_uci_avg975_YLL
 
 ```
 
-### IRR - cvd DALY YLD YLL
+## IRR - cvd DALY YLD YLL
 
 | Humidity | Percentile | DALY \[95% CIs\] | YLD\[95% CIs\] | YLL\[95% CIs\] |
 |---------------|---------------|---------------|---------------|---------------|
@@ -400,14 +400,33 @@ write_rds(x = paf_economydata_formapviz,file = here::here(
 ```
 
 ```{r}
+rmarkdown::paged_table(paf_economydata_formapviz)
+paf_economydata_formapviz |> 
+  ggplot(
+aes(x = reorder(state,paf_daly_avghum975), y = paf_daly_avghum975)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(title="CVD DALY attributable to high average humidity in Indian states",
+       x="States",
+       y="CVD DALY") +
+  scale_y_continuous() +  
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 0, hjust = 1),
+        axis.text.y = element_text(size = 10),
+        axis.title.x = element_text(size = 12),
+        axis.title.y = element_text(size = 12),
+        plot.title = element_text(hjust = 0.5, size = 14))
+```
+
+  
+## CVD burden attributable to high average humidity in 2021
+
+```{r}
 #| label: fig-pafmap-economy
 #| echo: true
 #| layout-ncol: 1
 #| fig-cap: CVD burden attributable to high average humidity in Indian states
-#| fig-subcap: 
-#|     - CVD DALY
-#|     - CVD YLD
-#|     - CVD YLL
 #| fig-height: 10
 #| fig-width: 14
 #| fig-align: center
