@@ -399,9 +399,17 @@ write_rds(x = paf_economydata_formapviz,file = here::here(
         "output", "dalyabsolute_values_rh.rds"))
 ```
 
+## 2021 - Humidity
+  
+### CVD DALY attributable to high average humidity in 2021
+
+#### As table
+
 ```{r}
 rmarkdown::paged_table(paf_economydata_formapviz)
 ```
+
+#### As bar charts
 
 ```{r}
 #| label: fig-absdaly-2021
@@ -425,12 +433,13 @@ aes(x = reorder(state,paf_daly_avghum975), y = paf_daly_avghum975)) +
 
 @fig-absdaly-2021 *Cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributable to high average relative humidity across Indian states in 2021. Values represent absolute DALY counts (not standardized per 100,000 population) derived from the GBD uncorrected dataset. Attributable DALYs were estimated by applying population-attributable fractions (PAFs), based on exposure–response relationships, to total CVD DALYs. The figure highlights marked inter-state variation, with Uttar Pradesh, Maharashtra, and West Bengal bearing the highest humidity-linked disease burden.*
 
-  
-## CVD burden attributable to high average humidity in 2021
+#### As India maps
 
 ```{r}
 #| label: rh-pafmap-economy
 #| echo: true
+#| warning: false
+#| message: false
 
 
 library(sf)
@@ -497,14 +506,14 @@ india_paf_economy |>
 #| label: sourcefiles
 #| echo: false
 #| results: hide
-source(here::here(
-  "scripts",
-  "20250415-calculate-econBurden-2021.R"
-))
+
+# read rh_daly_totalburden_cvd_2021.rds from output folder
+
+total_daly_costcal_2021 <- readRDS(here::here("output","rh_daly_totalburden_cvd_2021.rds"))
 
 ```
 
-## Total economic burden attributable to high average relative humidity - 2021
+### Total economic burden attributable to high average relative humidity - 2021
 
 ```{r}
 #| label: fig-totaleconburden-2021
@@ -517,26 +526,51 @@ source(here::here(
 #| fig-cap-location: top
 #| message: false
 #| warning: false
+#| column: screen
+#| out-width: 100%
 
 #  visualize total econ burden in all states by bar charts
 
+
+
 total_daly_costcal_2021 |> 
   drop_na(totalcost_relhumhigh) |>
-  # sort the bars
-  ggplot(aes(x=reorder(State,totalcost_relhumhigh), y=totalcost_relhumhigh)) +
-  geom_bar(stat="identity") +
-  coord_flip() +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  labs(title="Total economic burden attributable to high average relative humidity 2021",
-       x="States",
-       y="Total cost (INR)") +
-  scale_y_continuous(labels = scales::label_number(prefix = "\u20B9", scale = 1)) +  # ₹
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 0, hjust = 1),
-        axis.text.y = element_text(size = 10),
-        axis.title.x = element_text(size = 12),
-        axis.title.y = element_text(size = 12),
-        plot.title = element_text(hjust = 0.5, size = 14))
+  ggplot(aes(x = reorder(State, totalcost_relhumhigh), 
+             y = totalcost_relhumhigh)) +
+  
+  # Bar plot
+  geom_bar(stat = "identity", fill = "steelblue") +
+  
+  # Label at the tail end, just outside the bar
+  geom_text(aes(label = paste0("\u20B9", round(totalcost_relhumhigh / 1e7, 1), " Cr")),
+            hjust = -0.1, color = "black", size = 4) +
+  
+  # Flip coordinates
+  coord_flip(clip = "off") +  # allows text beyond plotting area
+  
+  # Titles and axis labels
+  labs(
+    title = "Total economic burden attributable to high average relative humidity, 2021",
+    x = "States",
+    y = "Total cost (INR)"
+  ) +
+  
+  # y-axis in crores
+  scale_y_continuous(
+    labels = function(x) paste0("\u20B9", x / 1e7, " Cr"),
+    expand = expansion(mult = c(0, 0.15))  # space for tail labels
+  ) +
+
+  # Aesthetic theme
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 18, face = "bold"),
+    axis.text.y = element_text(size = 11),
+    axis.text.x = element_text(size = 11),
+    axis.title.x = element_text(size = 13),
+    axis.title.y = element_text(size = 13),
+    plot.margin = margin(10, 30, 10, 10)  # top, right, bottom, left
+  )
 
 
 ```
@@ -549,5 +583,16 @@ totaleconburden_2021_relhum <- total_daly_costcal_2021 |>
   summarise(totaleconburden = sum(totalcost_relhumhigh, na.rm = TRUE))
 ```
 
+::: {.callout-tip}
+## India Total Economic Burden in 2021 due to High Average Humidity
+
 There was a total economic burden of **`r scales::label_number(prefix = "\u20B9", scale = 1)(totaleconburden_2021_relhum$totaleconburden)`** in 2021 due to high average relative humidity across Indian states. This estimate is based on the **DALY** attributable to high average relative humidity and the cost per DALY.
+
+:::
+
+
+
+
+## 2030 Projections - Humidity
+
 

@@ -29,6 +29,27 @@ names(total_daly_costcal_2021)
 total_daly_costcal_2021 <- total_daly_costcal_2021 |> 
   mutate(totalcost_relhumhigh=paf_daly_avghum975*cpd_2021)
 
+# save as rh_daly_totalburden_cvd_2021.rds in output folder using here
+
+saveRDS(
+  total_daly_costcal_2021,
+  here::here(
+    "output",
+    "rh_daly_totalburden_cvd_2021.rds"
+  )
+)
+
+# save as csv
+
+write.csv(
+  total_daly_costcal_2021,
+  here::here(
+    "output",
+    "rh_daly_totalburden_cvd_2021.csv"
+  ),
+  row.names = FALSE
+)
+
 # visualize total econ burden in all states by bar charts
 
 total_daly_costcal_2021 |> 

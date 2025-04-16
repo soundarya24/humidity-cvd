@@ -33,3 +33,10 @@ saveRDS(
   data_cost_per_daly_2021,
   here("output", "cost_per_daly_2021_relhum.rds")
 )
+
+# write as csv
+write.csv(
+  data_cost_per_daly_2021,
+  here("output", "cost_per_daly_2021_relhum.csv"),
+  row.names = FALSE
+)
