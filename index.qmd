@@ -3,4 +3,4 @@ title: "Home"
 format: html
 ---
 
-This website hosts results for both humidity and temperatures right now
+This site hosts analysis results on humidity, temperature, and heat index exposures.
