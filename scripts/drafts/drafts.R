@@ -1,13 +1,13 @@
 ### IRR - cvd prevalence incidence mortality
 
-| Humidity | Percentile | Mortality \[95% CIs\] | Prevalence\[95% CIs\] | Incidence\[95% CIs\] |
-  |---------------|---------------|---------------|---------------|---------------|
-  | Average | 2.5 | **`r round(irr_avg25_death,3)` \[`r round(irr_lci_avg25_death,3)`,`r round(irr_uci_avg25_death,3)`\]** | **`r round(irr_avg25_prevalence,3)`\[`r round(irr_lci_avg25_prevalence,3)`,`r round(irr_uci_avg25_prevalence,3)`\]** | **`r round(irr_avg25_incidence,3)`\[`r round(irr_lci_avg25_incidence,3)`,`r round(irr_uci_avg25_incidence,3)`\]** |
-  | Average | 97.5 | **`r round(irr_avg975_death,3)` \[`r round(irr_lci_avg975_death,3)`,`r round(irr_uci_avg975_death,3)`\]** | **`r round(irr_avg975_prevalence,3)`\[`r round(irr_lci_avg975_prevalence,3)`,`r round(irr_uci_avg975_prevalence,3)`\]** | **`r round(irr_avg975_incidence,3)`\[`r round(irr_lci_avg975_incidence,3)`,`r round(irr_uci_avg975_incidence,3)`\]** |
+#| Humidity | Percentile | Mortality \[95% CIs\] | Prevalence\[95% CIs\] | Incidence\[95% CIs\] |
+# |---------------|---------------|---------------|---------------|---------------|
+# | Average | 2.5 | **`r round(irr_avg25_death,3)` \[`r round(irr_lci_avg25_death,3)`,`r round(irr_uci_avg25_death,3)`\]** | **`r round(irr_avg25_prevalence,3)`\[`r round(irr_lci_avg25_prevalence,3)`,`r round(irr_uci_avg25_prevalence,3)`\]** | **`r round(irr_avg25_incidence,3)`\[`r round(irr_lci_avg25_incidence,3)`,`r round(irr_uci_avg25_incidence,3)`\]** |
+# | Average | 97.5 | **`r round(irr_avg975_death,3)` \[`r round(irr_lci_avg975_death,3)`,`r round(irr_uci_avg975_death,3)`\]** | **`r round(irr_avg975_prevalence,3)`\[`r round(irr_lci_avg975_prevalence,3)`,`r round(irr_uci_avg975_prevalence,3)`\]** | **`r round(irr_avg975_incidence,3)`\[`r round(irr_lci_avg975_incidence,3)`,`r round(irr_uci_avg975_incidence,3)`\]** |
   
-  : Incidence Rate Ratios derived from Poisson panel regressions for CVD burden (mortality, prevalence, and incidence) {#tbl-my-table}
+# : Incidence Rate Ratios derived from Poisson panel regressions for CVD burden (mortality, prevalence, and incidence) {#tbl-my-table}
     
-    ------------------------------------------------------------------------
+#   ------------------------------------------------------------------------
       
       
       

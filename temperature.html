@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Temperature-CVD – humidity-cvd</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">humidity-cvd</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./temperature.html" aria-current="page"> 
+<span class="menu-text">Temperature</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./humidity.html"> 
+<span class="menu-text">Humidity</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./heatindex.html"> 
+<span class="menu-text">Heat Index</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data-loading" id="toc-data-loading" class="nav-link active" data-scroll-target="#data-loading">Data loading</a></li>
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages">Packages</a>
+  <ul class="collapse">
+  <li><a href="#correlation-analysis" id="toc-correlation-analysis" class="nav-link" data-scroll-target="#correlation-analysis">Correlation Analysis</a></li>
+  </ul></li>
+  <li><a href="#irr---cvd-daly-yld-yll" id="toc-irr---cvd-daly-yld-yll" class="nav-link" data-scroll-target="#irr---cvd-daly-yld-yll">IRR - cvd DALY YLD YLL</a>
+  <ul class="collapse">
+  <li><a href="#paf-for-daly-yll-yld" id="toc-paf-for-daly-yll-yld" class="nav-link" data-scroll-target="#paf-for-daly-yll-yld">PAF for DALY, YLL, YLD</a></li>
+  </ul></li>
+  <li><a href="#temperature" id="toc-temperature" class="nav-link" data-scroll-target="#temperature">2021 - temperature</a>
+  <ul class="collapse">
+  <li><a href="#cvd-daly-attributable-to-high-average-temperature-in-2021" id="toc-cvd-daly-attributable-to-high-average-temperature-in-2021" class="nav-link" data-scroll-target="#cvd-daly-attributable-to-high-average-temperature-in-2021">CVD DALY attributable to high average temperature in 2021</a></li>
+  <li><a href="#total-economic-burden-attributable-to-high-average-temperature---2021" id="toc-total-economic-burden-attributable-to-high-average-temperature---2021" class="nav-link" data-scroll-target="#total-economic-burden-attributable-to-high-average-temperature---2021">Total economic burden attributable to high average Temperature - 2021</a></li>
+  </ul></li>
+  <li><a href="#projections---temperature" id="toc-projections---temperature" class="nav-link" data-scroll-target="#projections---temperature">2030 Projections - temperature</a>
+  <ul class="collapse">
+  <li><a href="#cvd-daly-attributable-to-high-average-temperature-in-2030" id="toc-cvd-daly-attributable-to-high-average-temperature-in-2030" class="nav-link" data-scroll-target="#cvd-daly-attributable-to-high-average-temperature-in-2030">CVD DALY attributable to high average temperature in 2030</a></li>
+  <li><a href="#total-economic-burden-attributable-to-high-average-temperature---2030" id="toc-total-economic-burden-attributable-to-high-average-temperature---2030" class="nav-link" data-scroll-target="#total-economic-burden-attributable-to-high-average-temperature---2030">Total economic burden attributable to high average Temperature - 2030</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Temperature-CVD</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">timestamp</span>(<span class="at">prefix =</span> <span class="st">"This analysis was rendered on "</span>, <span class="at">suffix =</span> <span class="st">"."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>This analysis was rendered on Thu Apr 17 10:30:00 2025.</code></pre>
+</div>
+</div>
+<section id="data-loading" class="level2">
+<h2 class="anchored" data-anchor-id="data-loading">Data loading</h2>
+</section>
+<section id="packages" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="packages">Packages</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## data viz for temperature yerawise</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(<span class="st">"ggcorrplot"</span>,<span class="st">"directlabels"</span>,<span class="st">"pglm"</span>, <span class="st">"scales"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(tidyverse))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<hr>
+<section id="correlation-analysis" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="correlation-analysis">Correlation Analysis</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation analysis</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> combined_data <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rename</span>(<span class="at">maximum_25=</span>high_25,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">maximum_975=</span>high_975,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">minimum_25=</span>low_25,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">minimum_975=</span>low_975,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">average_25=</span>avg_25,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">average_975=</span>avg_975,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">median_25=</span>med_25,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">median_975=</span>med_975) </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>correlation_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(combined_data <span class="sc">|&gt;</span> <span class="fu">select</span>(average_25, average_975, median_25,median_975,mode_25,mode_975,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                                                  maximum_25,maximum_975,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                                                  minimum_25,minimum_975,variation_25,variation_975), <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">#correlation_matrix</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># visualize as heatmap</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute a matrix of correlation p-values</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>p.mat <span class="ot">&lt;-</span> <span class="fu">cor_pmat</span>(correlation_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell page-columns page-full">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcorrplot</span>(correlation_matrix, </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">outline.color =</span> <span class="st">"white"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">type =</span> <span class="st">"lower"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">ggtheme =</span> ggplot2<span class="sc">::</span>theme_gray,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">colors =</span> <span class="fu">c</span>(<span class="st">"#6D9EC1"</span>, <span class="st">"white"</span>, <span class="st">"#E46726"</span>),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">lab =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">p.mat =</span> p.mat,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">insig =</span> <span class="st">"blank"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display page-columns page-full">
+<div id="fig-corrplot" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<div aria-describedby="fig-corrplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="temperature_files/figure-html/fig-corrplot-1.png" class="img-fluid figure-img column-page" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-corrplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Correlation matrix for temperature variables
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><a href="#fig-corrplot" class="quarto-xref">Figure&nbsp;1</a> <em>matrix shows pairwise correlations among various temperature metrics (average, median, mode, minimum, maximum, variation) at the 2.5th and 97.5th percentiles. Only statistically significant correlations are displayed, indicating strong associations among several metrics. Based on this analysis, both 2.5 and 97.5 percentiles of the average temperatures and variation were selected for further analysis. This is to minimize multicollinearity and retain representative variability in the downstream panel regression.</em></p>
+<hr>
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># averages</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>combined_data <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(Year), <span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>average_25),<span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color=</span><span class="st">"midnightblue"</span>)<span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>average_975),<span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color=</span><span class="st">"midnightblue"</span>)<span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>average_25, <span class="at">ymax=</span>average_975),<span class="at">fill=</span><span class="st">"midnightblue"</span>, <span class="at">alpha=</span><span class="fl">0.4</span>)<span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">facet_wrap</span>(<span class="sc">~</span>State)<span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)<span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"temperature (degree Celcisus)"</span>, <span class="at">x=</span><span class="st">"Year"</span>,</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Average temperature"</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">subtitle =</span> <span class="st">"2.5th and 97.5th percentiles"</span>)<span class="sc">+</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">12</span>))</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># variation</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>combined_data <span class="sc">|&gt;</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(Year), <span class="at">group=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>variation_25),<span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color=</span><span class="st">"orange"</span>)<span class="sc">+</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>variation_975),<span class="at">linetype=</span><span class="st">"dashed"</span>, <span class="at">color=</span><span class="st">"orange"</span>)<span class="sc">+</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>variation_25, <span class="at">ymax=</span>variation_975),<span class="at">fill=</span><span class="st">"orange"</span>, <span class="at">alpha=</span><span class="fl">0.4</span>)<span class="sc">+</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        <span class="fu">facet_wrap</span>(<span class="sc">~</span>State)<span class="sc">+</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)<span class="sc">+</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        <span class="fu">labs</span>(<span class="at">y=</span><span class="st">"temperature (degree Celcius)"</span>, <span class="at">x=</span><span class="st">"Year"</span>,</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>             <span class="at">title =</span> <span class="st">"Variation in temperature"</span>,</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>             <span class="at">subtitle =</span> <span class="st">"2.5th and 97.5th percentiles"</span>)<span class="sc">+</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div id="fig-tempsummaries" class="quarto-layout-panel page-columns page-full">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-tempsummaries-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: temperature summaries for India, 2011-2021
+</figcaption>
+<div aria-describedby="fig-tempsummaries-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<div class="quarto-layout-row page-full">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell page-columns page-full" data-ref-parent="fig-tempsummaries" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-tempsummaries-1" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-fig-align="center">
+<figure class="quarto-float quarto-subfloat-fig figure page-columns page-full">
+<div aria-describedby="fig-tempsummaries-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="temperature_files/figure-html/fig-tempsummaries-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-screen-inset-shaded" data-ref-parent="fig-tempsummaries" width="1344">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-tempsummaries-1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(a) Average temperature levels (2.5th and 97.5th percentiles) across Indian states from 2011 to 2021.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row page-full">
+<div class="cell-output-display quarto-layout-cell-subref quarto-layout-cell page-columns page-full" data-ref-parent="fig-tempsummaries" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-tempsummaries-2" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-fig-align="center">
+<figure class="quarto-float quarto-subfloat-fig figure page-columns page-full">
+<div aria-describedby="fig-tempsummaries-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="temperature_files/figure-html/fig-tempsummaries-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-screen-inset-shaded" data-ref-parent="fig-tempsummaries" width="1344">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-subfloat-caption quarto-subfloat-fig" id="fig-tempsummaries-2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+(b) Variation in temperature levels (2.5th and 97.5th percentiles) across Indian states from 2011 to 2021.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</figure>
+</div>
+<p><a href="#fig-tempsummaries-1" class="quarto-xref">Figure&nbsp;2 (a)</a> <em>illustrates the trends in the 2.5th and 97.5th percentiles of daily temperature for each year across Indian states from 2011 to 2021.</em></p>
+<p><a href="#fig-tempsummaries-2" class="quarto-xref">Figure&nbsp;2 (b)</a> <em>shows the variation in the 2.5th and 97.5th percentiles of daily temperature for each year across Indian states from 2011 to 2021. The shaded areas represent the range between the 2.5th and 97.5th percentiles, indicating the variability in temperature levels across states over time.</em></p>
+<hr>
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="do">## daly</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>model_CVD_DALY_avg25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_DALY <span class="sc">~</span> average_25,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">data =</span> combined_data,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> poisson,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_DALY_avg25)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>irr_avg25_DALY<span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_DALY_avg25))</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>irr_avg25_DALY</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_DALY <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_DALY_avg25)[, <span class="dv">1</span>])</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_DALY <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_DALY_avg25)[, <span class="dv">2</span>])</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_DALY</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_DALY</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>model_CVD_DALY_avg975 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_DALY <span class="sc">~</span> average_975,</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">data =</span> combined_data,</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">family =</span> poisson,</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_DALY_avg975)</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>irr_avg975_DALY <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_DALY_avg975))</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>irr_avg975_DALY</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_DALY  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_DALY_avg975)[, <span class="dv">1</span>])</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_DALY  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_DALY_avg975)[, <span class="dv">2</span>])</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_DALY </span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_DALY </span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>model_CVD_DALY_var25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_DALY <span class="sc">~</span> variation_25,</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">data =</span> combined_data,</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> poisson,</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_DALY_var25)</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>irr_var25_DALY<span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_DALY_var25))</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>irr_var25_DALY</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_DALY <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_DALY_var25)[, <span class="dv">1</span>])</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_DALY <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_DALY_var25)[, <span class="dv">2</span>])</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_DALY</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_DALY</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>model_CVD_DALY_var975 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_DALY <span class="sc">~</span> variation_975,</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">data =</span> combined_data,</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">family =</span> poisson,</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_DALY_var975)</span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>irr_var975_DALY <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_DALY_var975))</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>irr_var975_DALY</span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>irr_lci_var975_DALY  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_DALY_var975)[, <span class="dv">1</span>])</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>irr_uci_var975_DALY  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_DALY_var975)[, <span class="dv">2</span>])</span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a>irr_lci_var975_DALY </span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>irr_uci_var975_DALY </span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="do">## yld</span></span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>model_CVD_YLD_avg25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_YLD <span class="sc">~</span> average_25,</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">data =</span> combined_data,</span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> poisson,</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_YLD_avg25)</span>
+<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a>irr_avg25_YLD <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_YLD_avg25))</span>
+<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a>irr_avg25_YLD</span>
+<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_YLD <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLD_avg25)[, <span class="dv">1</span>])</span>
+<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_YLD <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLD_avg25)[, <span class="dv">2</span>])</span>
+<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_YLD</span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_YLD</span>
+<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a>model_CVD_YLD_avg975 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_YLD <span class="sc">~</span> average_975,</span>
+<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">data =</span> combined_data,</span>
+<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">family =</span> poisson,</span>
+<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_YLD_avg975)</span>
+<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a>irr_avg975_YLD <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_YLD_avg975))</span>
+<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a>irr_avg975_YLD</span>
+<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_YLD  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLD_avg975)[, <span class="dv">1</span>])</span>
+<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_YLD  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLD_avg975)[, <span class="dv">2</span>])</span>
+<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_YLD </span>
+<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_YLD </span>
+<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a>model_CVD_YLD_var25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_YLD <span class="sc">~</span> variation_25,</span>
+<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">data =</span> combined_data,</span>
+<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> poisson,</span>
+<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_YLD_var25)</span>
+<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a>irr_var25_YLD<span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_YLD_var25))</span>
+<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a>irr_var25_YLD</span>
+<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_YLD <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLD_var25)[, <span class="dv">1</span>])</span>
+<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_YLD <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLD_var25)[, <span class="dv">2</span>])</span>
+<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_YLD</span>
+<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_YLD</span>
+<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a>model_CVD_YLD_var975 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_YLD <span class="sc">~</span> variation_975,</span>
+<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">data =</span> combined_data,</span>
+<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">family =</span> poisson,</span>
+<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_YLD_var975)</span>
+<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a>irr_var975_YLD <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_YLD_var975))</span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a>irr_var975_YLD</span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a>irr_lci_var975_YLD  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLD_var975)[, <span class="dv">1</span>])</span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a>irr_uci_var975_YLD  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLD_var975)[, <span class="dv">2</span>])</span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a>irr_lci_var975_YLD</span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a>irr_uci_var975_YLD</span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a><span class="do">## YLL</span></span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>model_CVD_YLL_avg25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_YLL <span class="sc">~</span> average_25,</span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">data =</span> combined_data,</span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> poisson,</span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_YLL_avg25)</span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a>irr_avg25_YLL <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_YLL_avg25))</span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a>irr_avg25_YLL</span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_YLL <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLL_avg25)[, <span class="dv">1</span>])</span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_YLL <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLL_avg25)[, <span class="dv">2</span>])</span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>irr_lci_avg25_YLL</span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a>irr_uci_avg25_YLL</span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a>model_CVD_YLL_avg975 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_YLL <span class="sc">~</span> average_975,</span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">data =</span> combined_data,</span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">family =</span> poisson,</span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_YLL_avg975)</span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a>irr_avg975_YLL <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_YLL_avg975))</span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a>irr_avg975_YLL</span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_YLL  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLL_avg975)[, <span class="dv">1</span>])</span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_YLL  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLL_avg975)[, <span class="dv">2</span>])</span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a>irr_lci_avg975_YLL </span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a>irr_uci_avg975_YLL </span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a>model_CVD_YLL_var25 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_YLL <span class="sc">~</span> variation_25,</span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">data =</span> combined_data,</span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">family =</span> poisson,</span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_YLL_var25)</span>
+<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a>irr_var25_YLL<span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_YLL_var25))</span>
+<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a>irr_var25_YLL</span>
+<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_YLL <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLL_var25)[, <span class="dv">1</span>])</span>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_YLL <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLL_var25)[, <span class="dv">2</span>])</span>
+<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a>irr_lci_var25_YLL</span>
+<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a>irr_uci_var25_YLL</span>
+<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a>model_CVD_YLL_var975 <span class="ot">&lt;-</span> <span class="fu">pglm</span>(CVD_YLL <span class="sc">~</span> variation_975,</span>
+<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">data =</span> combined_data,</span>
+<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">family =</span> poisson,</span>
+<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>))</span>
+<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model_CVD_YLL_var975)</span>
+<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a>irr_var975_YLL <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(model_CVD_YLL_var975))</span>
+<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a>irr_var975_YLL</span>
+<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a>irr_lci_var975_YLL  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLL_var975)[, <span class="dv">1</span>])</span>
+<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a>irr_uci_var975_YLL  <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(model_CVD_YLL_var975)[, <span class="dv">2</span>])</span>
+<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a>irr_lci_var975_YLL</span>
+<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a>irr_uci_var975_YLL</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="irr---cvd-daly-yld-yll" class="level2">
+<h2 class="anchored" data-anchor-id="irr---cvd-daly-yld-yll">IRR - cvd DALY YLD YLL</h2>
+<div id="tbl-my-table2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-my-table2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Incidence Rate Ratios derived from Poisson panel regressions for CVD burden (DALY, YLD, and YLL)
+</figcaption>
+<div aria-describedby="tbl-my-table2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>temperature</th>
+<th>Percentile</th>
+<th>DALY [95% CIs]</th>
+<th>YLD[95% CIs]</th>
+<th>YLL[95% CIs]</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Average</td>
+<td>2.5</td>
+<td><strong>1.007 [1.005,1.009]</strong></td>
+<td><strong>1.031[1.02,1.043]</strong></td>
+<td><strong>1.006[1.003,1.008]</strong></td>
+</tr>
+<tr class="even">
+<td>Average</td>
+<td>97.5</td>
+<td><strong>1.008 [1.006,1.011]</strong></td>
+<td>0.999[0.988,1.011]</td>
+<td><strong>1.009[1.006,1.011]</strong></td>
+</tr>
+<tr class="odd">
+<td>Variation</td>
+<td>2.5</td>
+<td><strong>0.994 [0.989,0.999]</strong></td>
+<td>0.986[0.963,1.009]</td>
+<td><strong>0.995[0.99,1]</strong></td>
+</tr>
+<tr class="even">
+<td>Variation</td>
+<td>97.5</td>
+<td><strong>0.982 [0.979,0.985]</strong></td>
+<td><strong>0.962[0.949,0.975]</strong></td>
+<td><strong>0.983[0.98,0.986]</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<section id="paf-for-daly-yll-yld" class="level3">
+<h3 class="anchored" data-anchor-id="paf-for-daly-yll-yld">PAF for DALY, YLL, YLD</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================================================================</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 📊 GBD Dataset: CVD Outcomes (2011–2021) — Uncorrected, Absolute Counts</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># This dataset includes uncorrected Global Burden of Disease (GBD) estimates</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># for cardiovascular disease (CVD) outcomes from **2011 to 2021**.</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co"># The data represent **total absolute counts** and are **not disaggregated**</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># by sex or age group (i.e., values are aggregated for **both sexes** and **all ages**).</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Outcome types included:</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   - Prevalence</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   - Incidence</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   - Deaths</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#   - DALY</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   - YLL</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   - YLD</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co"># ⚠️ Units Note:</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="co"># All values are **absolute numbers**, not standardized per 100,000 population.</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================================================================</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>gbd_data_uncorrected <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,<span class="st">"gbd-uncorrected-april2025"</span>,<span class="st">"CVD_DALY_YLL_YLD_2011-2019_Statewise_Uncorrected.xlsx"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>()</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>gbd_data_uncorrected <span class="ot">&lt;-</span> gbd_data_uncorrected <span class="sc">|&gt;</span> </span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">State=</span>location_2,</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>                <span class="at">Year=</span>year_7,</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>                <span class="at">CVD_DALY=</span>daly_val,</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>                <span class="at">CVD_YLD=</span>yld_val,</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>                <span class="at">CVD_YLL=</span>yll_val) <span class="sc">|&gt;</span> </span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>        <span class="fu">filter</span>(Year <span class="sc">%in%</span> <span class="dv">2011</span><span class="sc">:</span><span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Year,State,CVD_DALY,CVD_YLL,CVD_YLD)</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="co"># merge temperature data and gbd data uncorrected</span></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>gbd_data_uncorrected_economy_forpaf <span class="ot">&lt;-</span> <span class="fu">merge</span>(</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>  combined_data_temp_forpanel,</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>  gbd_data_uncorrected,</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"State"</span>, <span class="st">"Year"</span>)</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================================================================</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 Objective: Estimating Absolute DALYs Attributable to High Average temperature (2021)</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a><span class="co"># This section calculates **absolute DALYs attributable to high average temperature**</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="co"># across states for the year **2021**, using the following approach:</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="co">#   ✅ Source: Uncorrected GBD DALY data (absolute counts) for CVD in 2021  </span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a><span class="co">#   ✅ Method: Multiply state-wise DALY values by the corresponding **Population</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a><span class="co">#      Attributable Fraction (PAF)** values — derived from previously computed</span></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a><span class="co">#      **IRRs (Incidence Rate Ratios)** for high Temperature exposure</span></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="co"># The result yields a state-wise estimate of **total cardiovascular DALYs**</span></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a><span class="co"># attributable to high average Temperature in **2021** — an important step</span></span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a><span class="co"># in quantifying climate-linked cardiovascular burden.</span></span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================================================================</span></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a><span class="co"># PAF calculation</span></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>calc_paf_from_irr <span class="ot">&lt;-</span> <span class="cf">function</span>(irr) {</span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>  paf <span class="ot">&lt;-</span> (irr <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> irr</span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(paf)</span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a>paf_avg25_DALY <span class="ot">&lt;-</span> <span class="fu">calc_paf_from_irr</span>(irr_avg25_DALY)</span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a>paf_avg975_DALY <span class="ot">&lt;-</span> <span class="fu">calc_paf_from_irr</span>(irr_avg975_DALY)</span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a>paf_var25_DALY <span class="ot">&lt;-</span> <span class="fu">calc_paf_from_irr</span>(irr_var25_DALY)</span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a>paf_var975_DALY <span class="ot">&lt;-</span> <span class="fu">calc_paf_from_irr</span>(irr_var975_DALY)</span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a>paf_economydata_formapviz <span class="ot">&lt;-</span> gbd_data_uncorrected_economy_forpaf <span class="sc">|&gt;</span></span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>dplyr<span class="sc">::</span><span class="fu">select</span>(State, Year, avg_25, avg_975,variation_25,variation_975,</span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a>              CVD_DALY) <span class="sc">|&gt;</span></span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(Year<span class="sc">==</span><span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">paf_daly_avgtemp25=</span> CVD_DALY <span class="sc">*</span> paf_avg25_DALY,</span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a>       <span class="at">paf_daly_avgtemp25=</span><span class="fu">round</span>(paf_daly_avgtemp25,<span class="dv">0</span>),</span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a>       <span class="at">paf_daly_avgtemp975=</span> CVD_DALY <span class="sc">*</span> paf_avg975_DALY,</span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a>       <span class="at">paf_daly_avgtemp975=</span><span class="fu">round</span>(paf_daly_avgtemp975,<span class="dv">0</span>),</span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a>       <span class="at">paf_daly_var25=</span> CVD_DALY <span class="sc">*</span> paf_var25_DALY,</span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a>       <span class="at">paf_daly_var25=</span><span class="fu">round</span>(paf_daly_var25,<span class="dv">0</span>),</span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a>       <span class="at">paf_daly_var975=</span> CVD_DALY <span class="sc">*</span> paf_var975_DALY,</span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a>       <span class="at">paf_daly_var975=</span><span class="fu">round</span>(paf_daly_var975,<span class="dv">0</span>)</span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a>       ) <span class="sc">|&gt;</span> </span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a><span class="co">#dplyr::select(-CVD_Death,-avg_975) |&gt; </span></span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a>        <span class="co">#rename State as state</span></span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">state =</span> State)</span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================================================================</span></span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a><span class="co"># 💾 Output: Saving Attributable DALY Estimates (2021)</span></span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a><span class="co"># The final estimates of **absolute DALYs attributable to high average temperature**</span></span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a><span class="co"># for each state (CVD, year 2021) are saved in two formats:</span></span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a><span class="co">#   - `.csv` for easy inspection, sharing, and external use</span></span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a><span class="co">#   - `.rds` for internal use in R workflows (preserving object structure)</span></span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a><span class="co"># These files serve</span></span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">x =</span> paf_economydata_formapviz,<span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(</span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a>        <span class="st">"output"</span>, <span class="st">"dalyabsolute_values_temperatures.csv"</span></span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a>),<span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(<span class="at">x =</span> paf_economydata_formapviz,<span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(</span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a>        <span class="st">"output"</span>, <span class="st">"dalyabsolute_values_temperatures.rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="temperature" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="temperature">2021 - temperature</h2>
+<section id="cvd-daly-attributable-to-high-average-temperature-in-2021" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="cvd-daly-attributable-to-high-average-temperature-in-2021">CVD DALY attributable to high average temperature in 2021</h3>
+<section id="as-table" class="level4">
+<h4 class="anchored" data-anchor-id="as-table">As table</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">paged_table</span>(paf_economydata_formapviz)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Year"],"name":[2],"type":["int"],"align":["right"]},{"label":["avg_25"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["avg_975"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["variation_25"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["variation_975"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["CVD_DALY"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["paf_daly_avgtemp25"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["paf_daly_avgtemp975"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["paf_daly_var25"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["paf_daly_var975"],"name":[11],"type":["dbl"],"align":["right"]}],"data":[{"1":"Andhra Pradesh","2":"2021","3":"23.6938713","4":"30.59191","5":"3.266454","6":"8.812654","7":"3173432.14","8":"22018","9":"25699","10":"-18190","11":"-59044"},{"1":"Arunachal Pradesh","2":"2021","3":"2.1650222","4":"19.02542","5":"3.654500","6":"14.403031","7":"37202.38","8":"258","9":"301","10":"-213","11":"-692"},{"1":"Assam","2":"2021","3":"13.0473070","4":"26.27399","5":"4.122014","6":"14.130117","7":"1543622.66","8":"10710","9":"12501","10":"-8848","11":"-28720"},{"1":"Bihar","2":"2021","3":"13.3833246","4":"30.64865","5":"4.103721","6":"15.921739","7":"4786894.91","8":"33212","9":"38766","10":"-27438","11":"-89063"},{"1":"Chhattisgarh","2":"2021","3":"19.0567884","4":"31.30103","5":"3.910817","6":"15.405340","7":"1997059.19","8":"13856","9":"16173","10":"-11447","11":"-37157"},{"1":"Delhi","2":"2021","3":"11.4451608","4":"35.44116","5":"4.041455","6":"17.298326","7":"772071.99","8":"5357","9":"6252","10":"-4425","11":"-14365"},{"1":"Goa","2":"2021","3":"24.6423875","4":"28.89847","5":"1.556039","6":"8.727076","7":"93579.69","8":"649","9":"758","10":"-536","11":"-1741"},{"1":"Gujarat","2":"2021","3":"19.1720424","4":"31.53579","5":"2.932562","6":"12.308852","7":"4542629.03","8":"31518","9":"36788","10":"-26038","11":"-84519"},{"1":"Haryana","2":"2021","3":"11.1748183","4":"34.69965","5":"4.620572","6":"16.682326","7":"1429296.67","8":"9917","9":"11575","10":"-8193","11":"-26593"},{"1":"Himachal Pradesh","2":"2021","3":"-5.7634040","4":"18.96447","5":"5.276198","6":"16.386442","7":"376691.28","8":"2614","9":"3051","10":"-2159","11":"-7009"},{"1":"Jharkhand","2":"2021","3":"15.1391343","4":"31.24775","5":"3.506847","6":"15.844153","7":"1105849.44","8":"7673","9":"8956","10":"-6339","11":"-20575"},{"1":"Karnataka","2":"2021","3":"23.0395558","4":"29.81705","5":"4.159337","6":"12.539103","7":"4387170.42","8":"30439","9":"35529","10":"-25147","11":"-81626"},{"1":"Kerala","2":"2021","3":"24.7534322","4":"28.12813","5":"2.753588","6":"6.908900","7":"2637130.57","8":"18297","9":"21356","10":"-15116","11":"-49066"},{"1":"Madhya Pradesh","2":"2021","3":"15.0646436","4":"32.30833","5":"3.781019","6":"16.802446","7":"4531206.09","8":"31438","9":"36695","10":"-25973","11":"-84306"},{"1":"Maharashtra","2":"2021","3":"21.7850459","4":"31.59677","5":"3.858066","6":"14.263743","7":"7348021.50","8":"50982","9":"59507","10":"-42118","11":"-136715"},{"1":"Manipur","2":"2021","3":"14.0994969","4":"26.52398","5":"4.604802","6":"15.693437","7":"151177.95","8":"1049","9":"1224","10":"-867","11":"-2813"},{"1":"Meghalaya","2":"2021","3":"14.8230855","4":"28.53765","5":"3.445652","6":"13.943559","7":"85238.33","8":"591","9":"690","10":"-489","11":"-1586"},{"1":"Mizoram","2":"2021","3":"15.5657250","4":"28.36272","5":"3.966169","6":"17.213240","7":"19168.32","8":"133","9":"155","10":"-110","11":"-357"},{"1":"Nagaland","2":"2021","3":"13.9393276","4":"26.92062","5":"4.006365","6":"13.802164","7":"58559.11","8":"406","9":"474","10":"-336","11":"-1090"},{"1":"Odisha","2":"2021","3":"20.5799448","4":"31.03574","5":"3.111023","6":"11.613223","7":"2500865.19","8":"17352","9":"20253","10":"-14335","11":"-46530"},{"1":"Punjab","2":"2021","3":"9.3029073","4":"33.00090","5":"4.684775","6":"16.425705","7":"2466468.70","8":"17113","9":"19974","10":"-14138","11":"-45890"},{"1":"Rajasthan","2":"2021","3":"14.0110520","4":"34.33896","5":"5.576162","6":"17.066435","7":"2941608.36","8":"20409","9":"23822","10":"-16861","11":"-54731"},{"1":"Sikkim","2":"2021","3":"-3.9258576","4":"13.35684","5":"2.956697","6":"11.664599","7":"21007.18","8":"146","9":"170","10":"-120","11":"-391"},{"1":"Tamil Nadu","2":"2021","3":"24.2075761","4":"29.36628","5":"3.457023","6":"8.982358","7":"6081222.52","8":"42193","9":"49248","10":"-34857","11":"-113145"},{"1":"Telangana","2":"2021","3":"23.2235348","4":"31.15082","5":"3.803179","6":"10.887866","7":"2601196.78","8":"18048","9":"21065","10":"-14910","11":"-48397"},{"1":"Tripura","2":"2021","3":"17.1230189","4":"30.49925","5":"3.330481","6":"15.187703","7":"231177.91","8":"1604","9":"1872","10":"-1325","11":"-4301"},{"1":"Uttar Pradesh","2":"2021","3":"8.6671664","4":"27.80606","5":"5.009706","6":"15.952190","7":"10124746.18","8":"70248","9":"81993","10":"-58034","11":"-188378"},{"1":"Uttarakhand","2":"2021","3":"-0.4194719","4":"21.06531","5":"4.845144","6":"15.775108","7":"740031.65","8":"5134","9":"5993","10":"-4242","11":"-13769"},{"1":"West Bengal","2":"2021","3":"15.8579960","4":"30.37824","5":"3.973003","6":"13.833889","7":"6879870.65","8":"47734","9":"55715","10":"-39435","11":"-128005"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section id="as-bar-charts" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="as-bar-charts">As bar charts</h4>
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb10" data-cap-location="top"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>paf_economydata_formapviz <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(state,paf_daly_avgtemp975), <span class="at">y =</span> paf_daly_avgtemp975)) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Bars</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"darkgrey"</span>) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Labels: absolute DALY numbers at tail (outside bars)</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(paf_daly_avgtemp975)), </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flip for horizontal bars</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>(<span class="at">clip =</span> <span class="st">"off"</span>) <span class="sc">+</span>  <span class="co"># allow labels beyond plot area</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"CVD DALY attributable to high average temperature in Indian states - 2021"</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">"States"</span>,</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">y=</span><span class="st">"CVD DALY"</span>) <span class="sc">+</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>))) <span class="sc">+</span>  <span class="co"># add space for text on right</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">18</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">30</span>, <span class="dv">10</span>, <span class="dv">10</span>)  <span class="co"># top, right, bottom, left</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell fig-cap-location-top quarto-layout-panel page-columns page-full" data-layout-ncol="1" data-layout-align="center">
+<div class="quarto-layout-row page-full">
+<div class="cell-output-display quarto-layout-cell page-columns page-full" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-absdaly-2021" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="top" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-absdaly-2021-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: CVD DALY attributable to high average Temperature 2021
+</figcaption>
+<div aria-describedby="fig-absdaly-2021-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="temperature_files/figure-html/fig-absdaly-2021-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-screen" style="width:100.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><a href="#fig-absdaly-2021" class="quarto-xref">Figure&nbsp;3</a> <em>Cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributable to high average Temperature across Indian states in 2021. Values represent absolute DALY counts (not standardized per 100,000 population) derived from the GBD uncorrected dataset. Attributable DALYs were estimated by applying population-attributable fractions (PAFs), based on exposure–response relationships, to total CVD DALYs. The figure highlights marked inter-state variation, with Uttar Pradesh, Maharashtra, and West Bengal bearing the highest temperature-linked disease burden.</em></p>
+</section>
+<section id="as-india-maps" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="as-india-maps">As India maps</h4>
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb11" data-cap-location="top"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>india <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"spatial_files"</span>, </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"India_states.rds"</span>))</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>india <span class="ot">&lt;-</span> india <span class="sc">|&gt;</span> </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rename</span>(<span class="at">state =</span> NAME_1) <span class="sc">|&gt;</span> </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># recode orissa as odisha</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">recode</span>(state, <span class="st">"Orissa"</span> <span class="ot">=</span> <span class="st">"Odisha"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># recode uttaranchal as uttarakhand</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">recode</span>(state, <span class="st">"Uttaranchal"</span> <span class="ot">=</span> <span class="st">"Uttarakhand"</span>))</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># combine paf_data_formapviz with india based on state variable</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>india_paf_economy <span class="ot">&lt;-</span> india <span class="sc">|&gt;</span> </span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(paf_economydata_formapviz, <span class="at">by =</span> <span class="st">"state"</span>)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>india_paf_economy <span class="ot">&lt;-</span> india_paf_economy <span class="sc">|&gt;</span> </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">centroid =</span> <span class="fu">st_centroid</span>(geometry)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">x =</span> <span class="fu">st_coordinates</span>(centroid)[,<span class="dv">1</span>], </span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="fu">st_coordinates</span>(centroid)[,<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell column-screen fig-cap-location-top quarto-layout-panel" data-layout-ncol="1" data-layout-align="center">
+
+</div>
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb12" data-cap-location="top"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DALY map</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>india_paf_economy <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> paf_daly_avgtemp25)) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"orange"</span>, <span class="at">high =</span> <span class="st">"midnightblue"</span>) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add paf on the states as text with x and y coordinates</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">label =</span> paf_daly_avgtemp25), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"CVD DALY"</span>,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"CVD DALY attributable to high average temperature in Indian states"</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Year 2021"</span>) <span class="sc">+</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make x-axis and y-axis blank</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.line =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell fig-cap-location-top quarto-layout-panel page-columns page-full" data-layout-ncol="1" data-layout-align="center">
+<div class="quarto-layout-row page-full">
+<div class="cell-output-display quarto-layout-cell page-columns page-full" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-map-2021-absdaly" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="top" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-map-2021-absdaly-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: CVD burden attributable to high average temperature in Indian states
+</figcaption>
+<div aria-describedby="fig-map-2021-absdaly-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="temperature_files/figure-html/fig-map-2021-absdaly-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-screen" style="width:100.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><a href="#fig-map-2021-absdaly" class="quarto-xref">Figure&nbsp;4</a> <em>State-wise distribution of cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributable to high average Temperature in India, 2021. Absolute DALY counts were calculated using uncorrected Global Burden of Disease (GBD) 2021 data and population-attributable fractions (PAFs) based on exposure–response estimates. Values are presented as total DALYs (not standardized per 100,000 population). States are color-coded according to the magnitude of temperature-attributable CVD DALYs, with darker shades indicating higher burden. Uttar Pradesh, Maharashtra, and West Bengal exhibited the highest values, reflecting substantial climate-linked health impacts.</em></p>
+</section>
+</section>
+<section id="total-economic-burden-attributable-to-high-average-temperature---2021" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="total-economic-burden-attributable-to-high-average-temperature---2021">Total economic burden attributable to high average Temperature - 2021</h3>
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb13" data-cap-location="top"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  visualize total econ burden in all states by bar charts</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>total_daly_costcal_2021 <span class="sc">|&gt;</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(totalcost_avgtemphigh) <span class="sc">|&gt;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">totalcost_avgtemphigh=</span><span class="fu">round</span>(totalcost_avgtemphigh,<span class="dv">0</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(State, totalcost_avgtemphigh), </span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> totalcost_avgtemphigh)) <span class="sc">+</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Bar plot</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"darkgrey"</span>) <span class="sc">+</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Label at the tail end, just outside the bar</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"\u20B9"</span>, <span class="fu">round</span>(totalcost_avgtemphigh <span class="sc">/</span> <span class="fl">1e7</span>, <span class="dv">0</span>), <span class="st">" Cr"</span>)),</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flip coordinates</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>(<span class="at">clip =</span> <span class="st">"off"</span>) <span class="sc">+</span>  <span class="co"># allows text beyond plotting area</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Titles and axis labels</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Total economic burden attributable to high average Temperature, 2021"</span>,</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"States"</span>,</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total cost (INR)"</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># y-axis in crores</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="st">"\u20B9"</span>, x <span class="sc">/</span> <span class="fl">1e7</span>, <span class="st">" Cr"</span>),</span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>))  <span class="co"># space for tail labels</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Aesthetic theme</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">18</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">30</span>, <span class="dv">10</span>, <span class="dv">10</span>)  <span class="co"># top, right, bottom, left</span></span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell fig-cap-location-top quarto-layout-panel page-columns page-full" data-layout-ncol="1" data-layout-align="center">
+<div class="quarto-layout-row page-full">
+<div class="cell-output-display quarto-layout-cell page-columns page-full" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-totaleconburden-2021" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="top" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-totaleconburden-2021-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Total economic burden attributable to high average Temperature 2021
+</figcaption>
+<div aria-describedby="fig-totaleconburden-2021-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="temperature_files/figure-html/fig-totaleconburden-2021-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-screen" style="width:100.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><a href="#fig-totaleconburden-2021" class="quarto-xref">Figure&nbsp;5</a> <em>Total economic burden attributable to high average Temperature across Indian states in 2021. This figure displays state-wise estimates of total economic burden (in Indian Rupees) linked to cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributed to high average Temperature. The economic burden was computed by multiplying absolute attributable DALY counts (from the GBD uncorrected dataset) with the estimated cost per DALY for 2021. The highest costs were observed in West Bengal, Maharashtra, and Tamil Nadu, reflecting both high DALY burden and high cost-per-case in these states.</em></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>totaleconburden_2021_temp <span class="ot">&lt;-</span> total_daly_costcal_2021 <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(totalcost_avgtemphigh) <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">totaleconburden =</span> <span class="fu">sum</span>(totalcost_avgtemphigh, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+India Total Economic Burden in 2021 due to High Average temperature
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There was a total economic burden of <strong>₹42 947 335 297</strong> in 2021 due to high average Temperature across Indian states. This estimate is based on the <strong>DALY</strong> attributable to high average Temperature and the cost per DALY.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="projections---temperature" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="projections---temperature">2030 Projections - temperature</h2>
+<section id="cvd-daly-attributable-to-high-average-temperature-in-2030" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="cvd-daly-attributable-to-high-average-temperature-in-2030">CVD DALY attributable to high average temperature in 2030</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import data from output/total-econ-burden-projections using here</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>absDALY2030 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"output"</span>,<span class="st">"daly-projections"</span>,<span class="st">"absDALY2030_temp.rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="as-table-1" class="level4">
+<h4 class="anchored" data-anchor-id="as-table-1">As table</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>absDALY2030 <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(state,Year,paf_daly_proj2030_avg975temp) <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">paged_table</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Year"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["paf_daly_proj2030_avg975temp"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Andhra Pradesh","2":"2030","3":"29168"},{"1":"Arunachal Pradesh","2":"2030","3":"346"},{"1":"Assam","2":"2030","3":"12349"},{"1":"Bihar","2":"2030","3":"37693"},{"1":"Chhattisgarh","2":"2030","3":"16657"},{"1":"Delhi","2":"2030","3":"5995"},{"1":"Goa","2":"2030","3":"857"},{"1":"Gujarat","2":"2030","3":"45825"},{"1":"Haryana","2":"2030","3":"9920"},{"1":"Himachal Pradesh","2":"2030","3":"3533"},{"1":"Jammu and Kashmir","2":"2030","3":"6128"},{"1":"Jharkhand","2":"2030","3":"8847"},{"1":"Karnataka","2":"2030","3":"33333"},{"1":"Kerala","2":"2030","3":"24182"},{"1":"Madhya Pradesh","2":"2030","3":"44082"},{"1":"Maharashtra","2":"2030","3":"71339"},{"1":"Manipur","2":"2030","3":"1520"},{"1":"Meghalaya","2":"2030","3":"823"},{"1":"Mizoram","2":"2030","3":"176"},{"1":"Nagaland","2":"2030","3":"468"},{"1":"Odisha","2":"2030","3":"23110"},{"1":"Punjab","2":"2030","3":"22599"},{"1":"Rajasthan","2":"2030","3":"29003"},{"1":"Sikkim","2":"2030","3":"186"},{"1":"Tamil Nadu","2":"2030","3":"54083"},{"1":"Telangana","2":"2030","3":"18809"},{"1":"Tripura","2":"2030","3":"1849"},{"1":"Union Territories other than Delhi","2":"2030","3":"1793"},{"1":"Uttar Pradesh","2":"2030","3":"101159"},{"1":"Uttarakhand","2":"2030","3":"5854"},{"1":"West Bengal","2":"2030","3":"65442"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section id="as-bar-charts-1" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="as-bar-charts-1">As bar charts</h4>
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb17" data-cap-location="top"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>absDALY2030 <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(state, paf_daly_proj2030_avg975temp), </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> paf_daly_proj2030_avg975temp)) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Bars</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Labels: absolute DALY numbers at tail (outside bars)</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(paf_daly_proj2030_avg975temp)), </span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flip for horizontal bars</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>(<span class="at">clip =</span> <span class="st">"off"</span>) <span class="sc">+</span>  <span class="co"># allow labels beyond plot area</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Labels and theme</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Projected CVD DALY attributable to high average temperature in Indian states - 2030"</span>,</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"States"</span>,</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"CVD DALY"</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.1</span>))) <span class="sc">+</span>  <span class="co"># add space for text on right</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">18</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">30</span>, <span class="dv">10</span>, <span class="dv">10</span>)  <span class="co"># top, right, bottom, left</span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell fig-cap-location-top quarto-layout-panel page-columns page-full" data-layout-ncol="1" data-layout-align="center">
+<div class="quarto-layout-row page-full">
+<div class="cell-output-display quarto-layout-cell page-columns page-full" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-absdaly-2030" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="top" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-absdaly-2030-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Projected CVD DALY attributable to high average Temperature 2030
+</figcaption>
+<div aria-describedby="fig-absdaly-2030-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="temperature_files/figure-html/fig-absdaly-2030-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-screen" style="width:100.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><a href="#fig-absdaly-2030" class="quarto-xref">Figure&nbsp;6</a> <em>Projected cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributable to high average Temperature across Indian states in 2030. Values represent absolute DALY counts (not standardized per 100,000 population) derived from the GBD uncorrected dataset. Attributable DALYs were estimated by applying population-attributable fractions (PAFs), based on exposure–response relationships, to total CVD DALYs. The figure highlights marked inter-state variation, with Uttar Pradesh, Maharashtra, and West Bengal bearing the highest temperature-linked disease burden.</em></p>
+</section>
+<section id="as-india-maps-1" class="level4 page-columns page-full">
+<h4 class="anchored" data-anchor-id="as-india-maps-1">As India maps</h4>
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb18" data-cap-location="top"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>india <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"data"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"spatial_files"</span>, </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"India_states.rds"</span>))</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>india <span class="ot">&lt;-</span> india <span class="sc">|&gt;</span> </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rename</span>(<span class="at">state =</span> NAME_1) <span class="sc">|&gt;</span> </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># recode orissa as odisha</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">recode</span>(state, <span class="st">"Orissa"</span> <span class="ot">=</span> <span class="st">"Odisha"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># recode uttaranchal as uttarakhand</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">state =</span> <span class="fu">recode</span>(state, <span class="st">"Uttaranchal"</span> <span class="ot">=</span> <span class="st">"Uttarakhand"</span>)) </span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co"># combine paf_data_formapviz with india based on state variable</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>india_paf_economy_2030 <span class="ot">&lt;-</span> india <span class="sc">|&gt;</span> </span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(absDALY2030, <span class="at">by =</span> <span class="st">"state"</span>)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>india_paf_economy_2030 <span class="ot">&lt;-</span> india_paf_economy_2030 <span class="sc">|&gt;</span> </span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">centroid =</span> <span class="fu">st_centroid</span>(geometry)) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">x =</span> <span class="fu">st_coordinates</span>(centroid)[,<span class="dv">1</span>], </span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="fu">st_coordinates</span>(centroid)[,<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell column-screen fig-cap-location-top quarto-layout-panel" data-layout-ncol="1" data-layout-align="center">
+
+</div>
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb19" data-cap-location="top"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DALY map</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>india_paf_economy_2030 <span class="sc">|&gt;</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> paf_daly_proj2030_avg975temp)) <span class="sc">+</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"orange"</span>, <span class="at">high =</span> <span class="st">"midnightblue"</span>) <span class="sc">+</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add paf on the states as text with x and y coordinates</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">label =</span> paf_daly_proj2030_avg975temp), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"CVD DALY"</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Projected CVD DALY attributable to high average temperature in Indian states"</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Year 2030"</span>) <span class="sc">+</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Make x-axis and y-axis blank</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.line =</span> <span class="fu">element_blank</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell fig-cap-location-top quarto-layout-panel page-columns page-full" data-layout-ncol="1" data-layout-align="center">
+<div class="quarto-layout-row page-full">
+<div class="cell-output-display quarto-layout-cell page-columns page-full" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-map-2030-absdaly" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="top" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-map-2030-absdaly-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Projected CVD burden attributable to high average temperature in Indian states - 2030
+</figcaption>
+<div aria-describedby="fig-map-2030-absdaly-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="temperature_files/figure-html/fig-map-2030-absdaly-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-screen" style="width:100.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><a href="#fig-map-2030-absdaly" class="quarto-xref">Figure&nbsp;7</a> <em>Projected state-wise distribution of cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributable to high average Temperature in India, 2030. DALY counts were projected using uncorrected Global Burden of Disease (GBD) 2021 data and multiplied with population-attributable fractions (PAFs) based on exposure–response estimates. Values are presented as total DALYs (not standardized per 100,000 population). States are color-coded according to the magnitude of temperature-attributable CVD DALYs, with darker shades indicating higher burden. Uttar Pradesh, Maharashtra, and West Bengal exhibited the highest values, reflecting both high DALY burden and high cost-per-case in these states.</em></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import data from output/total-econ-burden-projections using here</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>totaleconBurden_2030_data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"output"</span>,<span class="st">"total-econ-burden-projections"</span>,<span class="st">"temp_daly_totalburden_cvd_2030.rds"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="total-economic-burden-attributable-to-high-average-temperature---2030" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="total-economic-burden-attributable-to-high-average-temperature---2030">Total economic burden attributable to high average Temperature - 2030</h3>
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb21" data-cap-location="top"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  visualize total econ burden in all states by bar charts</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>totaleconBurden_2030_data <span class="sc">|&gt;</span> </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(totaleconBurden_2030) <span class="sc">|&gt;</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(State, totaleconBurden_2030), </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> totaleconBurden_2030)) <span class="sc">+</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Bar plot</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="st">"seagreen"</span>) <span class="sc">+</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Label at the tail end, just outside the bar</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"\u20B9"</span>, <span class="fu">round</span>(totaleconBurden_2030 <span class="sc">/</span> <span class="fl">1e7</span>, <span class="dv">0</span>), <span class="st">" Cr"</span>)),</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Flip coordinates</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>(<span class="at">clip =</span> <span class="st">"off"</span>) <span class="sc">+</span>  <span class="co"># allows text beyond plotting area</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Titles and axis labels</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Projected Total economic burden attributable to high average Temperature, 2030"</span>,</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"States"</span>,</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total cost (INR)"</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>  <span class="co"># y-axis in crores</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(<span class="st">"\u20B9"</span>, x <span class="sc">/</span> <span class="fl">1e7</span>, <span class="st">" Cr"</span>),</span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.15</span>))  <span class="co"># space for tail labels</span></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Aesthetic theme</span></span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">18</span>, <span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">13</span>),</span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">30</span>, <span class="dv">10</span>, <span class="dv">10</span>)  <span class="co"># top, right, bottom, left</span></span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell fig-cap-location-top quarto-layout-panel page-columns page-full" data-layout-ncol="1" data-layout-align="center">
+<div class="quarto-layout-row page-full">
+<div class="cell-output-display quarto-layout-cell page-columns page-full" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-totaleconburden-2030" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="top" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure page-columns page-full">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-totaleconburden-2030-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8: Projected Total economic burden attributable to high average Temperature 2021
+</figcaption>
+<div aria-describedby="fig-totaleconburden-2030-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="page-columns page-full">
+<img src="temperature_files/figure-html/fig-totaleconburden-2030-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img column-screen" style="width:100.0%">
+</div>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><a href="#fig-totaleconburden-2030" class="quarto-xref">Figure&nbsp;8</a> <em>Projected Total economic burden attributable to high average Temperature across Indian states in 2030. This figure displays state-wise estimates of projected total economic burden (in Indian Rupees) linked to cardiovascular disease (CVD) disability-adjusted life years (DALYs) attributed to high average Temperature. The projections in economic burden was computed by doing ARIMA models and multiplying absolute attributable DALY counts (from the GBD uncorrected dataset) with the estimated cost per DALY for 2030(projected). The highest costs were observed in Maharashtra,West Bengal and Tamil Nadu, reflecting both high DALY burden and high cost-per-case in these states.</em></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Click here to view/hide the code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>totaleconburden_2030_temp <span class="ot">&lt;-</span> totaleconBurden_2030_data <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(totaleconBurden_2030) <span class="sc">|&gt;</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">totaleconburden =</span> <span class="fu">sum</span>(totaleconBurden_2030, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>percentage_increase_inteb_temp <span class="ot">&lt;-</span> ((totaleconburden_2030_temp<span class="sc">$</span>totaleconburden <span class="sc">-</span> totaleconburden_2021_temp<span class="sc">$</span>totaleconburden) <span class="sc">/</span> totaleconburden_2021_temp<span class="sc">$</span>totaleconburden) <span class="sc">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Projected Total Economic Burden in 2030 in India due to High Average temperature
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There will be a total economic burden of <strong>₹62 109 927 686</strong> in 2030 due to high average Temperature across Indian states. This estimate is based on the projections derived from <strong>DALY</strong> attributable to high average Temperature and the cost per DALY.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Projected Increase in Economic Burden from 2021 to 2030
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This reflects a projected increase of approximately <strong>44.62</strong>% in the total economic burden attributable to high average Temperature across Indian states from 2021 to 2030.</p>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

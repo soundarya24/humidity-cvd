@@ -106,3 +106,19 @@ write_csv(all_forecasts_2030_temp, here::here("output", "daly-projections","absD
 
 # save as rds
 saveRDS(all_forecasts_2030_temp, here::here("output", "daly-projections","absDALY2030_temp.rds"))
+
+# for heatindex
+
+source(here::here("scripts", "20250416-function-paf-from-irr.R"))
+calc_paf_from_irr(1.014427)
+all_forecasts_2030_hi <- all_forecasts_2030 |>
+  #dplyr::filter(Year == 2030) |>
+  mutate(paf_daly_proj2030_avg975hi= round((Forecasted_CVD_DALY * 0.014),0)) 
+
+# save as csv
+write_csv(all_forecasts_2030_hi, here::here("output", "daly-projections","absDALY2030_hi.csv"))
+
+# save as rds
+saveRDS(all_forecasts_2030_hi, here::here("output", "daly-projections","absDALY2030_hi.rds"))
+
+
