@@ -382,7 +382,7 @@ irr_uci_var975_YLL
 ## IRR - cvd DALY YLD YLL
 
 | temperature | Percentile | DALY \[95% CIs\] | YLD\[95% CIs\] | YLL\[95% CIs\] |
-|----|----|----|----|----|
+|---------------|---------------|---------------|---------------|---------------|
 | Average | 2.5 | **`r round(irr_avg25_DALY,3)` \[`r round(irr_lci_avg25_DALY,3)`,`r round(irr_uci_avg25_DALY,3)`\]** | **`r round(irr_avg25_YLD,3)`\[`r round(irr_lci_avg25_YLD,3)`,`r round(irr_uci_avg25_YLD,3)`\]** | **`r round(irr_avg25_YLL,3)`\[`r round(irr_lci_avg25_YLL,3)`,`r round(irr_uci_avg25_YLL,3)`\]** |
 | Average | 97.5 | **`r round(irr_avg975_DALY,3)` \[`r round(irr_lci_avg975_DALY,3)`,`r round(irr_uci_avg975_DALY,3)`\]** | `r round(irr_avg975_YLD,3)`\[`r round(irr_lci_avg975_YLD,3)`,`r round(irr_uci_avg975_YLD,3)`\] | **`r round(irr_avg975_YLL,3)`\[`r round(irr_lci_avg975_YLL,3)`,`r round(irr_uci_avg975_YLL,3)`\]** |
 | Variation | 2.5 | **`r round(irr_var25_DALY,3)` \[`r round(irr_lci_var25_DALY,3)`,`r round(irr_uci_var25_DALY,3)`\]** | `r round(irr_var25_YLD,3)`\[`r round(irr_lci_var25_YLD,3)`,`r round(irr_uci_var25_YLD,3)`\] | **`r round(irr_var25_YLL,3)`\[`r round(irr_lci_var25_YLL,3)`,`r round(irr_uci_var25_YLL,3)`\]** |
@@ -619,10 +619,10 @@ india_paf_economy <- india_paf_economy |>
 # DALY map
 india_paf_economy |> 
   ggplot() +
-  geom_sf(aes(fill = paf_daly_avgtemp25)) +
+  geom_sf(aes(fill = paf_daly_avgtemp975)) +
   scale_fill_gradient(low = "orange", high = "midnightblue") +
   # Add paf on the states as text with x and y coordinates
-  geom_text(aes(x = x, y = y, label = paf_daly_avgtemp25), size = 3, color = "white") +
+  geom_text(aes(x = x, y = y, label = paf_daly_avgtemp975), size = 3, color = "white") +
   labs(fill = "CVD DALY",
        title = "CVD DALY attributable to high average temperature in Indian states",
        subtitle = "Year 2021") +

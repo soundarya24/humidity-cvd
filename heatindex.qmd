@@ -619,10 +619,10 @@ india_paf_economy <- india_paf_economy |>
 # DALY map
 india_paf_economy |> 
   ggplot() +
-  geom_sf(aes(fill = paf_daly_avghi25)) +
+  geom_sf(aes(fill = paf_daly_avghi975)) +
   scale_fill_gradient(low = "orange", high = "midnightblue") +
   # Add paf on the states as text with x and y coordinates
-  geom_text(aes(x = x, y = y, label = paf_daly_avghi25), size = 3, color = "white") +
+  geom_text(aes(x = x, y = y, label = paf_daly_avghi975), size = 3, color = "white") +
   labs(fill = "CVD DALY",
        title = "CVD DALY attributable to high average Heat Index in Indian states",
        subtitle = "Year 2021") +
