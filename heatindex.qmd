@@ -382,7 +382,7 @@ irr_uci_var975_YLL
 ## IRR - cvd DALY YLD YLL
 
 | Heat Index | Percentile | DALY \[95% CIs\] | YLD\[95% CIs\] | YLL\[95% CIs\] |
-|---------------|---------------|---------------|---------------|---------------|
+|----|----|----|----|----|
 | Average | 2.5 | **`r round(irr_avg25_DALY,3)` \[`r round(irr_lci_avg25_DALY,3)`,`r round(irr_uci_avg25_DALY,3)`\]** | **`r round(irr_avg25_YLD,3)`\[`r round(irr_lci_avg25_YLD,3)`,`r round(irr_uci_avg25_YLD,3)`\]** | **`r round(irr_avg25_YLL,3)`\[`r round(irr_lci_avg25_YLL,3)`,`r round(irr_uci_avg25_YLL,3)`\]** |
 | Average | 97.5 | **`r round(irr_avg975_DALY,3)` \[`r round(irr_lci_avg975_DALY,3)`,`r round(irr_uci_avg975_DALY,3)`\]** | **`r round(irr_avg975_YLD,3)`\[`r round(irr_lci_avg975_YLD,3)`,`r round(irr_uci_avg975_YLD,3)`\]** | **`r round(irr_avg975_YLL,3)`\[`r round(irr_lci_avg975_YLL,3)`,`r round(irr_uci_avg975_YLL,3)`\]** |
 | Variation | 2.5 | `r round(irr_var25_DALY,3)` \[`r round(irr_lci_var25_DALY,3)`,`r round(irr_uci_var25_DALY,3)`\] | **`r round(irr_var25_YLD,3)`\[`r round(irr_lci_var25_YLD,3)`,`r round(irr_uci_var25_YLD,3)`\]** | **`r round(irr_var25_YLL,3)`\[`r round(irr_lci_var25_YLL,3)`,`r round(irr_uci_var25_YLL,3)`\]** |
