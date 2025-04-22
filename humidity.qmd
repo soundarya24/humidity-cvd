@@ -294,7 +294,7 @@ irr_uci_avg975_YLL
 ## IRR - cvd DALY YLD YLL
 
 | Humidity | Percentile | DALY \[95% CIs\] | YLD\[95% CIs\] | YLL\[95% CIs\] |
-|----|----|----|----|----|
+|---------------|---------------|---------------|---------------|---------------|
 | Average | 2.5 | **`r round(irr_avg25_DALY,3)` \[`r round(irr_lci_avg25_DALY,3)`,`r round(irr_uci_avg25_DALY,3)`\]** | `r round(irr_avg25_YLD,3)`\[`r round(irr_lci_avg25_YLD,3)`,`r round(irr_uci_avg25_YLD,3)`\] | **`r round(irr_avg25_YLL,3)`\[`r round(irr_lci_avg25_YLL,3)`,`r round(irr_uci_avg25_YLL,3)`\]** |
 | Average | 97.5 | **`r round(irr_avg975_DALY,3)` \[`r round(irr_lci_avg975_DALY,3)`,`r round(irr_uci_avg975_DALY,3)`\]** | `r round(irr_avg975_YLD,3)`\[`r round(irr_lci_avg975_YLD,3)`,`r round(irr_uci_avg975_YLD,3)`\] | **`r round(irr_avg975_YLL,3)`\[`r round(irr_lci_avg975_YLL,3)`,`r round(irr_uci_avg975_YLL,3)`\]** |
 
@@ -373,8 +373,9 @@ dplyr::select(State, Year,  avg_975,
               CVD_DALY) |>
 filter(Year==2021) |> 
 mutate(paf_daly_avghum975= CVD_DALY * 0.001,
-       paf_daly_avghum975=round(paf_daly_avghum975,0)
-       ) |> 
+       paf_daly_avghum975=round(paf_daly_avghum975,0),
+       paf_daly_avghum25=CVD_DALY * 0.002,
+       paf_daly_avghum25=round(paf_daly_avghum25,0)) |> 
 #dplyr::select(-CVD_Death,-avg_975) |> 
         #rename State as state
         dplyr::rename(state = State)

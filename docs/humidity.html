@@ -6119,7 +6119,7 @@ window.onload = function() {
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">timestamp</span>(<span class="at">prefix =</span> <span class="st">&quot;This analysis was rendered on &quot;</span>, <span class="at">suffix =</span> <span class="st">&quot;.&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>This analysis was rendered on Mon Apr 21 17:51:58 2025.</code></pre>
+<pre><code>This analysis was rendered on Tue Apr 22 17:48:54 2025.</code></pre>
 </div>
 </div>
 <section id="data-loading" class="level2">
@@ -6444,30 +6444,31 @@ Table 1: Incidence Rate Ratios derived from Poisson panel regressions for CVD b
 <span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>              CVD_DALY) <span class="sc">|&gt;</span></span>
 <span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(Year<span class="sc">==</span><span class="dv">2021</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">paf_daly_avghum975=</span> CVD_DALY <span class="sc">*</span> <span class="fl">0.001</span>,</span>
-<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a>       <span class="at">paf_daly_avghum975=</span><span class="fu">round</span>(paf_daly_avghum975,<span class="dv">0</span>)</span>
-<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a>       ) <span class="sc">|&gt;</span> </span>
-<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a><span class="co">#dplyr::select(-CVD_Death,-avg_975) |&gt; </span></span>
-<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a>        <span class="co">#rename State as state</span></span>
-<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">state =</span> State)</span>
-<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================================================================</span></span>
-<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a><span class="co"># 💾 Output: Saving Attributable DALY Estimates (2021)</span></span>
-<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a><span class="co"># The final estimates of **absolute DALYs attributable to high average humidity**</span></span>
-<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a><span class="co"># for each state (CVD, year 2021) are saved in two formats:</span></span>
-<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a><span class="co">#   - `.csv` for easy inspection, sharing, and external use</span></span>
-<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a><span class="co">#   - `.rds` for internal use in R workflows (preserving object structure)</span></span>
-<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a><span class="co"># These files serve</span></span>
-<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a>       <span class="at">paf_daly_avghum975=</span><span class="fu">round</span>(paf_daly_avghum975,<span class="dv">0</span>),</span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a>       <span class="at">paf_daly_avghum25=</span>CVD_DALY <span class="sc">*</span> <span class="fl">0.002</span>,</span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a>       <span class="at">paf_daly_avghum25=</span><span class="fu">round</span>(paf_daly_avghum25,<span class="dv">0</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a><span class="co">#dplyr::select(-CVD_Death,-avg_975) |&gt; </span></span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a>        <span class="co">#rename State as state</span></span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a>        dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">state =</span> State)</span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a><span class="co"># ==============================================================================</span></span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a><span class="co"># 💾 Output: Saving Attributable DALY Estimates (2021)</span></span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a><span class="co"># The final estimates of **absolute DALYs attributable to high average humidity**</span></span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a><span class="co"># for each state (CVD, year 2021) are saved in two formats:</span></span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a><span class="co">#   - `.csv` for easy inspection, sharing, and external use</span></span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a><span class="co">#   - `.rds` for internal use in R workflows (preserving object structure)</span></span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a><span class="co"># These files serve</span></span>
 <span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">x =</span> paf_economydata_formapviz,<span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(</span>
-<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;output&quot;</span>, <span class="st">&quot;dalyabsolute_values_rh.csv&quot;</span></span>
-<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a>),<span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(<span class="at">x =</span> paf_economydata_formapviz,<span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(</span>
-<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;output&quot;</span>, <span class="st">&quot;dalyabsolute_values_rh.rds&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(<span class="at">x =</span> paf_economydata_formapviz,<span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(</span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;output&quot;</span>, <span class="st">&quot;dalyabsolute_values_rh.csv&quot;</span></span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a>),<span class="at">row.names =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(<span class="at">x =</span> paf_economydata_formapviz,<span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(</span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;output&quot;</span>, <span class="st">&quot;dalyabsolute_values_rh.rds&quot;</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -6486,7 +6487,7 @@ Table 1: Incidence Rate Ratios derived from Poisson panel regressions for CVD b
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Year"],"name":[2],"type":["int"],"align":["right"]},{"label":["avg_975"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["CVD_DALY"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["paf_daly_avghum975"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"Andhra Pradesh","2":"2021","3":"41.00841","4":"3173432.14","5":"3173"},{"1":"Arunachal Pradesh","2":"2021","3":"43.46472","4":"37202.38","5":"37"},{"1":"Assam","2":"2021","3":"42.52994","4":"1543622.66","5":"1544"},{"1":"Bihar","2":"2021","3":"42.09387","4":"4786894.91","5":"4787"},{"1":"Chhattisgarh","2":"2021","3":"42.05311","4":"1997059.19","5":"1997"},{"1":"Delhi","2":"2021","3":"47.65806","4":"772071.99","5":"772"},{"1":"Goa","2":"2021","3":"40.99080","4":"93579.69","5":"94"},{"1":"Gujarat","2":"2021","3":"38.67336","4":"4542629.03","5":"4543"},{"1":"Haryana","2":"2021","3":"47.91546","4":"1429296.67","5":"1429"},{"1":"Himachal Pradesh","2":"2021","3":"54.66910","4":"376691.28","5":"377"},{"1":"Jharkhand","2":"2021","3":"43.80811","4":"1105849.44","5":"1106"},{"1":"Karnataka","2":"2021","3":"41.08550","4":"4387170.42","5":"4387"},{"1":"Kerala","2":"2021","3":"48.54520","4":"2637130.57","5":"2637"},{"1":"Madhya Pradesh","2":"2021","3":"41.39981","4":"4531206.09","5":"4531"},{"1":"Maharashtra","2":"2021","3":"40.53539","4":"7348021.50","5":"7348"},{"1":"Manipur","2":"2021","3":"42.77520","4":"151177.95","5":"151"},{"1":"Meghalaya","2":"2021","3":"43.40078","4":"85238.33","5":"85"},{"1":"Mizoram","2":"2021","3":"41.58578","4":"19168.32","5":"19"},{"1":"Nagaland","2":"2021","3":"42.18758","4":"58559.11","5":"59"},{"1":"Odisha","2":"2021","3":"41.59012","4":"2500865.19","5":"2501"},{"1":"Punjab","2":"2021","3":"52.69149","4":"2466468.70","5":"2466"},{"1":"Rajasthan","2":"2021","3":"42.23650","4":"2941608.36","5":"2942"},{"1":"Sikkim","2":"2021","3":"45.69700","4":"21007.18","5":"21"},{"1":"Tamil Nadu","2":"2021","3":"48.01221","4":"6081222.52","5":"6081"},{"1":"Telangana","2":"2021","3":"40.67694","4":"2601196.78","5":"2601"},{"1":"Tripura","2":"2021","3":"42.88705","4":"231177.91","5":"231"},{"1":"Uttar Pradesh","2":"2021","3":"47.80826","4":"10124746.18","5":"10125"},{"1":"Uttarakhand","2":"2021","3":"49.96643","4":"740031.65","5":"740"},{"1":"West Bengal","2":"2021","3":"43.66758","4":"6879870.65","5":"6880"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["state"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Year"],"name":[2],"type":["int"],"align":["right"]},{"label":["avg_975"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["CVD_DALY"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["paf_daly_avghum975"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["paf_daly_avghum25"],"name":[6],"type":["dbl"],"align":["right"]}],"data":[{"1":"Andhra Pradesh","2":"2021","3":"41.00841","4":"3173432.14","5":"3173","6":"6347"},{"1":"Arunachal Pradesh","2":"2021","3":"43.46472","4":"37202.38","5":"37","6":"74"},{"1":"Assam","2":"2021","3":"42.52994","4":"1543622.66","5":"1544","6":"3087"},{"1":"Bihar","2":"2021","3":"42.09387","4":"4786894.91","5":"4787","6":"9574"},{"1":"Chhattisgarh","2":"2021","3":"42.05311","4":"1997059.19","5":"1997","6":"3994"},{"1":"Delhi","2":"2021","3":"47.65806","4":"772071.99","5":"772","6":"1544"},{"1":"Goa","2":"2021","3":"40.99080","4":"93579.69","5":"94","6":"187"},{"1":"Gujarat","2":"2021","3":"38.67336","4":"4542629.03","5":"4543","6":"9085"},{"1":"Haryana","2":"2021","3":"47.91546","4":"1429296.67","5":"1429","6":"2859"},{"1":"Himachal Pradesh","2":"2021","3":"54.66910","4":"376691.28","5":"377","6":"753"},{"1":"Jharkhand","2":"2021","3":"43.80811","4":"1105849.44","5":"1106","6":"2212"},{"1":"Karnataka","2":"2021","3":"41.08550","4":"4387170.42","5":"4387","6":"8774"},{"1":"Kerala","2":"2021","3":"48.54520","4":"2637130.57","5":"2637","6":"5274"},{"1":"Madhya Pradesh","2":"2021","3":"41.39981","4":"4531206.09","5":"4531","6":"9062"},{"1":"Maharashtra","2":"2021","3":"40.53539","4":"7348021.50","5":"7348","6":"14696"},{"1":"Manipur","2":"2021","3":"42.77520","4":"151177.95","5":"151","6":"302"},{"1":"Meghalaya","2":"2021","3":"43.40078","4":"85238.33","5":"85","6":"170"},{"1":"Mizoram","2":"2021","3":"41.58578","4":"19168.32","5":"19","6":"38"},{"1":"Nagaland","2":"2021","3":"42.18758","4":"58559.11","5":"59","6":"117"},{"1":"Odisha","2":"2021","3":"41.59012","4":"2500865.19","5":"2501","6":"5002"},{"1":"Punjab","2":"2021","3":"52.69149","4":"2466468.70","5":"2466","6":"4933"},{"1":"Rajasthan","2":"2021","3":"42.23650","4":"2941608.36","5":"2942","6":"5883"},{"1":"Sikkim","2":"2021","3":"45.69700","4":"21007.18","5":"21","6":"42"},{"1":"Tamil Nadu","2":"2021","3":"48.01221","4":"6081222.52","5":"6081","6":"12162"},{"1":"Telangana","2":"2021","3":"40.67694","4":"2601196.78","5":"2601","6":"5202"},{"1":"Tripura","2":"2021","3":"42.88705","4":"231177.91","5":"231","6":"462"},{"1":"Uttar Pradesh","2":"2021","3":"47.80826","4":"10124746.18","5":"10125","6":"20249"},{"1":"Uttarakhand","2":"2021","3":"49.96643","4":"740031.65","5":"740","6":"1480"},{"1":"West Bengal","2":"2021","3":"43.66758","4":"6879870.65","5":"6880","6":"13760"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -6529,7 +6530,7 @@ Table 1: Incidence Rate Ratios derived from Poisson panel regressions for CVD b
 <div class="cell fig-cap-location-top quarto-layout-panel page-columns page-full" data-layout-align="center" data-layout-ncol="1">
 <div class="quarto-layout-row page-full">
 <div class="cell-output-display quarto-layout-cell page-columns page-full" style="flex-basis: 100.0%;justify-content: center;">
-<div id="fig-absdaly-2021" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-fig-align="center" data-cap-location="top">
+<div id="fig-absdaly-2021" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="top" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-absdaly-2021-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure 3: CVD DALY attributable to high average relative humidity 2021
@@ -6597,7 +6598,7 @@ Figure 3: CVD DALY attributable to high average relative humidity 2021
 <div class="cell fig-cap-location-top quarto-layout-panel page-columns page-full" data-layout-align="center" data-layout-ncol="1">
 <div class="quarto-layout-row page-full">
 <div class="cell-output-display quarto-layout-cell page-columns page-full" style="flex-basis: 100.0%;justify-content: center;">
-<div id="fig-map-2021-absdaly" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-fig-align="center" data-cap-location="top">
+<div id="fig-map-2021-absdaly" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="top" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-map-2021-absdaly-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure 4: CVD burden attributable to high average humidity in Indian states
@@ -6663,7 +6664,7 @@ Figure 4: CVD burden attributable to high average humidity in Indian states
 <div class="cell fig-cap-location-top quarto-layout-panel page-columns page-full" data-layout-align="center" data-layout-ncol="1">
 <div class="quarto-layout-row page-full">
 <div class="cell-output-display quarto-layout-cell page-columns page-full" style="flex-basis: 100.0%;justify-content: center;">
-<div id="fig-totaleconburden-2021" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-fig-align="center" data-cap-location="top">
+<div id="fig-totaleconburden-2021" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="top" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-totaleconburden-2021-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure 5: Total economic burden attributable to high average relative humidity 2021
@@ -6768,7 +6769,7 @@ India Total Economic Burden in 2021 due to High Average Humidity
 <div class="cell fig-cap-location-top quarto-layout-panel page-columns page-full" data-layout-align="center" data-layout-ncol="1">
 <div class="quarto-layout-row page-full">
 <div class="cell-output-display quarto-layout-cell page-columns page-full" style="flex-basis: 100.0%;justify-content: center;">
-<div id="fig-absdaly-2030" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-fig-align="center" data-cap-location="top">
+<div id="fig-absdaly-2030" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="top" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-absdaly-2030-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure 6: Projected CVD DALY attributable to high average relative humidity 2030
@@ -6836,7 +6837,7 @@ Figure 6: Projected CVD DALY attributable to high average relative humidity 203
 <div class="cell fig-cap-location-top quarto-layout-panel page-columns page-full" data-layout-align="center" data-layout-ncol="1">
 <div class="quarto-layout-row page-full">
 <div class="cell-output-display quarto-layout-cell page-columns page-full" style="flex-basis: 100.0%;justify-content: center;">
-<div id="fig-map-2030-absdaly" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-fig-align="center" data-cap-location="top">
+<div id="fig-map-2030-absdaly" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="top" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-map-2030-absdaly-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure 7: Projected CVD burden attributable to high average humidity in Indian states - 2030
@@ -6910,7 +6911,7 @@ Figure 7: Projected CVD burden attributable to high average humidity in Indian 
 <div class="cell fig-cap-location-top quarto-layout-panel page-columns page-full" data-layout-align="center" data-layout-ncol="1">
 <div class="quarto-layout-row page-full">
 <div class="cell-output-display quarto-layout-cell page-columns page-full" style="flex-basis: 100.0%;justify-content: center;">
-<div id="fig-totaleconburden-2030" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-fig-align="center" data-cap-location="top">
+<div id="fig-totaleconburden-2030" class="quarto-float quarto-figure quarto-figure-center anchored page-columns page-full" data-cap-location="top" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure page-columns page-full">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-totaleconburden-2030-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure 8: Projected Total economic burden attributable to high average relative humidity 2021
