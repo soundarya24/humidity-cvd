@@ -654,14 +654,14 @@ rmarkdown::paged_table(absDALY2030)
 
 
 absDALY2030 |> 
-  ggplot(aes(x = reorder(state, paf_daly_proj2030), 
-             y = paf_daly_proj2030)) +
+  ggplot(aes(x = reorder(state, paf_daly_proj2030_avg975rh), 
+             y = paf_daly_proj2030_avg975rh)) +
   
   # Bars
   geom_bar(stat = "identity", fill = "steelblue") +
 
   # Labels: absolute DALY numbers at tail (outside bars)
-  geom_text(aes(label = round(paf_daly_proj2030)), 
+  geom_text(aes(label = round(paf_daly_proj2030_avg975rh)), 
             hjust = -0.1, size = 4, color = "black") +
 
   # Flip for horizontal bars
@@ -746,10 +746,10 @@ india_paf_economy_2030 <- india_paf_economy_2030 |>
 # DALY map
 india_paf_economy_2030 |> 
   ggplot() +
-  geom_sf(aes(fill = paf_daly_proj2030)) +
+  geom_sf(aes(fill = paf_daly_proj2030_avg975rh)) +
   scale_fill_gradient(low = "orange", high = "midnightblue") +
   # Add paf on the states as text with x and y coordinates
-  geom_text(aes(x = x, y = y, label = paf_daly_proj2030), size = 3, color = "white") +
+  geom_text(aes(x = x, y = y, label = paf_daly_proj2030_avg975rh), size = 3, color = "white") +
   labs(fill = "CVD DALY",
        title = "Projected CVD DALY attributable to high average humidity in Indian states",
        subtitle = "Year 2030") +

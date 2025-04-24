@@ -85,7 +85,8 @@ all_forecasts_2030 <- all_forecasts |>
 # for relative humidity
 all_forecasts_2030 <- all_forecasts_2030 |>
   #dplyr::filter(Year == 2030) |>
-  mutate(paf_daly_proj2030= round((Forecasted_CVD_DALY * 0.001),0)) |>
+  mutate(paf_daly_proj2030_avg975rh= round((Forecasted_CVD_DALY * 0.001),0),
+         paf_daly_proj2030_avg25rh=round((Forecasted_CVD_DALY * 0.002), 0)) |>
   dplyr::rename(state = State)
 
 # save as csv
